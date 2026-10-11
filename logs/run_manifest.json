@@ -1,0 +1,56 @@
+{
+  "created_at": "2026-10-15T11:33:55+05:30",
+  "system": {
+    "os": "Windows 11 (build 26300)",
+    "architecture": "AMD64",
+    "cpu_logical_cores": 18,
+    "ram_total_gb": 15.61,
+    "ram_free_gb_at_start": 2.6,
+    "disk_free_gb": 134.23,
+    "gpu_detected": false,
+    "git_version": "git version 2.55.0.windows.3",
+    "miktex_pdflatex_version": "MiKTeX-pdfTeX 4.27 (MiKTeX 26.5)",
+    "miktex_bibtex_version": "MiKTeX-BibTeX 4.2 (MiKTeX 26.5)"
+  },
+  "python_environment": {
+    "python_version": "3.14.7",
+    "virtual_env": ".venv",
+    "installed_packages": {
+      "certifi": "2026.7.22",
+      "charset-normalizer": "3.5.2",
+      "cloudpickle": "3.1.2",
+      "colorama": "0.4.6",
+      "contourpy": "1.4.0",
+      "cycler": "0.12.1",
+      "fonttools": "4.67.0",
+      "idna": "3.20",
+      "joblib": "1.6.0",
+      "kiwisolver": "1.5.1",
+      "matplotlib": "3.11.2",
+      "narwhals": "2.27.1",
+      "numpy": "2.5.4",
+      "packaging": "26.3",
+      "pandas": "2.3.3",
+      "pillow": "12.3.0",
+      "psutil": "6.1.1",
+      "pyparsing": "3.3.3",
+      "python-dateutil": "2.9.0.post0",
+      "pytz": "2026.5",
+      "PyYAML": "6.0.3",
+      "requests": "2.34.2",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "six": "1.17.0",
+      "threadpoolctl": "3.7.0",
+      "tqdm": "4.70.1",
+      "tzdata": "2026.5",
+      "urllib3": "2.8.0"
+    }
+  },
+  "study_parameters": {
+    "target_task": "Cross-Lingual Evidence Claim Verification",
+    "primary_languages": ["English", "Hindi"],
+    "label_space": ["SUPPORTED", "CONTRADICTED", "INSUFFICIENT_EVIDENCE"],
+    "random_seed": 42
+  }
+}
