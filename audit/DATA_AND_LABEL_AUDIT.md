@@ -60,6 +60,8 @@ Under this mapping:
 - **Dev Ground Truth:** 89 `CONTRADICTED` (86.41%), 14 `INSUFFICIENT_EVIDENCE` (13.59%), **0 `SUPPORTED` (0.00%)**.
 - **Test Ground Truth:** 142 `CONTRADICTED` (87.12%), 21 `INSUFFICIENT_EVIDENCE` (12.88%), **0 `SUPPORTED` (0.00%)**.
 
+> **Audit Reconciliation Note:** A previous draft of `protocol/FINAL_SCOPE_AND_CLAIMS.md` contained a typographical error reporting Dev counts as 86 / 17. This error has been corrected to the verified 89 / 14 counts across all documents, and an automated regression test (`tests/test_data_integrity.py::test_exact_split_label_counts`) enforces this check.
+
 ### Critical Scientific Findings:
 1. **Absence of True Claims in Source Fact-Checks:**  
    In India, professional fact-checking organizations almost exclusively investigate viral social media misinformation, political disinformation, and manipulated media. Verified factual truths rarely warrant published debunking articles. Consequently, the Hindi subset of X-Fact contains **zero positive assertions validated as true**.
