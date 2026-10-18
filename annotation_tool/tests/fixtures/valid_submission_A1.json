@@ -1,0 +1,43 @@
+{
+  "annotator_code": "QA1",
+  "packet_id": "packet_QA",
+  "protocol_version": "2.0",
+  "packet_version": "2.0",
+  "submission_timestamp_utc": "2026-10-22T06:00:00Z",
+  "total_items": 3,
+  "annotations": [
+    {
+      "opaque_item_id": "QA-ITEM-01",
+      "fidelity_label": "PRESERVED",
+      "distortion_types": [
+        "NONE"
+      ],
+      "rationale": "",
+      "confidence": "HIGH",
+      "annotator_code": "QA1",
+      "timestamp_utc": "2026-10-22T06:00:00Z"
+    },
+    {
+      "opaque_item_id": "QA-ITEM-02",
+      "fidelity_label": "ALTERED",
+      "distortion_types": [
+        "NEGATION"
+      ],
+      "rationale": "Negation dropped in translation",
+      "confidence": "HIGH",
+      "annotator_code": "QA1",
+      "timestamp_utc": "2026-10-22T06:01:00Z"
+    },
+    {
+      "opaque_item_id": "QA-ITEM-03",
+      "fidelity_label": "AMBIGUOUS_SOURCE",
+      "distortion_types": [
+        "NONE"
+      ],
+      "rationale": "Source is fragmented and ambiguous",
+      "confidence": "MEDIUM",
+      "annotator_code": "QA1",
+      "timestamp_utc": "2026-10-22T06:02:00Z"
+    }
+  ]
+}

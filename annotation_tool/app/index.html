@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilingual Translation Fidelity Annotation Tool</title>
+<style>
+  :root {
+    --bg-primary: #f8fafc;
+    --bg-card: #ffffff;
+    --border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --radius: 8px;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-devanagari: 'Nirmala UI', 'Mangal', 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    padding: 16px 24px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .header-left h1 { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); }
+  .header-left p { font-size: 0.875rem; color: var(--text-secondary); }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .badge {
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .badge-info { background: #e0f2fe; color: #0369a1; }
+  .badge-success { background: #dcfce7; color: #15803d; }
+  
+  /* Packet Setup Modal / Bar */
+  .setup-bar {
+    background: var(--bg-card);
+    padding: 14px 24px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.875rem;
+  }
+  .setup-bar label { font-weight: 600; color: var(--text-secondary); }
+  .setup-bar select, .setup-bar input[type="text"] {
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.875rem;
+  }
+  
+  /* Progress Grid */
+  .grid-card {
+    background: var(--bg-card);
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .item-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .dot {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    transition: all 0.15s ease;
+  }
+  .dot.completed { background: #bbf7d0; color: #166534; border-color: #86efac; }
+  .dot.current { border: 2px solid var(--accent); transform: scale(1.1); font-weight: 700; }
+
+  /* Main Workspace */
+  .workspace {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 900px) {
+    .workspace { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .card-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .claim-box {
+    background: #eff6ff;
+    border-left: 4px solid var(--accent);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    border-radius: 0 6px 6px 0;
+  }
+  .claim-box h4 { font-size: 0.75rem; text-transform: uppercase; color: #1d4ed8; margin-bottom: 4px; }
+  .claim-text { font-family: var(--font-devanagari); font-size: 1.05rem; font-weight: 500; }
+  
+  .evidence-box {
+    margin-bottom: 16px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.925rem;
+    white-space: pre-wrap;
+  }
+  .evidence-hindi { font-family: var(--font-devanagari); line-height: 1.7; }
+  .evidence-english { font-family: var(--font-sans); line-height: 1.6; }
+
+  /* Form Controls */
+  .form-section { margin-bottom: 16px; }
+  .form-label { font-weight: 600; font-size: 0.875rem; margin-bottom: 6px; display: block; }
+  .radio-group, .check-group { display: flex; flex-direction: column; gap: 8px; }
+  .choice-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background 0.15s ease;
+  }
+  .choice-label:hover { background: #f8fafc; }
+  .choice-label input { margin-top: 3px; }
+  .choice-title { font-weight: 600; }
+  .choice-desc { font-size: 0.75rem; color: var(--text-secondary); }
+
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    resize: vertical;
+    min-height: 70px;
+  }
+  textarea:focus, select:focus, input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+
+  /* Bottom Actions */
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    padding: 16px 24px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .btn {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-secondary { background: #fff; border-color: var(--border); color: var(--text-primary); }
+  .btn-secondary:hover { background: #f1f5f9; }
+  .btn-success { background: var(--success); color: #fff; }
+  .btn-success:hover { background: #15803d; }
+
+  .status-text { font-size: 0.8rem; color: var(--text-secondary); }
+  .alert-box {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    display: none;
+  }
+  .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+  .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-left">
+      <h1>Translation Fidelity Annotation Interface</h1>
+      <p>Diagnostic evaluation of machine translation for cross-lingual evidence verification</p>
+    </div>
+    <div class="header-right">
+      <span id="saveStatus" class="status-text">Draft saved locally</span>
+      <span id="progressBadge" class="badge badge-info">0 / 50 Complete</span>
+    </div>
+  </header>
+
+  <div class="setup-bar">
+    <label for="packetSelect">Active Packet:</label>
+    <select id="packetSelect" onchange="switchPacket(this.value)">
+      <option value="packet_A">Packet A (Annotator 1)</option>
+      <option value="packet_B">Packet B (Annotator 2)</option>
+      <option value="custom">Load Custom JSON...</option>
+    </select>
+    <input type="file" id="customFileInput" style="display:none;" accept=".json" onchange="loadCustomPacket(event)">
+
+    <label for="annotatorCodeInput">Annotator Code:</label>
+    <input type="text" id="annotatorCodeInput" value="A1" size="6" onchange="updateAnnotatorCode(this.value)">
+
+    <label>Item ID:</label>
+    <span id="currentItemIdDisplay" style="font-weight:700; font-family:monospace; color:var(--accent);">OPQ-A-01</span>
+  </div>
+
+  <div class="grid-card">
+    <div class="grid-header">
+      <span style="font-weight:600; font-size:0.875rem;">Item Navigation Grid:</span>
+      <span style="font-size:0.75rem; color:var(--text-secondary);">Green = Completed | Blue border = Current</span>
+    </div>
+    <div id="itemDots" class="item-dots"></div>
+  </div>
+
+  <div id="alertBox" class="alert-box alert-danger"></div>
+
+  <div class="workspace">
+    <!-- Left Column: Stimulus Data -->
+    <div class="card">
+      <div class="card-title">
+        <span>Stimulus Evidence</span>
+        <span id="opaqueIdTag" style="font-family:monospace; color:var(--accent);">OPQ-A-01</span>
+      </div>
+
+      <div class="claim-box">
+        <h4>Claim (Hindi Context):</h4>
+        <div id="claimText" class="claim-text">Loading claim...</div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">Original Evidence (Hindi Source):</label>
+        <div id="evidenceHindi" class="evidence-box evidence-hindi">Loading Hindi evidence...</div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">Machine-Translated Evidence (English Target):</label>
+        <div id="evidenceEnglish" class="evidence-box evidence-english">Loading English translation...</div>
+      </div>
+    </div>
+
+    <!-- Right Column: Annotation Inputs -->
+    <div class="card">
+      <div class="card-title">Linguistic Judgment</div>
+
+      <!-- Question 1: Fidelity Label -->
+      <div class="form-section">
+        <label class="form-label">1. Translation Fidelity Label (Required):</label>
+        <div class="radio-group">
+          <label class="choice-label">
+            <input type="radio" name="fidelity_label" value="PRESERVED" onchange="onFidelityChange('PRESERVED')">
+            <div>
+              <div class="choice-title">PRESERVED (Faithful)</div>
+              <div class="choice-desc">Claim-relevant factual semantics are preserved. Minor stylistic awkwardly acceptable.</div>
+            </div>
+          </label>
+          <label class="choice-label">
+            <input type="radio" name="fidelity_label" value="ALTERED" onchange="onFidelityChange('ALTERED')">
+            <div>
+              <div class="choice-title">ALTERED (Meaning Corrupted)</div>
+              <div class="choice-desc">Claim-critical factual details changed, inverted, omitted, or garbled in translation.</div>
+            </div>
+          </label>
+          <label class="choice-label">
+            <input type="radio" name="fidelity_label" value="AMBIGUOUS_SOURCE" onchange="onFidelityChange('AMBIGUOUS_SOURCE')">
+            <div>
+              <div class="choice-title">AMBIGUOUS_SOURCE</div>
+              <div class="choice-desc">Hindi source text is fundamentally truncated, unreadable, or ambiguous.</div>
+            </div>
+          </label>
+          <label class="choice-label">
+            <input type="radio" name="fidelity_label" value="UNABLE_TO_DECIDE" onchange="onFidelityChange('UNABLE_TO_DECIDE')">
+            <div>
+              <div class="choice-title">UNABLE_TO_DECIDE</div>
+              <div class="choice-desc">Annotator is uncertain due to domain nuance or contextual insufficiency.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Question 2: Distortion Types -->
+      <div class="form-section">
+        <label class="form-label">2. Distortion Types (Required if ALTERED; select all that apply):</label>
+        <div class="check-group">
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="NUM_DATE" onchange="onDistortionChange()"> <div><span class="choice-title">NUM_DATE</span> &mdash; <span class="choice-desc">Number, date, currency, or unit corrupted</span></div></label>
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="NEGATION" onchange="onDistortionChange()"> <div><span class="choice-title">NEGATION</span> &mdash; <span class="choice-desc">Polarity flipped or negation dropped/added</span></div></label>
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="ENTITY" onchange="onDistortionChange()"> <div><span class="choice-title">ENTITY</span> &mdash; <span class="choice-desc">Person, party, organization, or place mistranslated</span></div></label>
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="OMISSION" onchange="onDistortionChange()"> <div><span class="choice-title">OMISSION</span> &mdash; <span class="choice-desc">Key clause or qualifier dropped from translation</span></div></label>
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="HALLUCINATION" onchange="onDistortionChange()"> <div><span class="choice-title">HALLUCINATION</span> &mdash; <span class="choice-desc">Unsupported claims or words invented</span></div></label>
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="QUALIFIER" onchange="onDistortionChange()"> <div><span class="choice-title">QUALIFIER</span> &mdash; <span class="choice-desc">Modal, hedge, or conditional altered</span></div></label>
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="TIME" onchange="onDistortionChange()"> <div><span class="choice-title">TIME</span> &mdash; <span class="choice-desc">Tense or temporal sequence distorted</span></div></label>
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="OTHER" onchange="onDistortionChange()"> <div><span class="choice-title">OTHER</span> &mdash; <span class="choice-desc">Other meaning-altering semantic corruption</span></div></label>
+          <label class="choice-label"><input type="checkbox" name="distortion_types" value="NONE" onchange="onNoneChange()"> <div><span class="choice-title">NONE</span> &mdash; <span class="choice-desc">No semantic distortion (Must be selected for PRESERVED)</span></div></label>
+        </div>
+      </div>
+
+      <!-- Question 3: Rationale -->
+      <div class="form-section">
+        <label class="form-label">3. Rationale / Notes (Required if ALTERED, AMBIGUOUS, or UNABLE_TO_DECIDE):</label>
+        <textarea id="rationaleInput" placeholder="Describe the factual/semantic difference observed..." oninput="onInputSave()"></textarea>
+      </div>
+
+      <!-- Question 4: Confidence -->
+      <div class="form-section">
+        <label class="form-label">4. Annotator Confidence (Optional):</label>
+        <div style="display:flex; gap:16px;">
+          <label><input type="radio" name="confidence" value="HIGH" onchange="onInputSave()"> High</label>
+          <label><input type="radio" name="confidence" value="MEDIUM" onchange="onInputSave()"> Medium</label>
+          <label><input type="radio" name="confidence" value="LOW" onchange="onInputSave()"> Low</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div>
+      <button class="btn btn-secondary" onclick="prevItem()">&larr; Previous Item</button>
+      <button class="btn btn-primary" onclick="nextItem()" style="margin-left:8px;">Next Item &rarr;</button>
+    </div>
+    <div>
+      <button class="btn btn-secondary" onclick="clearCurrentItem()" style="margin-right:8px;">Reset Item</button>
+      <button class="btn btn-success" onclick="validateAndDownload()">Validate &amp; Export Submission</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Embedded Packet Datasets
+let packetData = {
+  packet_A: null,
+  packet_B: null
+};
+
+let currentPacketId = 'packet_A';
+let currentItems = [];
+let currentIndex = 0;
+let userAnnotations = {}; // opaque_item_id -> response object
+let annotatorCode = 'A1';
+const PROTOCOL_VERSION = "2.0";
+const PACKET_VERSION = "2.0";
+const INTERFACE_VERSION = "1.0.0-offline";
+
+// Initialize on Load
+window.addEventListener('DOMContentLoaded', async () => {
+  await loadDefaultPackets();
+  restoreState();
+  renderItem();
+  renderGrid();
+});
+
+async function loadDefaultPackets() {
+  try {
+    const resA = await fetch('../packets/packet_A.json');
+    if (resA.ok) packetData.packet_A = await resA.json();
+  } catch (e) { console.log('Packet A fetch fallback'); }
+
+  try {
+    const resB = await fetch('../packets/packet_B.json');
+    if (resB.ok) packetData.packet_B = await resB.json();
+  } catch (e) { console.log('Packet B fetch fallback'); }
+
+  // Fallback defaults if fetch is blocked by local CORS
+  if (!packetData.packet_A) packetData.packet_A = window.EMBEDDED_PACKET_A || { items: [] };
+  if (!packetData.packet_B) packetData.packet_B = window.EMBEDDED_PACKET_B || { items: [] };
+
+  setPacket('packet_A');
+}
+
+function setPacket(pktId) {
+  currentPacketId = pktId;
+  const pkt = packetData[pktId];
+  if (pkt && pkt.items) {
+    currentItems = pkt.items;
+    annotatorCode = pkt.annotator_code || (pktId === 'packet_A' ? 'A1' : 'A2');
+    document.getElementById('annotatorCodeInput').value = annotatorCode;
+    currentIndex = 0;
+    restoreState();
+    renderItem();
+    renderGrid();
+  }
+}
+
+function switchPacket(val) {
+  if (val === 'custom') {
+    document.getElementById('customFileInput').click();
+  } else {
+    setPacket(val);
+  }
+}
+
+function loadCustomPacket(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const parsed = JSON.parse(event.target.result);
+      packetData['custom'] = parsed;
+      setPacket('custom');
+    } catch (err) {
+      alert('Error parsing custom JSON packet: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function updateAnnotatorCode(val) {
+  annotatorCode = val.trim().toUpperCase() || 'A1';
+  onInputSave();
+}
+
+function getStorageKey() {
+  return `fidelity_annot_${currentPacketId}_${annotatorCode}`;
+}
+
+function restoreState() {
+  const saved = localStorage.getItem(getStorageKey());
+  if (saved) {
+    try {
+      userAnnotations = JSON.parse(saved);
+    } catch(e) { userAnnotations = {}; }
+  } else {
+    userAnnotations = {};
+  }
+  updateProgressBadge();
+}
+
+function saveState() {
+  localStorage.setItem(getStorageKey(), JSON.stringify(userAnnotations));
+  const el = document.getElementById('saveStatus');
+  el.textContent = 'Saved at ' + new Date().toLocaleTimeString();
+  updateProgressBadge();
+  renderGrid();
+}
+
+function renderItem() {
+  if (!currentItems || currentItems.length === 0) return;
+  const item = currentItems[currentIndex];
+  document.getElementById('currentItemIdDisplay').textContent = item.opaque_item_id;
+  document.getElementById('opaqueIdTag').textContent = item.opaque_item_id;
+  document.getElementById('claimText').textContent = item.claim_hindi;
+  document.getElementById('evidenceHindi').textContent = item.original_evidence_hindi;
+  document.getElementById('evidenceEnglish').textContent = item.translated_evidence_english;
+
+  // Clear form
+  document.querySelectorAll('input[name="fidelity_label"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="distortion_types"]').forEach(c => c.checked = false);
+  document.getElementById('rationaleInput').value = '';
+  document.querySelectorAll('input[name="confidence"]').forEach(r => r.checked = false);
+
+  // Restore existing answer if present
+  const ans = userAnnotations[item.opaque_item_id];
+  if (ans) {
+    if (ans.fidelity_label) {
+      const r = document.querySelector(`input[name="fidelity_label"][value="${ans.fidelity_label}"]`);
+      if (r) r.checked = true;
+    }
+    if (ans.distortion_types && Array.isArray(ans.distortion_types)) {
+      ans.distortion_types.forEach(t => {
+        const c = document.querySelector(`input[name="distortion_types"][value="${t}"]`);
+        if (c) c.checked = true;
+      });
+    }
+    if (ans.rationale) document.getElementById('rationaleInput').value = ans.rationale;
+    if (ans.confidence) {
+      const c = document.querySelector(`input[name="confidence"][value="${ans.confidence}"]`);
+      if (c) c.checked = true;
+    }
+  }
+  showAlert('', false);
+}
+
+function renderGrid() {
+  const container = document.getElementById('itemDots');
+  container.innerHTML = '';
+  currentItems.forEach((item, idx) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    if (idx === currentIndex) dot.classList.add('current');
+    if (isItemComplete(item.opaque_item_id)) dot.classList.add('completed');
+    dot.textContent = idx + 1;
+    dot.onclick = () => { currentIndex = idx; renderItem(); renderGrid(); };
+    container.appendChild(dot);
+  });
+}
+
+function isItemComplete(opaqueId) {
+  const ans = userAnnotations[opaqueId];
+  if (!ans || !ans.fidelity_label) return false;
+  if (ans.fidelity_label === 'PRESERVED') {
+    return Array.isArray(ans.distortion_types) && ans.distortion_types.includes('NONE');
+  }
+  if (ans.fidelity_label === 'ALTERED') {
+    const substantive = (ans.distortion_types || []).filter(t => t !== 'NONE');
+    return substantive.length > 0 && ans.rationale && ans.rationale.trim().length > 0;
+  }
+  if (ans.fidelity_label === 'AMBIGUOUS_SOURCE' || ans.fidelity_label === 'UNABLE_TO_DECIDE') {
+    return ans.rationale && ans.rationale.trim().length > 0;
+  }
+  return false;
+}
+
+function updateProgressBadge() {
+  const completed = currentItems.filter(item => isItemComplete(item.opaque_item_id)).length;
+  const total = currentItems.length || 50;
+  const badge = document.getElementById('progressBadge');
+  badge.textContent = `${completed} / ${total} Complete`;
+  if (completed === total) {
+    badge.className = 'badge badge-success';
+  } else {
+    badge.className = 'badge badge-info';
+  }
+}
+
+function onFidelityChange(val) {
+  const noneBox = document.querySelector('input[name="distortion_types"][value="NONE"]');
+  const otherBoxes = document.querySelectorAll('input[name="distortion_types"]:not([value="NONE"])');
+  if (val === 'PRESERVED') {
+    noneBox.checked = true;
+    otherBoxes.forEach(b => b.checked = false);
+  } else if (val === 'ALTERED') {
+    noneBox.checked = false;
+  }
+  onInputSave();
+}
+
+function onNoneChange() {
+  const noneBox = document.querySelector('input[name="distortion_types"][value="NONE"]');
+  if (noneBox.checked) {
+    document.querySelectorAll('input[name="distortion_types"]:not([value="NONE"])').forEach(b => b.checked = false);
+  }
+  onInputSave();
+}
+
+function onDistortionChange() {
+  const noneBox = document.querySelector('input[name="distortion_types"][value="NONE"]');
+  noneBox.checked = false;
+  onInputSave();
+}
+
+function onInputSave() {
+  if (!currentItems || currentItems.length === 0) return;
+  const item = currentItems[currentIndex];
+  const fidRadio = document.querySelector('input[name="fidelity_label"]:checked');
+  const distChecks = Array.from(document.querySelectorAll('input[name="distortion_types"]:checked')).map(c => c.value);
+  const rationale = document.getElementById('rationaleInput').value.trim();
+  const confRadio = document.querySelector('input[name="confidence"]:checked');
+
+  userAnnotations[item.opaque_item_id] = {
+    opaque_item_id: item.opaque_item_id,
+    fidelity_label: fidRadio ? fidRadio.value : null,
+    distortion_types: distChecks,
+    rationale: rationale,
+    confidence: confRadio ? confRadio.value : null,
+    annotator_code: annotatorCode,
+    protocol_version: PROTOCOL_VERSION,
+    packet_version: PACKET_VERSION,
+    interface_version: INTERFACE_VERSION,
+    timestamp_utc: new Date().toISOString()
+  };
+  saveState();
+}
+
+function prevItem() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderItem();
+    renderGrid();
+  }
+}
+
+function nextItem() {
+  if (currentIndex < currentItems.length - 1) {
+    currentIndex++;
+    renderItem();
+    renderGrid();
+  }
+}
+
+function clearCurrentItem() {
+  const item = currentItems[currentIndex];
+  delete userAnnotations[item.opaque_item_id];
+  renderItem();
+  saveState();
+}
+
+function showAlert(msg, isError = true) {
+  const el = document.getElementById('alertBox');
+  if (!msg) { el.style.display = 'none'; return; }
+  el.className = isError ? 'alert-box alert-danger' : 'alert-box alert-success';
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function validateAndDownload() {
+  const errors = [];
+  currentItems.forEach((item, idx) => {
+    const id = item.opaque_item_id;
+    const ans = userAnnotations[id];
+    if (!ans || !ans.fidelity_label) {
+      errors.push(`Item ${idx+1} (${id}): Missing fidelity label.`);
+      return;
+    }
+    if (ans.fidelity_label === 'PRESERVED') {
+      if (!ans.distortion_types.includes('NONE')) {
+        errors.push(`Item ${idx+1} (${id}): PRESERVED must have distortion type 'NONE'.`);
+      }
+    } else if (ans.fidelity_label === 'ALTERED') {
+      const substantive = ans.distortion_types.filter(t => t !== 'NONE');
+      if (substantive.length === 0) {
+        errors.push(`Item ${idx+1} (${id}): ALTERED requires at least one distortion type.`);
+      }
+      if (!ans.rationale || ans.rationale.length < 3) {
+        errors.push(`Item ${idx+1} (${id}): ALTERED requires a descriptive rationale.`);
+      }
+    } else {
+      if (!ans.rationale || ans.rationale.length < 3) {
+        errors.push(`Item ${idx+1} (${id}): ${ans.fidelity_label} requires an explanatory rationale.`);
+      }
+    }
+  });
+
+  if (errors.length > 0) {
+    showAlert(`Validation Failed (${errors.length} incomplete items):\n` + errors.slice(0, 5).join('\n') + (errors.length > 5 ? `\n...and ${errors.length - 5} more.` : ''));
+    return;
+  }
+
+  showAlert('All 50 items successfully validated! Generating export files...', false);
+
+  // Prepare Output JSON
+  const submissionPayload = {
+    annotator_code: annotatorCode,
+    packet_id: currentPacketId,
+    protocol_version: PROTOCOL_VERSION,
+    packet_version: PACKET_VERSION,
+    submission_timestamp_utc: new Date().toISOString(),
+    total_items: currentItems.length,
+    annotations: currentItems.map(item => userAnnotations[item.opaque_item_id])
+  };
+
+  downloadFile(`submission_${annotatorCode}_${currentPacketId}.json`, JSON.stringify(submissionPayload, null, 2), 'application/json');
+
+  // Prepare Output CSV
+  const csvRows = [
+    ['annotator_code', 'packet_id', 'opaque_item_id', 'fidelity_label', 'distortion_types', 'rationale', 'confidence', 'timestamp_utc']
+  ];
+  currentItems.forEach(item => {
+    const a = userAnnotations[item.opaque_item_id];
+    csvRows.push([
+      `"${a.annotator_code}"`,
+      `"${currentPacketId}"`,
+      `"${a.opaque_item_id}"`,
+      `"${a.fidelity_label}"`,
+      `"${(a.distortion_types || []).join(';')}"`,
+      `"${(a.rationale || '').replace(/"/g, '""')}"`,
+      `"${a.confidence || ''}"`,
+      `"${a.timestamp_utc}"`
+    ]);
+  });
+  const csvContent = csvRows.map(r => r.join(',')).join('\n');
+  downloadFile(`submission_${annotatorCode}_${currentPacketId}.csv`, csvContent, 'text/csv');
+}
+
+function downloadFile(filename, content, type) {
+  const blob = new Blob([content], { type: type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
+
+<!-- Embedded Packets for Zero-CORS Direct Local Double-Click Running -->
+<script src="../packets/packet_A_embedded.js"></script>
+<script src="../packets/packet_B_embedded.js"></script>
+</body>
+</html>

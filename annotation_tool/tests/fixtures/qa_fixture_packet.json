@@ -1,0 +1,26 @@
+{
+  "packet_id": "packet_QA",
+  "annotator_code": "QA1",
+  "protocol_version": "2.0",
+  "total_items": 3,
+  "items": [
+    {
+      "opaque_item_id": "QA-ITEM-01",
+      "claim_hindi": "कृत्रिम परीक्षण दावा 1",
+      "original_evidence_hindi": "यह एक कृत्रिम परीक्षण साक्ष्य है जिसमें कोई वास्तविक डेटा नहीं है।",
+      "translated_evidence_english": "This is an artificial test evidence containing no real data."
+    },
+    {
+      "opaque_item_id": "QA-ITEM-02",
+      "claim_hindi": "कृत्रिम परीक्षण दावा 2",
+      "original_evidence_hindi": "पुलिस ने 10 संदिग्धों को गिरफ्तार नहीं किया।",
+      "translated_evidence_english": "Police arrested 10 suspects."
+    },
+    {
+      "opaque_item_id": "QA-ITEM-03",
+      "claim_hindi": "कृत्रिम परीक्षण दावा 3",
+      "original_evidence_hindi": "अस्पष्ट साक्ष्य पाठ...",
+      "translated_evidence_english": "Ambiguous text..."
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BilingualTranslationFidelitySubmission",
+  "type": "object",
+  "required": [
+    "annotator_code",
+    "packet_id",
+    "protocol_version",
+    "packet_version",
+    "submission_timestamp_utc",
+    "total_items",
+    "annotations"
+  ],
+  "properties": {
+    "annotator_code": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_\\-]+$"
+    },
+    "packet_id": {
+      "type": "string",
+      "enum": ["packet_A", "packet_B", "custom"]
+    },
+    "protocol_version": {
+      "type": "string"
+    },
+    "packet_version": {
+      "type": "string"
+    },
+    "submission_timestamp_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "total_items": {
+      "type": "integer",
+      "minimum": 50,
+      "maximum": 50
+    },
+    "annotations": {
+      "type": "array",
+      "minItems": 50,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": [
+          "opaque_item_id",
+          "fidelity_label",
+          "distortion_types"
+        ],
+        "properties": {
+          "opaque_item_id": {
+            "type": "string"
+          },
+          "fidelity_label": {
+            "type": "string",
+            "enum": [
+              "PRESERVED",
+              "ALTERED",
+              "AMBIGUOUS_SOURCE",
+              "UNABLE_TO_DECIDE"
+            ]
+          },
+          "distortion_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "NUM_DATE",
+                "NEGATION",
+                "ENTITY",
+                "OMISSION",
+                "HALLUCINATION",
+                "QUALIFIER",
+                "TIME",
+                "OTHER",
+                "NONE"
+              ]
+            }
+          },
+          "rationale": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": ["string", "null"],
+            "enum": ["HIGH", "MEDIUM", "LOW", null]
+          },
+          "annotator_code": {
+            "type": "string"
+          },
+          "timestamp_utc": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
