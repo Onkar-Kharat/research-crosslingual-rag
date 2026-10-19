@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Paired statistical significance tests across conditions on test set ($N=163$). McNemar test uses discordant pair binomial calculation; permutation tests run $B=1,000$ resamples.}
+\label{tab:statistical-tests}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Comparison} & \textbf{Discordant} & \textbf{McNemar $p$} & $\Delta$\textbf{F1} & \textbf{Perm. $p$} \\
+\midrule
+Selective-Check vs. Always-Check & 22 / 9 & \textbf{0.0294} & +0.058 & \textbf{0.0370} \\
+Selective-Check vs. No-Check & 35 / 23 & 0.1480 & +0.044 & 0.1950 \\
+Direct Multilingual vs. No-Check & 41 / 32 & 0.3492 & +0.026 & 0.4840 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}

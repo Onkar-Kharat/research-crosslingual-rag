@@ -1,0 +1,9 @@
+Comparison,McNemar_Stat,McNemar_p_val,Selective_Correct_Other_Wrong (b),Selective_Wrong_Other_Correct (c),Delta_Macro_F1_3cl,Permutation_p_val_3cl,Delta_Macro_F1_2cl,Permutation_p_val_2cl
+Selective-Check vs. No-Check (Translated Only),0.0,1.0,2,1,0.0037,0.6138,0.0056,0.6138
+Selective-Check vs. Direct Multilingual (Original Only),2.4198,0.11927,33,48,-0.0083,0.8342,-0.0125,0.8342
+Selective-Check vs. Always-Check (Dual Consensus Avg),2.5312,0.11018,11,21,-0.0225,0.3708,-0.0338,0.3708
+Selective-Check vs. Ablation: Triggered Post. Averaging,0.0,1.0,1,0,0.0026,0.7408,0.0039,0.7408
+Selective-Check vs. Ablation: Uncertainty-Only Routing,3.2,0.0625,5,0,0.0206,0.038,0.031,0.038
+Selective-Check vs. Ablation: Numeral-Only Routing,3.7051,0.05354,30,48,-0.0146,0.7056,-0.0219,0.7056
+Selective-Check vs. Control: Random Routing (Matched Cov),0.0,1.0,5,4,0.0004,0.987,0.0006,0.987
+Selective-Check vs. Oracle Upper Bound (Non-Deployable),47.0204,0.0,0,49,-0.1376,0.0,-0.2063,0.0

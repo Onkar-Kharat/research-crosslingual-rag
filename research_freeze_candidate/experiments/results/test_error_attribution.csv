@@ -1,0 +1,5 @@
+Category,Count,Proportion,Description
+Total Verification Errors in No-Check Pipeline,111,100.0\%,All misclassifications when relying strictly on translated evidence.
+Translation-Fidelity Errors ($E_{\text{trans}}$),41,36.9\%,Factual meaning altered during translation; recovered by consulting original source.
+Verifier-Reasoning Failures ($E_{\text{verif}}$),61,55.0\%,Verifier failed to deduce claim veracity even when original evidence was consulted.
+Evidence Insufficiency / Ambiguity ($E_{\text{insuff}}$),12,10.8\%,Retrieved web search snippets lack sufficient factual grounding for unambiguous resolution.

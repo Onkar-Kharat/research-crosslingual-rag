@@ -1,0 +1,46 @@
+{
+  "os_platform": "Windows-11-10.0.26300-SP0",
+  "os_release": "11",
+  "system_architecture": "AMD64",
+  "cpu_processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+  "cpu_cores_logical": 18,
+  "cpu_cores_physical": 14,
+  "physical_memory_ram": {
+    "total_gb": 15.61,
+    "available_gb": 5.66,
+    "percent_used": 63.7
+  },
+  "disk_storage": {
+    "total_capacity_gb": 463.36,
+    "free_space_gb": 131.85,
+    "used_space_gb": 331.52
+  },
+  "python_runtime": {
+    "version": "3.14.7",
+    "executable_type": "python-3.14.7-amd64"
+  },
+  "pytorch": {
+    "version": "2.14.1+cpu",
+    "cuda_available": false,
+    "cuda_device_count": 0,
+    "device_name": "CPU"
+  },
+  "transformers": {
+    "version": "5.19.0"
+  },
+  "key_dependencies": {
+    "torch": "2.14.1",
+    "transformers": "5.19.0",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "numpy": "2.5.4",
+    "pandas": "2.3.3",
+    "statsmodels": "NOT_INSTALLED",
+    "matplotlib": "3.11.2",
+    "seaborn": "NOT_INSTALLED",
+    "nltk": "NOT_INSTALLED",
+    "sacrebleu": "NOT_INSTALLED",
+    "psutil": "6.1.1",
+    "pyyaml": "NOT_INSTALLED"
+  }
+}

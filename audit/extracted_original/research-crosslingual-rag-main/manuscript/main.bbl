@@ -1,0 +1,110 @@
+\begin{thebibliography}{11}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Conneau et~al.(2020)Conneau, Khandelwal, Goyal, Chaudhary, Wenzek,
+  Guzm{\'a}n, Grave, Ott, Zettlemoyer, and
+  Stoyanov}]{conneau-etal-2020-unsupervised}
+Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume
+  Wenzek, Francisco Guzm{\'a}n, Edouard Grave, Myle Ott, Luke Zettlemoyer, and
+  Veselin Stoyanov. 2020.
+\newblock \href {https://doi.org/10.18653/v1/2020.acl-main.747} {Unsupervised
+  cross-lingual representation learning at scale}.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics}, pages 8440--8451, Online. Association for
+  Computational Linguistics.
+
+\bibitem[{Gupta and Srikumar(2021)}]{gupta-srikumar-2021-xfact}
+Ashim Gupta and Vivek Srikumar. 2021.
+\newblock \href {https://doi.org/10.18653/v1/2021.acl-long.527} {{X-FACT}: A
+  new benchmark dataset for multilingual fact checking}.
+\newblock In \emph{Proceedings of the 59th Annual Meeting of the Association
+  for Computational Linguistics and the 11th International Joint Conference on
+  Natural Language Processing (Volume 1: Long Papers)}, pages 6755--6768,
+  Online. Association for Computational Linguistics.
+
+\bibitem[{He et~al.(2021)He, Liu, Gao, and Chen}]{he-etal-2021-deberta}
+Pengcheng He, Xiaodong Liu, Jianfeng Gao, and Weizhu Chen. 2021.
+\newblock \href {https://openreview.net/forum?id=XPZIaotutsD} {{DeBERTa}:
+  Decoding-enhanced {BERT} with disentangled attention}.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Lewis et~al.(2020)Lewis, Perez, Piktus, Petroni, Karpukhin, Goyal,
+  K{\"u}ttler, Lewis, Yih, Rockt{\"a}schel, Riedel, and
+  Kiela}]{lewis-etal-2020-rag}
+Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
+  Karpukhin, Naman Goyal, Heinrich K{\"u}ttler, Mike Lewis, Wen-tau Yih, Tim
+  Rockt{\"a}schel, Sebastian Riedel, and Douwe Kiela. 2020.
+\newblock Retrieval-augmented generation for knowledge-intensive {NLP} tasks.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~33, pages 9459--9474.
+
+\bibitem[{Liu et~al.(2025)Liu, Trenous, Ribeiro, Byrne, and
+  Hieber}]{liu-etal-2025-xrag}
+Wei Liu, Sony Trenous, Leonardo F.~R. Ribeiro, Bill Byrne, and Felix Hieber.
+  2025.
+\newblock \href {https://doi.org/10.18653/v1/2025.findings-emnlp.849} {{XRAG}:
+  Cross-lingual retrieval-augmented generation}.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2025}, pages 15669--15690, Suzhou, China. Association for Computational
+  Linguistics.
+
+\bibitem[{Ranaldi et~al.(2026)Ranaldi, Haddow, and
+  Birch}]{ranaldi-etal-2026-multilingual}
+Leonardo Ranaldi, Barry Haddow, and Alexandra Birch. 2026.
+\newblock \href {https://doi.org/10.18653/v1/2026.findings-eacl.35}
+  {Multilingual retrieval-augmented generation for knowledge-intensive question
+  answering task}.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EACL 2026}, pages 697--716, Rabat, Morocco. Association for Computational
+  Linguistics.
+
+\bibitem[{Shcharbakova et~al.(2025)Shcharbakova, Anikina, Skachkova, and van
+  Genabith}]{shcharbakova-etal-2025-scale}
+Hanna Shcharbakova, Tatiana Anikina, Natalia Skachkova, and Josef van Genabith.
+  2025.
+\newblock \href {https://doi.org/10.18653/v1/2025.fever-1.5} {When scale meets
+  diversity: Evaluating language models on fine-grained multilingual claim
+  verification}.
+\newblock In \emph{Proceedings of the Eighth Fact Extraction and VERification
+  Workshop (FEVER)}, pages 69--84, Vienna, Austria. Association for
+  Computational Linguistics.
+
+\bibitem[{Singhal et~al.(2024)Singhal, Shao, Sun, Ding, Lu, and
+  Zhu}]{singhal-etal-2024-comparative}
+Aryan Singhal, Veronica Shao, Gary Sun, Ryan Ding, Jonathan Lu, and Kevin Zhu.
+  2024.
+\newblock \href {https://doi.org/10.48550/arXiv.2410.10303} {A comparative
+  study of translation bias and accuracy in multilingual large language models
+  for cross-language claim verification}.
+\newblock \emph{arXiv preprint arXiv:2410.10303}.
+
+\bibitem[{Thorne et~al.(2018)Thorne, Vlachos, Christodoulopoulos, and
+  Mittal}]{thorne-etal-2018-fever}
+James Thorne, Andreas Vlachos, Christos Christodoulopoulos, and Arpit Mittal.
+  2018.
+\newblock \href {https://doi.org/10.18653/v1/N18-1074} {{FEVER}: a large-scale
+  high quality dataset for fact extraction and {VER}ification}.
+\newblock In \emph{Proceedings of the 2018 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies, Volume 1 (Long Papers)}, pages 809--819, New Orleans,
+  Louisiana. Association for Computational Linguistics.
+
+\bibitem[{Tiedemann and Thottingal(2020)}]{tiedemann-thottingal-2020-opus}
+J{\"o}rg Tiedemann and Santhosh Thottingal. 2020.
+\newblock \href {https://aclanthology.org/2020.eamt-1.61/} {{OPUS-MT} --
+  building open translation services for the world}.
+\newblock In \emph{Proceedings of the 22nd Annual Conference of the European
+  Association for Machine Translation}, pages 479--480, Lisboa, Portugal.
+  European Association for Machine Translation.
+
+\bibitem[{Wang et~al.(2026)Wang, Mo, Shi, Zhang, Zheng, Cao, Chen, Lu, Lin, He,
+  Han, and Sun}]{wang-etal-2026-languages}
+Dan Wang, Guozhao Mo, Yafei Shi, Cheng Zhang, Bo~Zheng, Boxi Cao, Xuanang Chen,
+  Yaojie Lu, Hongyu Lin, Ben He, Xianpei Han, and Le~Sun. 2026.
+\newblock \href {https://doi.org/10.18653/v1/2026.acl-long.338} {All languages
+  matter: Understanding and mitigating language bias in multilingual {RAG}}.
+\newblock In \emph{Proceedings of the 64th Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 7441--7455, San
+  Diego, California, United States. Association for Computational Linguistics.
+
+\end{thebibliography}

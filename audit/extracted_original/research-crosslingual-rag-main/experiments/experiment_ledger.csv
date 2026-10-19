@@ -1,0 +1,5 @@
+run_id,date,phase,version,model,translation_system,language_pair,dataset_version,split,condition,seed,command,output_path,status,notes
+EXP-001,2026-10-15,verification_run,v1.0,mDeBERTa-v3-base-xnli,Helsinki-NLP/opus-mt-hi-en,hi-en,xfact-v1,dev+test,paired_4_conditions,42,python scripts/run_verification_experiments.py,experiments/results/test_predictions.csv,COMPLETED,Dev tau*=0.300
+EXP-002,2026-10-15,statistical_evaluation,v1.0,mDeBERTa-v3-base-xnli,N/A,hi-en,xfact-v1,test,significance_and_tables,42,python scripts/evaluate_statistical_significance.py,experiments/results/test_main_results.csv,COMPLETED,McNemar p=0.0294; Perm p=0.0370
+EXP-003,2026-10-15,figure_generation,v1.0,matplotlib,N/A,hi-en,xfact-v1,dev+test,vector_figures,N/A,python scripts/generate_publication_figures.py,figures/pdf/,COMPLETED,Generated fig2 fig3 fig4 PDF+PNG
+EXP-004,2026-10-15,manuscript_compilation,v1.0,MiKTeX-pdfTeX,N/A,hi-en,xfact-v1,manuscript,tacl_submission,N/A,pdflatex+bibtex main.tex,manuscript/main.pdf,COMPLETED,8 pages 0 errors TACL compliant

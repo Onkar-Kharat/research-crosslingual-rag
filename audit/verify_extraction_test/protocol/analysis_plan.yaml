@@ -1,0 +1,57 @@
+protocol_version: "1.0"
+date: "2026-10-19"
+task: "cross_lingual_claim_verification"
+language_pair: "hi-en"
+benchmark: "utahnlp/x-fact"
+
+dataset:
+  dev_path: "data/processed/dev.jsonl"
+  test_path: "data/processed/test.jsonl"
+  dev_sample_size: 103
+  test_sample_size: 163
+  label_classes:
+    formal_space: ["SUPPORTED", "INSUFFICIENT_EVIDENCE", "CONTRADICTED"]
+    observed_in_gold: ["INSUFFICIENT_EVIDENCE", "CONTRADICTED"]
+  class_balance_test:
+    CONTRADICTED: 142
+    INSUFFICIENT_EVIDENCE: 21
+    SUPPORTED: 0
+
+models:
+  mt_model: "Helsinki-NLP/opus-mt-hi-en"
+  verifier_model: "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7"
+  device: "cpu"
+  batch_size: 8
+  max_token_length: 512
+
+decision_rules:
+  dev_threshold_tuning:
+    parameter: "tau"
+    search_grid: [0.10, 0.65, 0.025]
+    objective_function: "Macro_F1 - 0.15 * Coverage"
+    selected_optimal_tau: 0.300
+  risk_formula: "0.70 * (1.0 - max_p) + 0.30 * (1.0 - feature_number_jaccard)"
+  cascade_routing:
+    condition: "risk >= tau"
+    action_if_true: "pred_original"
+    action_if_false: "pred_translated"
+
+evaluation:
+  primary_metrics:
+    - "observed_sample_accuracy"
+    - "observed_2class_macro_f1"
+    - "standard_3class_macro_f1"
+  bootstrap_parameters:
+    resamples: 2000
+    confidence_level: 0.95
+    seed: 42
+  significance_testing:
+    accuracy: "mcnemar_exact_binomial"
+    f1: "paired_permutation_test_5000"
+    alpha_threshold: 0.05
+  error_attribution_schema:
+    disjoint_partition: true
+    categories:
+      - "Translation_Recovered_Error"
+      - "Verifier_Reasoning_Error"
+      - "Unresolved_Evidence_Insufficiency"

@@ -1,0 +1,9 @@
+{
+  "n_total_test": 163,
+  "n_failures_translated": 109,
+  "E_trans_count": 50,
+  "E_trans_pct_of_failures": 45.87,
+  "E_verif_count": 59,
+  "E_verif_pct_of_failures": 54.13,
+  "E_unresolved_evidence_count": 54
+}

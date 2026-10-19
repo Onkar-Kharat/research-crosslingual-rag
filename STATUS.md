@@ -1,24 +1,22 @@
 # Research Status
 
-**Current Phase:** All Phases Completed — Final Submission Package Ready (Checkpoint F Complete)  
-**Working Topic:** Separating Translation-Fidelity and Verifier-Reasoning Errors in Cross-Lingual RAG: A Controlled Study with Selective Original-Evidence Checking  
+**Current Phase:** Candidate V3 Critical Repair Completed — Package Verified (NOT FROZEN)  
+**Working Topic:** Evidence-Grounded Cross-Lingual Claim Verification Diagnostic Study: Separating Translation-Fidelity and Verifier-Reasoning Errors (Hindi $\rightarrow$ English)  
 **Target Venue:** Transactions of the Association for Computational Linguistics (TACL)  
-**Deliverable PDF:** [`manuscript/main.pdf`](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript/main.pdf) (10 pages, fully compiled TACL double-blind submission with perfected Figures 1--4 and Tables 1--4; 0 errors, 0 clipping)  
-**Environment:** Windows 11 AMD64; 18 logical cores; local `.venv` (Python 3.14.7, PyTorch 2.14.1 CPU, Transformers 5.19.0); MiKTeX pdfTeX 4.27  
+**Deliverable Archive:** [`CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_NOT_FROZEN.zip`](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_NOT_FROZEN.zip)  
+**Gate Status:** Gate A (REPAIRED), Gate B (PASS), Gate C (BLOCKED), Gate D (PASS), Gate E (PASS). Overall: **NOT FROZEN**  
+**Environment:** Windows 11 AMD64; 18 logical cores; local `.venv` (Python 3.14.7, PyTorch 2.14.1 CPU, Transformers 5.19.0)  
 **Budget:** Strictly free open-source tools and public benchmark data; $0 spend; zero paid APIs  
 **Language Pair:** English--Hindi ($L_t = \text{en}$, $L_s = \text{hi}$) on X-Fact benchmark  
 
 ---
 
-## Checkpoints Status
-- [x] **Environment preflight:** Verified Python 3.14.7, 18 cores, 15.6GB RAM, 134GB disk, MiKTeX pdflatex (`logs/preflight_report.json`, `logs/run_manifest.json`).
-- [x] **Literature audit & novelty defense (Gate A: GO):** Audited 7 key works, identified defensible gap decoupling translation-fidelity ($E_{\text{trans}}$) from verifier reasoning ($E_{\text{verif}}$), logged in `logs/literature_matrix.csv`, `logs/search_log.csv`, `logs/source_registry.csv`, `reports/literature_audit.md`.
-- [x] **Journal scope & submission policies:** Verified TACL guidelines ($0 APC, 10-page content ceiling, March 1, 2024 Category 1 appendix up to 5 pages, double-blind review line numbers); downloaded official styles (`manuscript/tacl2021v1.sty`, `manuscript/acl_natbib.bst`).
-- [x] **Dataset & license acquisition:** X-Fact (MIT License, Gupta & Srikumar 2021); SHA-256 verified; standardized into schema-compliant `data/processed/dev.jsonl` ($N=103$) and `data/processed/test.jsonl` ($N=163$).
-- [x] **Machine translation pipeline:** Offline deterministic `Helsinki-NLP/opus-mt-hi-en` running on CPU; generated and cached `data/processed/dev_translated.jsonl` and `data/processed/test_translated.jsonl`.
-- [x] **Verification experiments & threshold tuning:** Evaluated `MoritzLaurer/mDeBERTa-v3-base-xnli` on 4 paired conditions; dev-only grid search tuned optimal risk trigger $\tau^* = 0.300$ (`experiments/results/dev_threshold_tuning.csv`); frozen evaluation on held-out test set ($N=163$, `experiments/results/test_predictions.csv`).
-- [x] **Statistical evaluation & significance:** Exact McNemar tests, $B=1,000$ bootstrap CIs, and paired permutation tests executed (`scripts/evaluate_statistical_significance.py`); confirmed Selective-Check significantly outperforms Always-Check ($p = 0.0294$).
-- [x] **Vector figure generation:** Generated high-resolution publication vector PDFs in `figures/pdf/` and PNGs in `figures/src/` (`fig1_study_workflow.pdf`, `fig2_risk_coverage_tradeoff.pdf`, `fig3_condition_comparison.pdf`, `fig4_error_attribution_breakdown.pdf`).
-- [x] **Manuscript authoring & compilation:** Complete TACL paper in `manuscript/main.tex` and `manuscript/references.bib`; compiled cleanly into `manuscript/main.pdf` (9 pages, 0 errors, 0 undefined citations, 0 overfull boxes).
-- [x] **Reports, checklists & mock review:** Produced `reports/experiment_report.md`, `reports/reproducibility_report.md`, `reports/tacl_compliance_checklist.md`, `reports/mock_tacl_review.md`, and `reports/final_readout.md`.
-- [x] **Final readiness review:** Verified 100% adherence to all academic, ethical, and reproducibility guidelines.
+## Critical Repair Checkpoints (Candidate V3)
+- [x] **Phase 0: Intake & Legacy Quarantine:** Hashed 82 legacy entries in `audit/v2_archive_manifest.csv`; quarantined legacy prediction files into `legacy/` under `legacy/README_LEGACY.md`; logged all 9 issues in `BLOCKER_LEDGER.csv`.
+- [x] **Phase 1: Code Portability & Environment Hygiene:** Eliminated all hardcoded paths (`C:\Users\...`) across scripts and tests in favor of dynamic relative paths; corrected `audit/environment_report.json` using `psutil`, properly distinguishing physical RAM (15.61 GB) from storage capacity (463.36 GB).
+- [x] **Phase 2: Task & Label Semantics Decision:** Authored `protocol/TASK_AND_LABEL_VALIDITY_DECISION.md`, detailing 3 formulation options and adopting Option C. Formally bounded study to observed 2-class veracity space (`CONTRADICTED` and `INSUFFICIENT_EVIDENCE`), mandating dual-F1 reporting. Verified model runtime logit mapping (`0: entailment`, `1: neutral`, `2: contradiction`). Reconciled tuning grid `[0.10, 0.65, 0.025]` in `protocol/analysis_plan.yaml`.
+- [x] **Phase 3: Literature Audit & Novelty Bounding:** Replaced placeholder citations in `literature/LITERATURE_AUDIT.csv` with verified entries (Wang et al., ACL 2026 / `arXiv:2604.20199`; Chang et al., ROCLING 2023 / `2023.rocling-1.1`). Removed unvetted "first" priority claims in `literature/RELATED_WORK_MATRIX.md` and `literature/NOVELTY_ASSESSMENT.md`.
+- [x] **Phase 4 & 6: Scratch Inference Rerun & Real Latency Measurement:** Executed end-to-end inference from scratch with true token truncation (`max_length=512`, `truncation=True`) and true Jaccard numeral overlap ($|A \cap B| / |A \cup B|$). Measured actual per-instance MarianMT generation time and verifier forward passes on CPU, saving canonical prediction files in `experiments/results_corrected/`.
+- [x] **Phase 5: Re-evaluation & Comprehensive Ablations:** Generated full benchmark covering 9 conditions with exact 95% bootstrap CIs, paired exact McNemar tests, 5000-permutation F1 tests, and diagnostic error attribution.
+- [x] **Phase 7: Blinded Annotator Packet Hygiene:** Created `annotation_handoff/ANNOTATOR_PACKET.zip` containing strictly blinded data, guidelines, protocol, and template, completely segregated from internal keys. Kept Gate C **BLOCKED** awaiting genuine human annotators.
+- [x] **Phase 8: Packaging & Clean-Room Verification:** Authored `data/DATA_USE_AND_LICENSE_NOTES.md` and `README_RESEARCH_REPAIR.md`. Verified clean-room extraction and 100% test suite execution (16/16 tests pass).

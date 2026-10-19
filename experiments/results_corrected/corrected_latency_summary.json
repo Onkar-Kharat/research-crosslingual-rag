@@ -1,0 +1,15 @@
+{
+  "device": "CPU",
+  "cpu_threads": 8,
+  "mt_model": "Helsinki-NLP/opus-mt-hi-en",
+  "verifier_model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+  "per_instance_measured": true,
+  "mean_latency_mt_ms": 1615.98,
+  "median_latency_mt_ms": 1369.85,
+  "mean_latency_trans_verifier_ms": 1984.06,
+  "mean_latency_orig_verifier_ms": 11035.39,
+  "mean_latency_trans_e2e_ms": 3600.04,
+  "mean_latency_orig_e2e_ms": 11035.39,
+  "mean_latency_always_e2e_ms": 14635.43,
+  "mean_latency_selective_e2e_ms": 4567.82
+}

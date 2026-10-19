@@ -1,0 +1,8 @@
+Category,Count,Share_of_Errors,Operational_Definition
+Total No-Check (Translated) Errors,111,100.0%,Claims where pred_translated != gold_label
+1. Recoverable via Original (Translation-Induced),41,36.94%,pred_translated != gold AND pred_original == gold
+   -- On CONTRADICTED claims,38,34.23%,"gold=CONTRADICTED, original fixes translation error"
+   -- On INSUFFICIENT claims,3,2.70%,"gold=INSUFFICIENT, original fixes translation error (overlap in prior code)"
+2. Unrecovered Reasoning Failures (Verifier Error),61,54.95%,pred_translated != gold AND pred_original != gold on gold=CONTRADICTED
+3. Unrecovered Evidence Insufficiency,9,8.11%,pred_translated != gold AND pred_original != gold on gold=INSUFFICIENT
+Total Disjoint Sum,111,100.0%,41 + 61 + 9 = 111 (Cleanly partitions all 111 errors)

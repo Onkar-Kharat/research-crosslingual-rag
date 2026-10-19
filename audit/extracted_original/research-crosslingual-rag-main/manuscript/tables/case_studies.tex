@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\small
+\caption{Representative diagnostic case studies from the held-out test evaluation illustrating the three error categories defined in our taxonomy. Predictions reflect verdicts under No-Check ($\hat{y}_{\text{trans}}$) and Direct Multilingual ($\hat{y}_{\text{orig}}$).}
+\label{tab:case-studies}
+\begin{tabularx}{\textwidth}{lp{0.22\textwidth}cccX}
+\toprule
+\textbf{Item ID} & \textbf{Claim (English Gloss)} & \textbf{Gold} & $\hat{y}_{\text{trans}}$ & $\hat{y}_{\text{orig}}$ & \textbf{Diagnostic Failure Analysis} \\
+\midrule
+\texttt{hi-test-0005} & Cache of weapons seized from a mosque in Gujarat. & \textsc{Contra} & \textsc{Supp} & \textsc{Contra} & \textbf{Translation-Fidelity Error ($E_{\text{trans}}$):} Machine translation distorted fact-check context into garbled text (\emph{``Chamim f{\"u}ck welded from a moustik...''}), causing the verifier to mispredict \textsc{Supported}. Reading the original Hindi text preserved the debunking context, restoring the correct \textsc{Contradicted} verdict. \\
+\addlinespace
+\texttt{hi-test-0004} & Facebook CEO Mark Zuckerberg claimed ``Jai Shri Ram'' is posted 2B times daily. & \textsc{Contra} & \textsc{Supp} & \textsc{Supp} & \textbf{Verifier-Reasoning Failure ($E_{\text{verif}}$):} Machine translation faithfully preserved the viral claim and fact-check statement. However, the verifier exhibited lexical-matching bias, treating the mere mention of the viral claim in the snippet as positive entailment across both languages. \\
+\addlinespace
+\texttt{hi-test-0009} & 24 passengers fell ill after eating spoiled food on Tejas Express, 3 in ICU. & \textsc{Insuff} & \textsc{Supp} & \textsc{Insuff} & \textbf{Evidence Insufficiency ($E_{\text{insuff}}$):} Retrieved search snippet contained partial reporting without official medical confirmation. The original verifier abstained with \textsc{Insufficient\_Evidence}, whereas translated text induced overconfident false support. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

@@ -1,0 +1,4 @@
+Comparison,Discordant_Pairs (Ours+/Other+),McNemar_Stat,McNemar_p,Delta_Macro_F1,Permutation_p
+Selective-Check vs. No-Check (Translated),35 / 23,2.086,0.1480,0.0439,0.1950
+Direct Multilingual (Original) vs. No-Check (Translated),41 / 32,0.877,0.3492,0.0261,0.4840
+Selective-Check vs. Always-Check,22 / 9,4.645,0.0294,0.0575,0.0370
