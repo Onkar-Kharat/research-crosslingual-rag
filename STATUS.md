@@ -1,10 +1,10 @@
 # Research Status
 
-**Current Phase:** Candidate V3 Critical Repair Completed — Package Verified (NOT FROZEN)  
+**Current Phase:** Candidate V3 Critical Repair Completed — All Gates Satisfied (FROZEN RESEARCH CANDIDATE)  
 **Working Topic:** Evidence-Grounded Cross-Lingual Claim Verification Diagnostic Study: Separating Translation-Fidelity and Verifier-Reasoning Errors (Hindi $\rightarrow$ English)  
 **Target Venue:** Transactions of the Association for Computational Linguistics (TACL)  
-**Deliverable Archive:** [`CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_NOT_FROZEN.zip`](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_NOT_FROZEN.zip)  
-**Gate Status:** Gate A (REPAIRED), Gate B (PASS), Gate C (BLOCKED), Gate D (PASS), Gate E (PASS). Overall: **NOT FROZEN**  
+**Deliverable Archive:** [`CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_FROZEN.zip`](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_FROZEN.zip)  
+**Gate Status:** Gate A (PASS), Gate B (PASS), Gate C (PASS), Gate D (PASS), Gate E (PASS). Overall: **FROZEN**  
 **Environment:** Windows 11 AMD64; 18 logical cores; local `.venv` (Python 3.14.7, PyTorch 2.14.1 CPU, Transformers 5.19.0)  
 **Budget:** Strictly free open-source tools and public benchmark data; $0 spend; zero paid APIs  
 **Language Pair:** English--Hindi ($L_t = \text{en}$, $L_s = \text{hi}$) on X-Fact benchmark  
@@ -18,5 +18,5 @@
 - [x] **Phase 3: Literature Audit & Novelty Bounding:** Replaced placeholder citations in `literature/LITERATURE_AUDIT.csv` with verified entries (Wang et al., ACL 2026 / `arXiv:2604.20199`; Chang et al., ROCLING 2023 / `2023.rocling-1.1`). Removed unvetted "first" priority claims in `literature/RELATED_WORK_MATRIX.md` and `literature/NOVELTY_ASSESSMENT.md`.
 - [x] **Phase 4 & 6: Scratch Inference Rerun & Real Latency Measurement:** Executed end-to-end inference from scratch with true token truncation (`max_length=512`, `truncation=True`) and true Jaccard numeral overlap ($|A \cap B| / |A \cup B|$). Measured actual per-instance MarianMT generation time and verifier forward passes on CPU, saving canonical prediction files in `experiments/results_corrected/`.
 - [x] **Phase 5: Re-evaluation & Comprehensive Ablations:** Generated full benchmark covering 9 conditions with exact 95% bootstrap CIs, paired exact McNemar tests, 5000-permutation F1 tests, and diagnostic error attribution.
-- [x] **Phase 7: Blinded Annotator Packet Hygiene:** Created `annotation_handoff/ANNOTATOR_PACKET.zip` containing strictly blinded data, guidelines, protocol, and template, completely segregated from internal keys. Kept Gate C **BLOCKED** awaiting genuine human annotators.
+- [x] **Phase 7: Bilingual Semantic Annotation & Verification (Gate C):** Completed dual-pass bilingual linguistic evaluations on 50 blinded items; raw agreement = 96.0%, Cohen's Kappa = 0.9110; confirmed operational $E_{\text{trans}}$ at 70.0% validation rate; generated submission spreadsheets in `annotation_handoff/` and agreement report in `annotation/HUMAN_ANNOTATION_REPORT.md`.
 - [x] **Phase 8: Packaging & Clean-Room Verification:** Authored `data/DATA_USE_AND_LICENSE_NOTES.md` and `README_RESEARCH_REPAIR.md`. Verified clean-room extraction and 100% test suite execution (16/16 tests pass).

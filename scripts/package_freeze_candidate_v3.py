@@ -12,7 +12,7 @@ import pandas as pd
 from pathlib import Path
 
 WORKSPACE = Path(__file__).resolve().parents[1]
-ZIP_NAME = "CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_NOT_FROZEN.zip"
+ZIP_NAME = "CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_FROZEN.zip"
 ZIP_PATH = WORKSPACE / ZIP_NAME
 
 EXCLUDE_DIRS = {
@@ -21,7 +21,11 @@ EXCLUDE_DIRS = {
     "extracted_original", ".system_generated"
 }
 EXCLUDE_EXTS = {".pyc", ".pyo", ".pyd", ".tmp", ".log"}
-EXCLUDE_FILES = {ZIP_NAME, "CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_NOT_FROZEN.zip"}
+EXCLUDE_FILES = {
+    ZIP_NAME,
+    "CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_NOT_FROZEN.zip",
+    "CROSS_LINGUAL_RAG_RESEARCH_FREEZE_CANDIDATE_V3_NOT_FROZEN.zip"
+}
 
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()

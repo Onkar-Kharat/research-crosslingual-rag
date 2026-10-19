@@ -32,8 +32,8 @@ def analyze_annotations(csv_path: Path, key_path: Path, out_report: Path):
         return False
         
     print("Computing inter-rater agreement statistics...")
-    a1 = a1_filled.to_numpy()
-    a2 = a2_filled.to_numpy()
+    a1 = np.array(a1_filled)
+    a2 = np.array(a2_filled)
     
     raw_agreement = np.mean(a1 == a2)
     kappa = cohen_kappa_score(a1, a2)
@@ -48,6 +48,9 @@ def analyze_annotations(csv_path: Path, key_path: Path, out_report: Path):
     e_trans_subset = merged[merged["Sampling_Stratum"].str.contains("E_trans")]
     e_trans_altered_rate = (e_trans_subset["Adjudication_Consensus"] == "ALTERED").mean()
     
+    ct = pd.crosstab(merged["Sampling_Stratum"], merged["Adjudication_Consensus"])
+    ct_md = ct.to_csv(sep="|").replace("\r\n", "\n").replace("\n", "\n| ")
+    
     report_lines = [
         "# Human Annotation Inter-Rater Agreement and Validation Report",
         "",
@@ -58,7 +61,9 @@ def analyze_annotations(csv_path: Path, key_path: Path, out_report: Path):
         "",
         "## Cross-Tabulation: Human Consensus vs. Operational Strata",
         "",
-        pd.crosstab(merged["Sampling_Stratum"], merged["Adjudication_Consensus"]).to_markdown(),
+        "```",
+        ct.to_string(),
+        "```",
         ""
     ]
     

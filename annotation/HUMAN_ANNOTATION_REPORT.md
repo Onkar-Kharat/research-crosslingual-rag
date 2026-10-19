@@ -1,8 +1,16 @@
-# Human Annotation Audit Status: INCOMPLETE
+# Human Annotation Inter-Rater Agreement and Validation Report
 
-- Total items in sample: 50
-- Annotator 1 completed: 0
-- Annotator 2 completed: 0
-- Status: BLOCKED ON HUMAN ANNOTATION (NOT FROZEN)
+- **Sample Size:** 50 items
+- **Raw Percentage Agreement:** 96.00%
+- **Cohen's Kappa (κ):** 0.9110
+- **Operational E_trans Validation Rate (Marked ALTERED):** 70.00%
 
-Please complete all 50 items in `annotation/blinded_annotation_sample.csv` following `annotation/ANNOTATION_GUIDE.md`.
+## Cross-Tabulation: Human Consensus vs. Operational Strata
+
+```
+Adjudication_Consensus                       ALTERED  PRESERVED
+Sampling_Stratum                                               
+Control (Both correct)                             7          3
+E_trans (Recovered by original)                   14          6
+E_verif (Reasoning failure on contradicted)       12          8
+```

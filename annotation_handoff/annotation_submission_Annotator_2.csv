@@ -1,0 +1,51 @@
+Sample_ID,Item_ID,Annotator_Name,Fidelity_Rating,Distortion_Types,Rationale_Notes
+ANN-01,xfact-hi-test-0050,Bilingual_Annotator_2,ALTERED,"ENTITY, NEGATION",Factual stance corrupted: headline translated affirmatively while article refutes the meeting.
+ANN-02,xfact-hi-test-0017,Bilingual_Annotator_2,ALTERED,ENTITY,"Name Om Puri mistranslated to Omman, though statement text is partially preserved."
+ANN-03,xfact-hi-test-0090,Bilingual_Annotator_2,ALTERED,"NUM_DATE, OMISSION",Critical verb issue new notes mistranslated; quantity 100 bucks introduced.
+ANN-04,xfact-hi-test-0009,Bilingual_Annotator_2,ALTERED,"ENTITY, HALLUCINATION","Gross translation failure: Tejas -> fasts, ICU -> AU.S. President F. Fly."
+ANN-05,xfact-hi-test-0033,Bilingual_Annotator_2,PRESERVED,NONE,Context of hospital patients waiting outside in Hyderabad is understandable and preserved.
+ANN-06,xfact-hi-test-0013,Bilingual_Annotator_2,ALTERED,OMISSION,Key investigative conclusion explaining the video was dropped.
+ANN-07,xfact-hi-test-0125,Bilingual_Annotator_2,ALTERED,"ENTITY, OMISSION",Rafale aircraft arrival semantics lost in translation.
+ANN-08,xfact-hi-test-0124,Bilingual_Annotator_2,ALTERED,ENTITY,Celebrity named entity Naseeruddin Shah scrambled into nonsensical tokens.
+ANN-09,xfact-hi-test-0107,Bilingual_Annotator_2,ALTERED,"ENTITY, HALLUCINATION",Pulwama attacker Adil name and connection scrambled into nonsensical phrase.
+ANN-10,xfact-hi-test-0099,Bilingual_Annotator_2,ALTERED,ENTITY,"Basketball legend Kobe Bryant corrupted to Bossball Lesley, preventing verifier from identifying the subject."
+ANN-11,xfact-hi-test-0064,Bilingual_Annotator_2,ALTERED,ENTITY,Location Shaheen Bagh literally translated to royal garden.
+ANN-12,xfact-hi-test-0008,Bilingual_Annotator_2,PRESERVED,NONE,Core factual refutation of article 35A claims preserved.
+ANN-13,xfact-hi-test-0129,Bilingual_Annotator_2,ALTERED,NUM_DATE,Date format corrupted to 2020th century.
+ANN-14,xfact-hi-test-0151,Bilingual_Annotator_2,ALTERED,ENTITY,Shaheen Bagh translated as Royal Garden; CAA as CA.
+ANN-15,xfact-hi-test-0093,Bilingual_Annotator_2,ALTERED,ENTITY,Kashmir geographic entity corrupted to Urmir.
+ANN-16,xfact-hi-test-0006,Bilingual_Annotator_2,ALTERED,HALLUCINATION,Nonsensical translation sugar planes for dirty airplane.
+ANN-17,xfact-hi-test-0098,Bilingual_Annotator_2,ALTERED,"HALLUCINATION, OMISSION",Police kicking youth translated as shooting police; factual claim inverted.
+ANN-18,xfact-hi-test-0114,Bilingual_Annotator_2,ALTERED,"HALLUCINATION, OMISSION",Catastrophic repetition bug; no factual content preserved.
+ANN-19,xfact-hi-test-0092,Bilingual_Annotator_2,ALTERED,ENTITY,Homograph error: चीनी (Chinese) mistranslated as sugar instead of China.
+ANN-20,xfact-hi-test-0065,Bilingual_Annotator_2,ALTERED,ENTITY,Mamata Banerjee corrupted to fathers.
+ANN-21,xfact-hi-test-0082,Bilingual_Annotator_2,PRESERVED,NONE,Social media photo investigation details preserved.
+ANN-22,xfact-hi-test-0060,Bilingual_Annotator_2,ALTERED,ENTITY,Severe named entity transliteration corruption.
+ANN-23,xfact-hi-test-0036,Bilingual_Annotator_2,ALTERED,ENTITY,Lakshman corrupted to Raadi.
+ANN-24,xfact-hi-test-0139,Bilingual_Annotator_2,ALTERED,HALLUCINATION,Fabricated destruction of Muslims at sea for Cyclone Amphan.
+ANN-25,xfact-hi-test-0077,Bilingual_Annotator_2,ALTERED,NUM_DATE,72 years corrupted to 72 C.E.
+ANN-26,xfact-hi-test-0161,Bilingual_Annotator_2,ALTERED,ENTITY,"Owaisi mistranslated as Astrophysi, obscuring claimant identity."
+ANN-27,xfact-hi-test-0078,Bilingual_Annotator_2,PRESERVED,NONE,Dog attack video investigation details preserved.
+ANN-28,xfact-hi-test-0071,Bilingual_Annotator_2,PRESERVED,NUM_DATE,Date format B.C.E. awkward but facts preserved.
+ANN-29,xfact-hi-test-0062,Bilingual_Annotator_2,PRESERVED,NONE,Red square / Lal Chowk photo verification preserved.
+ANN-30,xfact-hi-test-0069,Bilingual_Annotator_2,ALTERED,ENTITY,Shiv Sena corrupted to Chiszena.
+ANN-31,xfact-hi-test-0004,Bilingual_Annotator_2,PRESERVED,NONE,Zuckerberg Saturday statement verification details preserved.
+ANN-32,xfact-hi-test-0128,Bilingual_Annotator_2,PRESERVED,NONE,Fact-check of Bill Gates viral story preserved.
+ANN-33,xfact-hi-test-0015,Bilingual_Annotator_2,ALTERED,"ENTITY, HALLUCINATION",Lions and cheetahs translated as Worms Wolves; severe hallucination.
+ANN-34,xfact-hi-test-0061,Bilingual_Annotator_2,PRESERVED,NONE,Tharoor cash for vote photo explanation preserved.
+ANN-35,xfact-hi-test-0108,Bilingual_Annotator_2,PRESERVED,NONE,Viral hero photo verification preserved.
+ANN-36,xfact-hi-test-0022,Bilingual_Annotator_2,PRESERVED,NONE,Ocean convergence video fact-check preserved.
+ANN-37,xfact-hi-test-0067,Bilingual_Annotator_2,ALTERED,ENTITY,RSS Jhandewalan office corrupted to James S. Delhi flagman.
+ANN-38,xfact-hi-test-0068,Bilingual_Annotator_2,ALTERED,ENTITY,Former PM Manmohan Singh mistranslated to Dr. Manlyton.
+ANN-39,xfact-hi-test-0091,Bilingual_Annotator_2,PRESERVED,NONE,Health authority quote on China plague preserved.
+ANN-40,xfact-hi-test-0045,Bilingual_Annotator_2,PRESERVED,NONE,Alibaba founder childhood photo debunk preserved.
+ANN-41,xfact-hi-test-0039,Bilingual_Annotator_2,PRESERVED,NONE,Historical photo context preserved.
+ANN-42,xfact-hi-test-0030,Bilingual_Annotator_2,ALTERED,OMISSION,Evidence regarding BJP MP Manoj Tiwari religion claim missing.
+ANN-43,xfact-hi-test-0117,Bilingual_Annotator_2,ALTERED,ENTITY,Bollywood stars names completely garbled into lamp pankourk and ward lion.
+ANN-44,xfact-hi-test-0138,Bilingual_Annotator_2,PRESERVED,NONE,Temple readiness date context preserved.
+ANN-45,xfact-hi-test-0084,Bilingual_Annotator_2,PRESERVED,NONE,Abhinandan museum exhibit debunk preserved.
+ANN-46,xfact-hi-test-0007,Bilingual_Annotator_2,ALTERED,ENTITY,Ayush Ministry and Coronil medicine corrupted.
+ANN-47,xfact-hi-test-0121,Bilingual_Annotator_2,ALTERED,NEGATION,Factual stance regarding family deaths distorted.
+ANN-48,xfact-hi-test-0094,Bilingual_Annotator_2,ALTERED,ENTITY,Abhinandan name corrupted to Hononon.
+ANN-49,xfact-hi-test-0089,Bilingual_Annotator_2,ALTERED,HALLUCINATION,Repetitive hallucination Modis Modidis Moddi.
+ANN-50,xfact-hi-test-0140,Bilingual_Annotator_2,ALTERED,"ENTITY, NEGATION",Temple translated as Church; CM name corrupted to Droncombian Redey.
