@@ -1,9 +1,9 @@
-Comparison,McNemar_Stat,McNemar_p_val,Selective_Correct_Other_Wrong (b),Selective_Wrong_Other_Correct (c),Delta_Macro_F1_3cl,Permutation_p_val_3cl,Delta_Macro_F1_2cl,Permutation_p_val_2cl
-Selective-Check vs. No-Check (Translated Only),0.0,1.0,2,1,0.0037,0.6138,0.0056,0.6138
-Selective-Check vs. Direct Multilingual (Original Only),2.4198,0.11927,33,48,-0.0083,0.8342,-0.0125,0.8342
-Selective-Check vs. Always-Check (Dual Consensus Avg),2.5312,0.11018,11,21,-0.0225,0.3708,-0.0338,0.3708
-Selective-Check vs. Ablation: Triggered Post. Averaging,0.0,1.0,1,0,0.0026,0.7408,0.0039,0.7408
-Selective-Check vs. Ablation: Uncertainty-Only Routing,3.2,0.0625,5,0,0.0206,0.038,0.031,0.038
-Selective-Check vs. Ablation: Numeral-Only Routing,3.7051,0.05354,30,48,-0.0146,0.7056,-0.0219,0.7056
-Selective-Check vs. Control: Random Routing (Matched Cov),0.0,1.0,5,4,0.0004,0.987,0.0006,0.987
-Selective-Check vs. Oracle Upper Bound (Non-Deployable),47.0204,0.0,0,49,-0.1376,0.0,-0.2063,0.0
+Comparison,McNemar_Stat,McNemar_p_val_raw,Selective_Correct_Other_Wrong (b),Selective_Wrong_Other_Correct (c),Delta_Macro_F1_3cl,Permutation_p_val_3cl_raw,Delta_Macro_F1_2cl,Permutation_p_val_2cl_raw,McNemar_p_val_fdr,Permutation_p_val_3cl_fdr,Permutation_p_val_2cl_fdr
+Selective-Check vs. No-Check (Translated Only),0.125,1.0,4,4,-0.0045,0.7572,-0.0068,0.7572,1.0,0.8236,0.8236
+Selective-Check vs. Direct Multilingual (Original Only),7.5571,0.00558,23,47,-0.05,0.118,-0.075,0.118,0.01488,0.236,0.236
+Selective-Check vs. Always-Check (Dual Consensus Avg),5.2812,0.02006,9,23,-0.0471,0.0196,-0.0707,0.0196,0.04012,0.0784,0.0784
+Selective-Check vs. Ablation: Triggered Post. Averaging,0.25,0.625,3,1,0.0064,0.3684,0.0096,0.3684,0.83333,0.4912,0.4912
+Selective-Check vs. Ablation: Uncertainty-Only Routing,0.25,1.0,2,2,-0.0045,0.8236,-0.0068,0.8236,1.0,0.8236,0.8236
+Selective-Check vs. Ablation: Numeral-Only Routing,10.0896,0.00131,20,47,-0.0563,0.0744,-0.0844,0.0744,0.00524,0.1984,0.1984
+Selective-Check vs. Control: Random Routing (100 Seeds),1.2308,0.26685,4,9,-0.0208,0.165,-0.0313,0.165,0.42696,0.264,0.264
+Selective-Check vs. Oracle Upper Bound (Non-Deployable),49.0196,0.0,0,51,-0.15,0.0,-0.225,0.0,0.0,0.0,0.0

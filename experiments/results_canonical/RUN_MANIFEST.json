@@ -1,0 +1,106 @@
+{
+  "manifest_version": "1.0",
+  "timestamp_utc": "2026-10-24T07:21:57Z",
+  "execution_command": ".venv/Scripts/python.exe scripts/run_corrected_experiments.py",
+  "git_info": {
+    "commit_sha": "a8a8664b6cfe4d426fe6d4aa0323a22984f2bae8",
+    "status_summary": "M BLOCKER_LEDGER.csv\n M DECISION_LOG.md\n M README.md\n M README_RESEARCH_FREEZE.md\n M RESEARCH_STATUS.md\n M REVIEW_ME_FIRST.md\n M STATUS.md\n M annotation/HUMAN_ANNOTATION_REPORT.md\n M annotation/blinded_annotation_sample.csv\n M annotation_handoff/ANNOTATOR_PACKET.zip\n M annotation_handoff/annotation_sample_blinded.csv\n D annotation_handoff/annotation_submission_Annotator_1.csv\n D annotation_handoff/annotation_submission_Annotator_2.csv\n M experiments/results_corrected/corrected_dev_predictions.csv\n M experiments/results_corrected/corrected_dev_tuning.csv\n M experiments/results_corrected/corrected_error_attribution.json\n M experiments/results_corrected/corrected_full_benchmark_and_ablations.csv\n M experiments/results_corrected/corrected_latency_summary.json\n M experiments/results_corrected/corrected_statistical_tests.csv\n M experiments/results_corrected/corrected_test_predictions.csv\n M figures/pdf/fig2_risk_coverage_tradeoff.pdf\n M figures/pdf/fig3_condition_comparison.pdf\n M figures/pdf/fig4_error_attribution_breakdown.pdf\n M figures/src/fig2_risk_coverage_tradeoff.png\n M figures/src/fig3_condition_comparison.png\n M figures/src/fig4_error_attribution_breakdown.png\n M protocol/TASK_AND_LABEL_VALIDITY_DECISION.md\n M scripts/generate_publication_figures.py\n M scripts/perform_bilingual_annotation.py\n M scripts/run_corrected_experiments.py\n M tests/TEST_REPORT.md\n M tests/run_all_tests.py\n M tests/test_data_integrity.py\n M tests/test_method_logic.py\n M tests/test_report.json\n?? ANNOTATION_HANDOFF.md\n?? ANTIGRAVITY_FINAL_VALUES_AND_HUMAN_ANNOTATION_WORKFLOW_PROMPT.md\n?? ANTIGRAVITY_V3_REPAIR_AND_REFREEZE_PROMPT.md\n?? CROSS_LINGUAL_EVIDENCE_VERIFICATION_RESEARCH_COMPUTATIONAL_FROZEN_EXPLORATORY_v6.zip\n?? CROSS_LINGUAL_EVIDENCE_VERIFICATION_RESEARCH_V4_NOT_FROZEN.zip\n?? CROSS_LINGUAL_EVIDENCE_VERIFICATION_RESEARCH_V5_FROZEN_EXPLORATORY.zip\n?? EXPERIMENT_LINEAGE.md\n?? FILE_INVENTORY.csv\n?? FINAL_ONE_PASS_RESEARCH_FREEZE_PROMPT.md\n?? FINAL_PASS/\n?? FINAL_PASS_RELEASE_MANIFEST.txt\n?? FREEZE_AUDIT.md\n?? FREEZE_GATE_REPORT.md\n?? FREEZE_MANIFEST.md\n?? FROZEN_PROTOCOL.md\n?? ISSUES_AND_FIXES.csv\n?? LIMITATIONS.md\n?? RELATED_WORK_AND_NOVELTY_AUDIT.md\n?? TACL_READINESS_ASSESSMENT.md\n?? V3_FREEZE_READINESS_REVIEW.md\n?? V3_NEXT_ACTIONS_CHECKLIST.md\n?? annotation/ANNOTATION_ANALYSIS_PLAN.md\n?? annotation_tool/\n?? audit/ANNOTATION_AUDIT.md\n?? audit/ANNOTATION_HANDOFF.md\n?? audit/CHANGELOG.md\n?? audit/FILE_INVENTORY.csv\n?? audit/FREEZE_DECISION.md\n?? audit/FREEZE_MANIFEST.md\n?? audit/FROZEN_PROTOCOL.md\n?? audit/INITIAL_REPOSITORY_STATE.md\n?? audit/ISSUES_AND_FIXES.csv\n?? audit/ISSUE_LEDGER.csv\n?? audit/LIMITATIONS.md\n?? audit/METHOD_AND_THRESHOLD_AUDIT.md\n?? audit/METRIC_AND_COST_AUDIT.md\n?? audit/RELATED_WORK_AND_NOVELTY_AUDIT.md\n?? audit/RESULTS_RECONCILIATION.md\n?? audit/SHA256SUMS.txt\n?? audit/TEST_AND_REPRODUCTION_REPORT.md\n?? audit/invalidated_synthetic_annotations/\n?? audit/v5_archive_sha256.txt\n?? audit/v6_archive_sha256.txt\n?? audit_v4/\n?? canonical_results.csv\n?? experiments/results_canonical/\n?? experiments/results_corrected/canonical_benchmark_table.csv\n?? experiments/results_corrected/canonical_dev_predictions.csv\n?? experiments/results_corrected/canonical_dev_tuning.csv\n?? experiments/results_corrected/canonical_error_attribution.json\n?? experiments/results_corrected/canonical_latency_summary.json\n?? experiments/results_corrected/canonical_random_control_100seeds.csv\n?? experiments/results_corrected/canonical_statistical_tests.csv\n?? experiments/results_corrected/canonical_test_predictions.csv\n?? protocol/FINAL_SCOPE_AND_CLAIMS.md\n?? reproducibility/\n?? scripts/build_canonical_manifest.py\n?? scripts/generate_canonical_companion_files.py\n?? scripts/package_freeze_candidate_v4.py\n?? scripts/package_freeze_candidate_v5.py\n?? scripts/package_freeze_candidate_v6.py\n?? tests/test_annotation_integrity.py\n?? tests/test_annotation_workflow.py\n?? tests/test_logic_helpers.py\n?? tests/test_reproduced_artifacts_v4.py"
+  },
+  "environment": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+    "python_version": "3.14.7",
+    "torch_version": "2.14.1+cpu",
+    "transformers_version": "5.19.0",
+    "num_cpu_threads": 14
+  },
+  "input_artifacts": {
+    "raw_dev_all_tsv": {
+      "path": "data/raw/dev.all.tsv",
+      "sha256": "faed99c2ee9e7ea505a1bae88c06bd2c686804b5e1e786551e589b5f89df8199"
+    },
+    "raw_test_all_tsv": {
+      "path": "data/raw/test.all.tsv",
+      "sha256": "b126a4f7e16ec72f554a79e1fffaef8d71ba03ec9e07072ff7484a502cf37cbb"
+    },
+    "dev_processed_hindi_jsonl": {
+      "path": "data/processed/dev.jsonl",
+      "sha256": "2243c60af13d1d5e4ce4d5fd40e0afcb7a4aea004f8d9615bc5328f8b682a438",
+      "n_samples": 103
+    },
+    "test_processed_hindi_jsonl": {
+      "path": "data/processed/test.jsonl",
+      "sha256": "b1f7580eee7ab89e4bee7b04cb55906243a2daf36cf7b757b0281ff532e1751d",
+      "n_samples": 163
+    },
+    "analysis_plan_yaml": {
+      "path": "protocol/analysis_plan.yaml",
+      "sha256": "2e268d50f6a4093f5c2b4f8762efcf9bdb7bf0d1adcf56a7133ffd705e5849d9"
+    }
+  },
+  "model_configurations": {
+    "translation_model": {
+      "model_id": "Helsinki-NLP/opus-mt-hi-en",
+      "task": "translation_hi_to_en",
+      "device": "cpu",
+      "max_length": 512,
+      "truncation": true
+    },
+    "verifier_model": {
+      "model_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "task": "zero_shot_cross_lingual_nli",
+      "device": "cpu",
+      "max_length": 512,
+      "truncation": true,
+      "label_mapping": {
+        "CONTRADICTION": "CONTRADICTED",
+        "ENTAILMENT": "SUPPORTED",
+        "NEUTRAL": "INSUFFICIENT_EVIDENCE"
+      }
+    }
+  },
+  "experimental_parameters": {
+    "tau_star": 0.65,
+    "tuning_objective": "J = Macro_F1_3cl - 0.15 * Coverage",
+    "random_control_seeds": 100,
+    "permutation_test_resamples": 5000,
+    "bootstrap_ci_resamples": 2000,
+    "fdr_correction_method": "Benjamini-Hochberg",
+    "gold_classes_present_in_evaluation": [
+      "CONTRADICTED",
+      "INSUFFICIENT_EVIDENCE"
+    ],
+    "gold_supported_count": 0,
+    "evaluation_scope": "Option C: Cross-lingual verifier prediction sensitivity and routing disagreement under Hindi-to-English translation shift",
+    "test_split_designation": "EXPLORATORY / PREVIOUSLY INSPECTED"
+  },
+  "canonical_outputs": {
+    "canonical_benchmark_table.csv": "5dda4656b9cb59fa1ebb301ed11e9592a3848c630f6d606f937827d93b477fa2",
+    "canonical_dev_predictions.csv": "1a6d1750996ed508205f58ed1c12d8f808a93bffab8e96f45d53f8c003e23f69",
+    "canonical_dev_tuning.csv": "13f343bce59d636a84313f7ab1784cfeca0b264b93fecf7fd9463254fc085158",
+    "canonical_error_attribution.json": "1dadfa8c15e10859c2c68798cd54a3ab383e024e1e95faf643e9f3b592c2a7ba",
+    "canonical_latency_summary.json": "06e7ea7310cc3b2ef68a58b66747092d88d49d386152d7ec4d411b30e8b8b30a",
+    "canonical_random_control_100seeds.csv": "8ce6092660a1308bb8c0ced043978b2cdbc83241b836b4dbbaf4be6a7d85c564",
+    "canonical_statistical_tests.csv": "70ddc236f8aa84d909c1ea9e125e08cb3593789b4dd3dec43e3339ce0a2d5077",
+    "canonical_test_predictions.csv": "fd56449e9c2eeb8b96d88c490897851029fb3a6306e6d149e92c28524d6517a2",
+    "dev_threshold_sweep.json": "c55210ef4462c41697a8722cc1b7edec7f01116d193bf5d3d569e0509ae24414",
+    "test_metrics.json": "a9f95757b8960bc6f8542cde3ed0dd226206e7e107cabda7b9a4f3eadb8ab0f7",
+    "test_predictions.jsonl": "b30dec4cb14f4be68ebd866839710761865e0852c4a4b8c4bcf2ac7064b024c0",
+    "figures/fig1_study_workflow.pdf": "69fe08cb9d35364cf81a1fb51f7777453fb74fac48a763a9ded0367e47db0629",
+    "figures/fig1_study_workflow.png": "62d6bf4bc4f2b4ea75c6ad1989cb2a2670a52f2bbb7a57deb1bc656c450fd20e",
+    "figures/fig2_risk_coverage_tradeoff.pdf": "ef9e7c981ab7002a849c2817a9c0e979cef0a10bb87e031d56d69ea5e469a628",
+    "figures/fig2_risk_coverage_tradeoff.png": "5cb03a938f29af7e0d41e05ee0aa5154ee9f65e5cf6686bfe32e4890495518b9",
+    "figures/fig3_condition_comparison.pdf": "28eb529475f6ca59782bc83eb6d511420370f9e482ac8f89bddd08a4d1eab3bc",
+    "figures/fig3_condition_comparison.png": "79f4badbdb954029811bfb2100183fbfb76a278c69ac49fc71dfd154f13a5ec6",
+    "figures/fig4_error_attribution_breakdown.pdf": "f0e82a80c5bcc714423a33f883c562f5cb027ab0072e5a83dbd2136ad300c657",
+    "figures/fig4_error_attribution_breakdown.png": "bee7ee5eb02291a448a34f5413acd0ef1fb41afa307da0197b498e1a24ff70cd"
+  },
+  "freeze_gate_status": {
+    "gate_a_integrity_and_data_provenance": "PASS",
+    "gate_b_literature_backed_bounds": "PASS",
+    "gate_c_bilingual_human_verification": "NOT APPLICABLE / NOT PERFORMED (Future Work for Causal Scope)",
+    "gate_d_model_inference_and_empirical_findings": "PASS",
+    "gate_e_clean_room_reproducibility": "PASS",
+    "overall_status": "RESEARCH FROZEN \u2014 EXPLORATORY SCOPE"
+  }
+}

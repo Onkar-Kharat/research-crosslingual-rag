@@ -54,5 +54,25 @@ class TestDataIntegrity(unittest.TestCase):
         supported_count = sum(1 for r in test_rows if r["gold_label"] == "SUPPORTED")
         self.assertEqual(supported_count, 0, "Confirmed: SUPPORTED class is completely absent in ground truth")
 
+    def test_exact_split_label_counts(self):
+        dev_rows = [json.loads(line) for line in open(self.dev_path, encoding="utf-8")]
+        test_rows = [json.loads(line) for line in open(self.test_path, encoding="utf-8")]
+        
+        dev_counts = {lbl: 0 for lbl in ["CONTRADICTED", "INSUFFICIENT_EVIDENCE", "SUPPORTED"]}
+        for r in dev_rows:
+            dev_counts[r["gold_label"]] += 1
+            
+        test_counts = {lbl: 0 for lbl in ["CONTRADICTED", "INSUFFICIENT_EVIDENCE", "SUPPORTED"]}
+        for r in test_rows:
+            test_counts[r["gold_label"]] += 1
+            
+        self.assertEqual(dev_counts["CONTRADICTED"], 89, "Dev must contain exactly 89 CONTRADICTED")
+        self.assertEqual(dev_counts["INSUFFICIENT_EVIDENCE"], 14, "Dev must contain exactly 14 INSUFFICIENT_EVIDENCE")
+        self.assertEqual(dev_counts["SUPPORTED"], 0, "Dev must contain exactly 0 SUPPORTED")
+        
+        self.assertEqual(test_counts["CONTRADICTED"], 142, "Test must contain exactly 142 CONTRADICTED")
+        self.assertEqual(test_counts["INSUFFICIENT_EVIDENCE"], 21, "Test must contain exactly 21 INSUFFICIENT_EVIDENCE")
+        self.assertEqual(test_counts["SUPPORTED"], 0, "Test must contain exactly 0 SUPPORTED")
+
 if __name__ == "__main__":
     unittest.main()

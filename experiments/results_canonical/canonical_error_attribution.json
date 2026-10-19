@@ -1,0 +1,12 @@
+{
+  "dataset": "X-Fact Hindi Exploratory Test Split",
+  "n_total": 163,
+  "tau_star": 0.65,
+  "n_translated_failures": 117,
+  "stratum_both_correct_control": 19,
+  "stratum_recovered_by_original": 51,
+  "stratum_unrecovered_both_wrong": 66,
+  "stratum_degraded_by_original": 27,
+  "recovered_pct_of_failures": 43.59,
+  "unrecovered_pct_of_failures": 56.41
+}
