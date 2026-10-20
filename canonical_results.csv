@@ -1,0 +1,27 @@
+Evaluation_Dimension,Metric_or_System,Condition_or_Comparison,Value,Value_Format,95_Confidence_Interval,Degrees_of_Freedom_or_Counts,P_Value_Raw,P_Value_FDR,Source_Artifact
+Primary_Sensitivity,Paired Agreement,Original Hi vs Translated En,0.3620,rate,"[0.2922, 0.4381]",59 / 163,N/A,N/A,experiments/results_canonical/canonical_test_predictions.csv
+Primary_Sensitivity,Paired Disagreement,Original Hi vs Translated En,0.6380,rate,"[0.5619, 0.7078]",104 / 163,N/A,N/A,experiments/results_canonical/canonical_test_predictions.csv
+Primary_Sensitivity,Directional Flip SUP to CON,Translated SUP to Original CON,0.4844,rate,"[0.3669, 0.6038]",31 / 64,N/A,N/A,experiments/results_canonical/canonical_test_predictions.csv
+Primary_Sensitivity,Directional Flip CON to SUP,Translated CON to Original SUP,0.4091,rate,"[0.2769, 0.5559]",18 / 44,N/A,N/A,experiments/results_canonical/canonical_test_predictions.csv
+Primary_Sensitivity,Directional Flip NEU to CON,Translated NEU to Original CON,0.4182,rate,"[0.2974, 0.5497]",23 / 55,N/A,N/A,experiments/results_canonical/canonical_test_predictions.csv
+Benchmark_Performance,No-Check (Translated Only),Test N=163,0.2822,accuracy,"[0.2147, 0.3558]",46 / 163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Benchmark_Performance,Direct Multilingual (Original Only),Test N=163,0.4294,accuracy,"[0.3557, 0.5092]",70 / 163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Benchmark_Performance,Always-Check (Dual Consensus Avg),Test N=163,0.3681,accuracy,"[0.2945, 0.4417]",60 / 163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Benchmark_Performance,Selective-Check (tau*=0.650),Test N=163,0.2822,accuracy,"[0.2147, 0.3558]",46 / 163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Benchmark_Performance,Ablation: Numeral-Only Routing,Test N=163,0.4479,accuracy,"[0.3742, 0.5276]",73 / 163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Benchmark_Performance,Control: Random Routing (100 Seeds),Test N=163,0.2924,accuracy,"[0.2638, 0.3190]",100 seeds matched cov,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Benchmark_Performance,Majority Class Baseline (Always CON),Test N=163,0.8712,accuracy,"[0.8116, 0.9139]",142 / 163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Secondary_F1,No-Check Observed 2-Class F1,CONTRADICTED and INSUFFICIENT,0.3018,f1,"[0.2248, 0.3774]",N=163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Secondary_F1,Selective-Check Observed 2-Class F1,CONTRADICTED and INSUFFICIENT,0.2950,f1,"[0.2175, 0.3741]",N=163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Secondary_F1,Direct Multilingual Observed 2-Class F1,CONTRADICTED and INSUFFICIENT,0.3700,f1,"[0.2972, 0.4537]",N=163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Routing_Behavior,Selective-Check Coverage,Consultation Count,0.0798,coverage,"[0.0471, 0.1315]",13 / 163,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Latency_Benchmark,No-Check Mean E2E Latency,CPU Wall-Clock ms,3650.4,latency_ms,"[3480.0, 3820.0]",163 instances,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Latency_Benchmark,Selective-Check Mean E2E Latency,CPU Wall-Clock ms,4613.8,latency_ms,"[4420.0, 4810.0]",163 instances,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Latency_Benchmark,Direct Multilingual Mean Latency,CPU Wall-Clock ms,11295.6,latency_ms,"[10850.0, 11740.0]",163 instances,N/A,N/A,experiments/results_canonical/canonical_benchmark_table.csv
+Statistical_Test,McNemar Paired Test,Selective vs No-Check,0.1250,statistic,Difference=0.00%,b=4; c=4,1.0000,1.0000,experiments/results_canonical/canonical_statistical_tests.csv
+Statistical_Test,McNemar Paired Test,Selective vs Direct Multilingual,7.5571,statistic,Difference=-14.72%,b=23; c=47,0.0056,0.0067,experiments/results_canonical/canonical_statistical_tests.csv
+Statistical_Test,McNemar Paired Test,No-Check vs Direct Multilingual,6.7821,statistic,Difference=-14.72%,b=27; c=51,0.0088,0.0175,experiments/results_canonical/canonical_statistical_tests.csv
+Statistical_Test,McNemar Paired Test,Selective vs Always-Check,5.2812,statistic,Difference=-8.59%,b=9; c=23,0.0201,0.0401,experiments/results_canonical/canonical_statistical_tests.csv
+Development_Tuning,No-Check Baseline Utility (Cov=0.0%),Dev N=103,0.2104,utility_j,MacroF1=0.2104; Cov=0.0%,103 dev instances,N/A,N/A,experiments/results_canonical/canonical_dev_tuning.csv
+Development_Tuning,Cascade Peak Utility (tau*=0.650),Dev N=103,0.2023,utility_j,MacroF1=0.2275; Cov=12.62%,103 dev instances,N/A,N/A,experiments/results_canonical/canonical_dev_tuning.csv
+Development_Tuning,Cascade Utility Delta,Dev N=103,-0.0081,utility_delta,No-Check exceeds cascade peak,103 dev instances,N/A,N/A,experiments/results_canonical/canonical_dev_tuning.csv
