@@ -1,0 +1,73 @@
+# Canonical Experiment Configuration
+experiment_name: cross_lingual_evidence_verification_hindi_english
+status: FROZEN_EXPLORATORY_COMPUTATIONAL_STUDY
+
+dataset:
+  name: X-Fact (Hindi Subset)
+  upstream_source: utahnlp/x-fact
+  license: MIT
+  splits:
+    dev:
+      path: data/processed/dev.jsonl
+      size: 103
+      purpose: hyperparameter_tuning_and_calibration
+    test:
+      path: data/processed/test.jsonl
+      size: 163
+      purpose: diagnostic_sensitivity_evaluation
+      status: PREVIOUSLY_INSPECTED_EXPLORATORY
+
+models:
+  verifier:
+    model_name_or_path: MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7
+    architecture: mDeBERTa-v3-base
+    parameters: 278M
+    task: sequence-classification (XNLI 3-class)
+    max_length: 512
+    device: cpu
+  machine_translation:
+    model_name_or_path: Helsinki-NLP/opus-mt-hi-en
+    architecture: MarianMT
+    parameters: 74M
+    source_lang: hi
+    target_lang: en
+    max_length: 512
+    beam_size: 2
+    device: cpu
+
+cascade_policy:
+  risk_formula: "0.70 * (1 - max_k p_k) + 0.30 * (1 - Numeral_Jaccard)"
+  tuning_split: dev (N=103)
+  candidate_tau_grid: [0.10, 0.65, 0.025]
+  utility_objective: "Macro_F1_3cl - 0.15 * Coverage"
+  optimal_tau: 0.650
+  coverage_at_optimal_tau: 0.0798 # 13/163 on test; 13/103 (12.62%) on dev
+
+controls_and_baselines:
+  majority_class_baseline: Always CONTRADICTED
+  random_control:
+    num_seeds: 100
+    seed_range: [0, 99]
+    matched_k: 13
+  ablation_numeral_only:
+    trigger_rule: "Numeral_Jaccard < 1.0"
+  ablation_uncertainty_only:
+    trigger_rule: "1 - max_k p_k >= 0.650"
+  ablation_posterior_averaging:
+    averaging_weight: 0.50
+
+statistical_evaluation:
+  mcnemar_test:
+    continuity_correction: true
+    exact_binomial: true
+  permutation_test:
+    resamples: 5000
+    seed: 42
+    metric: Macro-F1 (3-class and 2-class)
+  bootstrap_confidence_intervals:
+    resamples: 2000
+    seed: 42
+    confidence_level: 0.95
+    method: percentile
+  multiple_testing_correction:
+    method: Benjamini-Hochberg (FDR)

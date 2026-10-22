@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering
+\small
+\caption{Paired statistical significance tests across verification conditions on the test set ($N=163$). McNemar tests evaluate paired marginal accuracy on discordant pairs ($b, c$) with continuity correction and exact binomial $p$-values. Permutation tests evaluate the null distribution of paired Macro-F1 deltas ($B=5,000$ resamples, seed 42). Benjamini-Hochberg False Discovery Rate (FDR) adjustments are reported for family-wise error control.}
+\label{tab:statistical-tests}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Pairwise Comparison Condition} & \textbf{Discordant ($b, c$)} & \textbf{McNemar $\chi^2$} & \textbf{Exact $p_{\text{raw}}$} & \textbf{FDR $p_{\text{adj}}$} & $\Delta$\textbf{Macro-F1 (3cl)} & \textbf{Perm. $p_{\text{raw}}$} \\
+\midrule
+No-Check vs. Direct Multilingual & $b=27, c=51$ ($n=78$) & 6.7821 & \textbf{0.008772} & \textbf{0.0175} & $-0.0455$ & 0.18980 \\
+Selective-Check vs. Direct Multilingual & $b=23, c=47$ ($n=70$) & 7.5571 & \textbf{0.005583} & \textbf{0.0149} & $-0.0500$ & 0.11800 \\
+Selective-Check vs. Always-Check & $b=9, c=23$ ($n=32$) & 5.2812 & \textbf{0.02006} & \textbf{0.0401} & $-0.0471$ & \textbf{0.01960} \\
+Selective-Check vs. No-Check & $b=4, c=4$ ($n=8$) & 0.1250 & 1.0000 & 1.0000 & $-0.0045$ & 0.75720 \\
+Selective-Check vs. Random Control (100 Seeds) & $b=4, c=9$ (avg) & 1.2308 & 0.26685 & 0.4270 & $-0.0208$ & 0.16500 \\
+Selective-Check vs. Numeral-Only Routing & $b=20, c=47$ ($n=67$) & 10.0896 & \textbf{0.00131} & \textbf{0.0052} & $-0.0563$ & 0.07440 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

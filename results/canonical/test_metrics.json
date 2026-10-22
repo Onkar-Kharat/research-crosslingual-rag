@@ -1,0 +1,314 @@
+{
+  "dataset_info": {
+    "evaluation_split": "test",
+    "sample_size": 163,
+    "gold_class_distribution": {
+      "CONTRADICTED": 142,
+      "INSUFFICIENT_EVIDENCE": 21,
+      "SUPPORTED": 0
+    },
+    "split_status": "EXPLORATORY / PREVIOUSLY INSPECTED"
+  },
+  "primary_sensitivity_metrics": {
+    "paired_agreement": {
+      "count": 59,
+      "total": 163,
+      "rate": 0.362,
+      "ci_95": [
+        0.2922,
+        0.4381
+      ]
+    },
+    "paired_disagreement": {
+      "count": 104,
+      "total": 163,
+      "rate": 0.638,
+      "ci_95": [
+        0.5619,
+        0.7078
+      ]
+    },
+    "directional_flip_sup_to_con": {
+      "numerator": 31,
+      "denominator": 64,
+      "rate": 0.4844,
+      "ci_95": [
+        0.3663,
+        0.6042
+      ]
+    },
+    "directional_flip_con_to_sup": {
+      "numerator": 18,
+      "denominator": 44,
+      "rate": 0.4091,
+      "ci_95": [
+        0.2769,
+        0.5559
+      ]
+    },
+    "directional_flip_neu_to_con": {
+      "numerator": 23,
+      "denominator": 55,
+      "rate": 0.4182,
+      "ci_95": [
+        0.2974,
+        0.5497
+      ]
+    }
+  },
+  "benchmark_systems": [
+    {
+      "System / Ablation": "No-Check (Translated Only)",
+      "Accuracy": 0.2822,
+      "Acc_95_CI": "[0.2147, 0.3558]",
+      "Macro_F1_3cl": 0.2012,
+      "F1_3cl_95_CI": "[0.1498, 0.2516]",
+      "Macro_F1_2cl": 0.3018,
+      "F1_2cl_95_CI": "[0.2248, 0.3774]",
+      "Coverage_Pct": 0.0,
+      "Mean_E2E_Latency_ms": 3650.4,
+      "Median_E2E_Latency_ms": 3508.4,
+      "P95_E2E_Latency_ms": 5383.1
+    },
+    {
+      "System / Ablation": "Direct Multilingual (Original Only)",
+      "Accuracy": 0.4294,
+      "Acc_95_CI": "[0.3557, 0.5092]",
+      "Macro_F1_3cl": 0.2467,
+      "F1_3cl_95_CI": "[0.1981, 0.3025]",
+      "Macro_F1_2cl": 0.37,
+      "F1_2cl_95_CI": "[0.2972, 0.4537]",
+      "Coverage_Pct": 100.0,
+      "Mean_E2E_Latency_ms": 11295.6,
+      "Median_E2E_Latency_ms": 12078.5,
+      "P95_E2E_Latency_ms": 15443.8
+    },
+    {
+      "System / Ablation": "Always-Check (Dual Consensus Avg)",
+      "Accuracy": 0.3681,
+      "Acc_95_CI": "[0.2945, 0.4417]",
+      "Macro_F1_3cl": 0.2438,
+      "F1_3cl_95_CI": "[0.1901, 0.3023]",
+      "Macro_F1_2cl": 0.3657,
+      "F1_2cl_95_CI": "[0.2852, 0.4534]",
+      "Coverage_Pct": 100.0,
+      "Mean_E2E_Latency_ms": 14945.9,
+      "Median_E2E_Latency_ms": 15427.5,
+      "P95_E2E_Latency_ms": 19944.6
+    },
+    {
+      "System / Ablation": "Selective-Check (Ours, Hard Route)",
+      "Accuracy": 0.2822,
+      "Acc_95_CI": "[0.2147, 0.3558]",
+      "Macro_F1_3cl": 0.1967,
+      "F1_3cl_95_CI": "[0.1450, 0.2494]",
+      "Macro_F1_2cl": 0.295,
+      "F1_2cl_95_CI": "[0.2175, 0.3741]",
+      "Coverage_Pct": 8.0,
+      "Mean_E2E_Latency_ms": 4613.8,
+      "Median_E2E_Latency_ms": 3581.0,
+      "P95_E2E_Latency_ms": 14590.1
+    },
+    {
+      "System / Ablation": "Ablation: Triggered Post. Averaging",
+      "Accuracy": 0.2699,
+      "Acc_95_CI": "[0.2025, 0.3436]",
+      "Macro_F1_3cl": 0.1903,
+      "F1_3cl_95_CI": "[0.1396, 0.2427]",
+      "Macro_F1_2cl": 0.2854,
+      "F1_2cl_95_CI": "[0.2094, 0.3640]",
+      "Coverage_Pct": 8.0,
+      "Mean_E2E_Latency_ms": 4613.8,
+      "Median_E2E_Latency_ms": 3581.0,
+      "P95_E2E_Latency_ms": 14590.1
+    },
+    {
+      "System / Ablation": "Ablation: Uncertainty-Only Routing",
+      "Accuracy": 0.2822,
+      "Acc_95_CI": "[0.2147, 0.3558]",
+      "Macro_F1_3cl": 0.2012,
+      "F1_3cl_95_CI": "[0.1500, 0.2570]",
+      "Macro_F1_2cl": 0.3018,
+      "F1_2cl_95_CI": "[0.2250, 0.3856]",
+      "Coverage_Pct": 8.0,
+      "Mean_E2E_Latency_ms": 4613.8,
+      "Median_E2E_Latency_ms": 3581.0,
+      "P95_E2E_Latency_ms": 14590.1
+    },
+    {
+      "System / Ablation": "Ablation: Numeral-Only Routing",
+      "Accuracy": 0.4479,
+      "Acc_95_CI": "[0.3742, 0.5276]",
+      "Macro_F1_3cl": 0.2529,
+      "F1_3cl_95_CI": "[0.2050, 0.3076]",
+      "Macro_F1_2cl": 0.3794,
+      "F1_2cl_95_CI": "[0.3075, 0.4615]",
+      "Coverage_Pct": 96.3,
+      "Mean_E2E_Latency_ms": 14751.3,
+      "Median_E2E_Latency_ms": 15277.0,
+      "P95_E2E_Latency_ms": 19944.6
+    },
+    {
+      "System / Ablation": "Control: Random Routing (100 Seeds)",
+      "Accuracy": 0.2924,
+      "Acc_95_CI": "[0.2638, 0.3190]",
+      "Macro_F1_3cl": 0.2054,
+      "F1_3cl_95_CI": "[0.1874, 0.2217]",
+      "Macro_F1_2cl": 0.3082,
+      "F1_2cl_95_CI": "[0.2810, 0.3326]",
+      "Coverage_Pct": 8.0,
+      "Mean_E2E_Latency_ms": 4613.8,
+      "Median_E2E_Latency_ms": 3581.0,
+      "P95_E2E_Latency_ms": 14590.1
+    },
+    {
+      "System / Ablation": "Oracle Upper Bound (Non-Deployable)",
+      "Accuracy": 0.5951,
+      "Acc_95_CI": "[0.5215, 0.6687]",
+      "Macro_F1_3cl": 0.3467,
+      "F1_3cl_95_CI": "[0.2867, 0.4067]",
+      "Macro_F1_2cl": 0.52,
+      "F1_2cl_95_CI": "[0.4300, 0.6100]",
+      "Coverage_Pct": 100.0,
+      "Mean_E2E_Latency_ms": 14945.9,
+      "Median_E2E_Latency_ms": 15427.5,
+      "P95_E2E_Latency_ms": 19944.6
+    }
+  ],
+  "paired_statistical_tests": [
+    {
+      "Comparison": "Selective-Check vs. No-Check (Translated Only)",
+      "McNemar_Stat": 0.125,
+      "McNemar_p_val_raw": 1.0,
+      "Selective_Correct_Other_Wrong (b)": 4,
+      "Selective_Wrong_Other_Correct (c)": 4,
+      "Delta_Macro_F1_3cl": -0.0045,
+      "Permutation_p_val_3cl_raw": 0.7572,
+      "Delta_Macro_F1_2cl": -0.0068,
+      "Permutation_p_val_2cl_raw": 0.7572,
+      "McNemar_p_val_fdr": 1.0,
+      "Permutation_p_val_3cl_fdr": 0.8236,
+      "Permutation_p_val_2cl_fdr": 0.8236
+    },
+    {
+      "Comparison": "Selective-Check vs. Direct Multilingual (Original Only)",
+      "McNemar_Stat": 7.5571,
+      "McNemar_p_val_raw": 0.00558,
+      "Selective_Correct_Other_Wrong (b)": 23,
+      "Selective_Wrong_Other_Correct (c)": 47,
+      "Delta_Macro_F1_3cl": -0.05,
+      "Permutation_p_val_3cl_raw": 0.118,
+      "Delta_Macro_F1_2cl": -0.075,
+      "Permutation_p_val_2cl_raw": 0.118,
+      "McNemar_p_val_fdr": 0.01488,
+      "Permutation_p_val_3cl_fdr": 0.236,
+      "Permutation_p_val_2cl_fdr": 0.236
+    },
+    {
+      "Comparison": "Selective-Check vs. Always-Check (Dual Consensus Avg)",
+      "McNemar_Stat": 5.2812,
+      "McNemar_p_val_raw": 0.02006,
+      "Selective_Correct_Other_Wrong (b)": 9,
+      "Selective_Wrong_Other_Correct (c)": 23,
+      "Delta_Macro_F1_3cl": -0.0471,
+      "Permutation_p_val_3cl_raw": 0.0196,
+      "Delta_Macro_F1_2cl": -0.0707,
+      "Permutation_p_val_2cl_raw": 0.0196,
+      "McNemar_p_val_fdr": 0.04012,
+      "Permutation_p_val_3cl_fdr": 0.0784,
+      "Permutation_p_val_2cl_fdr": 0.0784
+    },
+    {
+      "Comparison": "Selective-Check vs. Ablation: Triggered Post. Averaging",
+      "McNemar_Stat": 0.25,
+      "McNemar_p_val_raw": 0.625,
+      "Selective_Correct_Other_Wrong (b)": 3,
+      "Selective_Wrong_Other_Correct (c)": 1,
+      "Delta_Macro_F1_3cl": 0.0064,
+      "Permutation_p_val_3cl_raw": 0.3684,
+      "Delta_Macro_F1_2cl": 0.0096,
+      "Permutation_p_val_2cl_raw": 0.3684,
+      "McNemar_p_val_fdr": 0.83333,
+      "Permutation_p_val_3cl_fdr": 0.4912,
+      "Permutation_p_val_2cl_fdr": 0.4912
+    },
+    {
+      "Comparison": "Selective-Check vs. Ablation: Uncertainty-Only Routing",
+      "McNemar_Stat": 0.25,
+      "McNemar_p_val_raw": 1.0,
+      "Selective_Correct_Other_Wrong (b)": 2,
+      "Selective_Wrong_Other_Correct (c)": 2,
+      "Delta_Macro_F1_3cl": -0.0045,
+      "Permutation_p_val_3cl_raw": 0.8236,
+      "Delta_Macro_F1_2cl": -0.0068,
+      "Permutation_p_val_2cl_raw": 0.8236,
+      "McNemar_p_val_fdr": 1.0,
+      "Permutation_p_val_3cl_fdr": 0.8236,
+      "Permutation_p_val_2cl_fdr": 0.8236
+    },
+    {
+      "Comparison": "Selective-Check vs. Ablation: Numeral-Only Routing",
+      "McNemar_Stat": 10.0896,
+      "McNemar_p_val_raw": 0.00131,
+      "Selective_Correct_Other_Wrong (b)": 20,
+      "Selective_Wrong_Other_Correct (c)": 47,
+      "Delta_Macro_F1_3cl": -0.0563,
+      "Permutation_p_val_3cl_raw": 0.0744,
+      "Delta_Macro_F1_2cl": -0.0844,
+      "Permutation_p_val_2cl_raw": 0.0744,
+      "McNemar_p_val_fdr": 0.00524,
+      "Permutation_p_val_3cl_fdr": 0.1984,
+      "Permutation_p_val_2cl_fdr": 0.1984
+    },
+    {
+      "Comparison": "Selective-Check vs. Control: Random Routing (100 Seeds)",
+      "McNemar_Stat": 1.2308,
+      "McNemar_p_val_raw": 0.26685,
+      "Selective_Correct_Other_Wrong (b)": 4,
+      "Selective_Wrong_Other_Correct (c)": 9,
+      "Delta_Macro_F1_3cl": -0.0208,
+      "Permutation_p_val_3cl_raw": 0.165,
+      "Delta_Macro_F1_2cl": -0.0313,
+      "Permutation_p_val_2cl_raw": 0.165,
+      "McNemar_p_val_fdr": 0.42696,
+      "Permutation_p_val_3cl_fdr": 0.264,
+      "Permutation_p_val_2cl_fdr": 0.264
+    },
+    {
+      "Comparison": "Selective-Check vs. Oracle Upper Bound (Non-Deployable)",
+      "McNemar_Stat": 49.0196,
+      "McNemar_p_val_raw": 0.0,
+      "Selective_Correct_Other_Wrong (b)": 0,
+      "Selective_Wrong_Other_Correct (c)": 51,
+      "Delta_Macro_F1_3cl": -0.15,
+      "Permutation_p_val_3cl_raw": 0.0,
+      "Delta_Macro_F1_2cl": -0.225,
+      "Permutation_p_val_2cl_raw": 0.0,
+      "McNemar_p_val_fdr": 0.0,
+      "Permutation_p_val_3cl_fdr": 0.0,
+      "Permutation_p_val_2cl_fdr": 0.0
+    }
+  ],
+  "latency_summary": {
+    "device": "CPU",
+    "cpu_threads": 8,
+    "mt_model": "Helsinki-NLP/opus-mt-hi-en",
+    "verifier_model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+    "per_instance_measured": true,
+    "warmup_executed": true,
+    "mean_latency_mt_ms": 1688.18,
+    "median_latency_mt_ms": 1531.1,
+    "mean_latency_trans_verifier_ms": 1962.18,
+    "mean_latency_orig_verifier_ms": 11295.58,
+    "mean_latency_trans_e2e_ms": 3650.36,
+    "mean_latency_orig_e2e_ms": 11295.58,
+    "mean_latency_always_e2e_ms": 14945.95,
+    "mean_latency_selective_e2e_ms": 4613.82
+  },
+  "development_utility": {
+    "objective": "J = Macro_F1_3cl - 0.15 * Coverage",
+    "no_check_utility": 0.2104,
+    "cascade_peak_utility_tau_0_650": 0.2023,
+    "utility_delta": -0.0081
+  }
+}
