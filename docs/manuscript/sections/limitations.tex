@@ -1,0 +1,34 @@
+\section{Limitations}
+\label{sec:limitations}
+
+To maintain transparent research integrity and delineate the precise boundary conditions of our findings, we explicitly document ten key limitations of this study:
+
+\paragraph{1. Single Language Direction and Typology.}
+Our empirical investigation is restricted to Hindi-to-English translation shift. Hindi is an Indo-Aryan language written in the Devanagari script with Subject-Object-Verb (SOV) word order and extensive morphological inflections. Our findings cannot be generalized to typologically distinct languages (e.g., tonal languages, agglutinative languages, or right-to-left scripts) or to lower-resource language pairs without independent empirical verification.
+
+\paragraph{2. Modest Sample Size and Statistical Power.}
+The experimental sample comprises $N=266$ total verified instances ($N=103$ development, $N=163$ held-out test) from the official X-Fact Hindi partition. While these represent authentic real-world fact-checks curated by professional journalists, the modest test sample size ($N=163$) limits statistical power for detecting subtle higher-order interactions and increases the variance of non-parametric permutation tests.
+
+\paragraph{3. Extreme Benchmark Class Imbalance.}
+The official test split contains 142 \textsc{Contradicted} instances (87.12\%), 21 \textsc{Insufficient\_Evidence} instances (12.88\%), and \emph{exactly zero} \textsc{Supported} instances (0.00\%). The total absence of positive gold instances prevents any empirical assessment of verifier recall, precision, or true positive recovery on entailed claims. Consequently, reported Macro-F1 scores must be interpreted as descriptive indicators under severe skew rather than comprehensive multi-class evaluations.
+
+\paragraph{4. Exploratory Study Status and Prior Test Inspection.}
+In accordance with pre-registration and open-science ethics, we explicitly declare that the $N=163$ test partition was inspected during earlier exploratory computational research. This evaluation is therefore designated as \texttt{FROZEN — EXPLORATORY COMPUTATIONAL STUDY} and serves as a diagnostic characterization of model sensitivity rather than a blind confirmatory holdout benchmark.
+
+\paragraph{5. Single Verifier Backbone.}
+Our primary experiments evaluate a single cross-lingual verifier backbone (\texttt{mDeBERTa-v3-base}). While \texttt{mDeBERTa-v3} represents the state-of-the-art encoder architecture for fine-grained multilingual NLI \citep{laurer-etal-2024-less,shcharbakova-etal-2025-scale}, modern generative autoregressive models (e.g., Llama, Mistral, Gemma) or larger-scale verifiers may exhibit different cross-lingual calibration curves and language sensitivity profiles.
+
+\paragraph{6. Single Machine Translation Engine.}
+We evaluated machine translation exclusively using \texttt{opus-mt-hi-en} \citep{tiedemann-thottingal-2020-opus}, a standard MarianMT model. Alternative commercial translation APIs (e.g., Google Cloud Translation) or massive multilingual models (e.g., NLLB-200) may yield higher translation fidelity or different syntactic error profiles, potentially altering the empirical disagreement rate.
+
+\paragraph{7. Pre-Retrieved Snippets vs. End-to-End RAG.}
+Our experiment evaluates pre-retrieved evidence snippets extracted from authoritative fact-checking sources. Upstream dense or sparse passage retrieval, reranking, chunking, and downstream generative answer formulation were held constant. This study isolates evidence representation at the verification stage and does not evaluate an end-to-end RAG system.
+
+\paragraph{8. Pending Bilingual Human Validation.}
+We explicitly report that formal bilingual human annotation of translation fidelity and semantic equivalence remains pending. An annotation protocol and pilot guidelines have been drafted, but in the absence of verified, published human ratings, all error attributions remain empirical hypotheses rather than human-validated ground truth.
+
+\paragraph{9. Observational Sensitivity vs. Semantic Distortion.}
+We reiterate that verifier prediction disagreement does not prove semantic distortion, factual corruption, or translation error. Disagreements reflect the compound effect of translation shifts, tokenizer vocabulary disparities, and pre-training representational geometries across languages.
+
+\paragraph{10. Heuristic Risk Gating Scope.}
+The Selective-Check cascade utilizes a lightweight heuristic trigger based on maximum softmax probability and numeral overlap. We did not train learned meta-classifiers or parameterized cross-lingual routing networks. Our negative cascade finding demonstrates the limitations of simple surface-level risk heuristics rather than the impossibility of learned selective verification.

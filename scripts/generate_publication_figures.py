@@ -198,15 +198,9 @@ def plot_performance_and_latency(benchmark_csv: Path):
             ha="center", va="center", fontsize=8.6, fontweight="bold", color="#ffffff", zorder=6
         )
 
-    # Bracket comparing Always-Check vs Selective-Check
-    y_bracket = 0.52
-    bracket_h = 0.015
-    ax.plot([2.0, 2.0, 3.0, 3.0], [y_bracket - bracket_h, y_bracket, y_bracket, y_bracket - bracket_h],
-            color="#166534", lw=1.2, zorder=5)
-    ax.text(2.5, y_bracket + 0.008, r"$\mathbf{*}\ p < 0.05$ (McNemar)",
-            ha="center", va="bottom", fontsize=8.2, fontweight="bold", color="#166534", zorder=6)
-
+    # Clean legend positioning with no misleading hardcoded significance bracket
     ax.legend(loc="upper left", framealpha=0.95, edgecolor="#cbd5e1")
+
     fig.tight_layout()
     fig.savefig(PDF_DIR / "fig3_condition_comparison.pdf", bbox_inches="tight", pad_inches=0.05)
     fig.savefig(SRC_DIR / "fig3_condition_comparison.png", bbox_inches="tight", pad_inches=0.05)
@@ -224,21 +218,22 @@ def plot_error_attribution(attr_json: Path):
     fig, ax = plt.subplots(figsize=(6.6, 4.0), dpi=300)
 
     categories = [
-        "Translation-Associated\n($E_{\\mathrm{trans}}$)\n\nFactual Distortion in MT\n(Recovered by Original)",
-        "Verifier-Reasoning\n($E_{\\mathrm{verif}}$)\n\nNLI Reasoning Failure\n(Both Languages Wrong)",
-        "Evidence Insufficiency\n($E_{\\mathrm{insuff}}$)\n\nInconclusive Retrieval\n(Incomplete Snippet)"
+        "Recovered by Original\n($S_{\\mathrm{trans}}$)\n\nTranslated Wrong,\nOriginal Correct",
+        "Both Languages Wrong\n($S_{\\mathrm{verif}}$)\n\nUnrecovered by\nOriginal Evidence",
+        "Degraded by Original\n($S_{\\mathrm{degraded}}$)\n\nTranslated Correct,\nOriginal Wrong"
     ]
     counts = [
-        data.get("E_trans_count", 0),
-        data.get("E_verif_count", 0),
-        data.get("E_unresolved_evidence_count", 0)
+        data.get("stratum_recovered_by_original", data.get("E_trans_count", 0)),
+        data.get("stratum_unrecovered_both_wrong", data.get("E_verif_count", 0)),
+        data.get("stratum_degraded_by_original", data.get("E_unresolved_evidence_count", 0))
     ]
-    total_failures = data.get("n_failures_translated", sum(counts))
+    total_failures = data.get("n_translated_failures", data.get("n_failures_translated", sum(counts)))
 
-    colors = ["#dc2626", "#ea580c", "#2563eb"]
-    edge_colors = ["#991b1b", "#c2410c", "#1d4ed8"]
+    colors = ["#2563eb", "#ea580c", "#dc2626"]
+    edge_colors = ["#1d4ed8", "#c2410c", "#991b1b"]
 
     bars = ax.bar(categories, counts, color=colors, edgecolor=edge_colors, linewidth=1.1, width=0.50, zorder=3)
+
     ax.set_ylabel("Number of Verification Failures", fontweight="bold", labelpad=8)
     ax.set_title("Diagnostic Decomposition of Failures in No-Check Pipeline", fontweight="bold", pad=14)
     ax.set_ylim(0, max(counts) + 20)
@@ -263,24 +258,74 @@ def plot_error_attribution(attr_json: Path):
     plt.close(fig)
     print("Regenerated fig4_error_attribution_breakdown.pdf and PNG")
 
-def main():
-    tuning_csv = WORKSPACE / "experiments" / "results_corrected" / "corrected_dev_tuning.csv"
-    benchmark_csv = WORKSPACE / "experiments" / "results_corrected" / "corrected_full_benchmark_and_ablations.csv"
-    attr_json = WORKSPACE / "experiments" / "results_corrected" / "corrected_error_attribution.json"
+def plot_transition_heatmap(preds_csv: Path):
+    """Figure 5: 3x3 Transition matrix heatmap between translated and original predictions."""
+    if not preds_csv.exists():
+        print(f"Skipping heatmap: {preds_csv} not found.")
+        return
+    df = pd.read_csv(preds_csv)
+    labels = ["CONTRADICTED", "INSUFFICIENT_EVIDENCE", "SUPPORTED"]
+    disp_labels = ["CONTRADICTED", "INSUFFICIENT", "SUPPORTED"]
 
-    # Fallback to legacy if corrected not yet finished
+    matrix = np.zeros((3, 3), dtype=int)
+    for i, l_trans in enumerate(labels):
+        for j, l_orig in enumerate(labels):
+            count = int(((df["pred_translated"] == l_trans) & (df["pred_original"] == l_orig)).sum())
+            matrix[i, j] = count
+
+    fig, ax = plt.subplots(figsize=(5.6, 4.4), dpi=300)
+    im = ax.imshow(matrix, cmap="Blues", interpolation="nearest")
+
+    # Add text annotations
+    for i in range(3):
+        for j in range(3):
+            val = matrix[i, j]
+            color = "white" if val > 20 else "black"
+            pct = (val / 163.0) * 100
+            ax.text(j, i, f"{val}\n({pct:.1f}%)", ha="center", va="center",
+                    color=color, fontsize=9.5, fontweight="bold")
+
+    ax.set_xticks(np.arange(3))
+    ax.set_yticks(np.arange(3))
+    ax.set_xticklabels(disp_labels, fontweight="bold", fontsize=8.8)
+    ax.set_yticklabels(disp_labels, fontweight="bold", fontsize=8.8)
+    ax.set_xlabel("Original Hindi Evidence Prediction", fontweight="bold", labelpad=8)
+    ax.set_ylabel("Translated Evidence Prediction", fontweight="bold", labelpad=8)
+    ax.set_title("Directional Prediction Transition Matrix ($N=163$)", fontweight="bold", pad=12)
+
+    cbar = ax.figure.colorbar(im, ax=ax, shrink=0.82)
+    cbar.ax.set_ylabel("Instance Count", rotation=-90, va="bottom", fontweight="bold", labelpad=10)
+
+    fig.tight_layout()
+    fig.savefig(PDF_DIR / "fig5_transition_heatmap.pdf", bbox_inches="tight", pad_inches=0.05)
+    fig.savefig(SRC_DIR / "fig5_transition_heatmap.png", bbox_inches="tight", pad_inches=0.05)
+    plt.close(fig)
+    print("Regenerated fig5_transition_heatmap.pdf and PNG")
+
+def main():
+    tuning_csv = WORKSPACE / "experiments" / "results_canonical" / "canonical_dev_tuning.csv"
+    benchmark_csv = WORKSPACE / "experiments" / "results_canonical" / "canonical_benchmark_table.csv"
+    attr_json = WORKSPACE / "experiments" / "results_canonical" / "canonical_error_attribution.json"
+    preds_csv = WORKSPACE / "experiments" / "results_canonical" / "canonical_test_predictions.csv"
+
+    # Fallback to results_corrected or legacy if canonical not found
     if not tuning_csv.exists():
-        tuning_csv = WORKSPACE / "experiments" / "results" / "dev_threshold_tuning.csv"
+        tuning_csv = WORKSPACE / "experiments" / "results_corrected" / "corrected_dev_tuning.csv"
     if not benchmark_csv.exists():
-        benchmark_csv = WORKSPACE / "experiments" / "results" / "test_main_results.csv"
+        benchmark_csv = WORKSPACE / "experiments" / "results_corrected" / "canonical_benchmark_table.csv"
     if not attr_json.exists():
-        attr_csv = WORKSPACE / "experiments" / "results" / "test_error_attribution.csv"
-        # plot legacy if needed
+        attr_json = WORKSPACE / "experiments" / "results_corrected" / "canonical_error_attribution.json"
+    if not preds_csv.exists():
+        preds_csv = WORKSPACE / "experiments" / "results_corrected" / "canonical_test_predictions.csv"
+
+    if not tuning_csv.exists() or not benchmark_csv.exists() or not attr_json.exists():
+        print(f"Skipping figure generation: input files missing from {WORKSPACE / 'experiments' / 'results_canonical'}")
         return
 
     plot_risk_coverage_curve(tuning_csv)
     plot_performance_and_latency(benchmark_csv)
     plot_error_attribution(attr_json)
+    plot_transition_heatmap(preds_csv)
 
 if __name__ == "__main__":
     main()

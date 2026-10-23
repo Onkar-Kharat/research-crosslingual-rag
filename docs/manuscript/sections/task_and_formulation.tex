@@ -1,0 +1,81 @@
+\section{Task Formulation and Research Questions}
+\label{sec:task_formulation}
+
+We formalize the cross-lingual evidence verification problem, define the four evaluated system conditions, and state our pre-registered empirical research questions.
+
+\subsection{Formal Task Definition}
+Let a verification instance be defined as a tuple $(c, e_{\text{orig}}, y^*)$, where:
+\begin{itemize}
+    \item $c$ denotes a natural language claim written in or about a non-English context (here, Hindi).
+    \item $e_{\text{orig}}$ represents a pre-retrieved textual evidence snippet extracted from web sources in its original language (Hindi).
+    \item $y^* \in \mathcal{Y} = \{\textsc{Contradicted}, \textsc{Insufficient\_Evidence}, \textsc{Supported}\}$ represents the ground-truth veracity label assigned by professional fact-checkers.
+\end{itemize}
+
+In standard translate-then-verify architectures, an upstream neural machine translation model maps the original evidence snippet into an English pivot representation:
+\begin{equation}
+    e_{\text{trans}} = \operatorname{MT}(e_{\text{orig}}).
+\end{equation}
+A multilingual natural language inference (NLI) verifier parameterized by $\theta$ maps a claim-evidence pair $(c, e)$ to a posterior probability distribution over veracity classes:
+\begin{equation}
+    P_\theta(y \mid c, e) = \operatorname{softmax}\big(g_\theta(c, e)\big) \in \Delta^{|\mathcal{Y}|-1},
+\end{equation}
+where $g_\theta(c, e) \in \mathbb{R}^3$ denotes the raw logit output. The discrete point prediction is obtained via standard maximum a posteriori (MAP) decoding:
+\begin{equation}
+    \hat{y}(c, e) = \arg\max_{y \in \mathcal{Y}} P_\theta(y \mid c, e).
+\end{equation}
+
+\subsection{System Verification Conditions}
+To rigorously evaluate the impact of evidence language representation and verification strategies, we define four paired conditions:
+
+\paragraph{1. No-Check ($\hat{y}_{\text{nc}}$):}
+Evaluates the machine-translated English evidence snippet exclusively. This corresponds to the common industrial heuristic of converting all inputs into an English pivot:
+\begin{equation}
+    \hat{y}_{\text{nc}} = \hat{y}(c, e_{\text{trans}}).
+\end{equation}
+
+\paragraph{2. Direct Multilingual ($\hat{y}_{\text{dm}}$):}
+Evaluates the original Hindi evidence snippet directly, bypassing machine translation:
+\begin{equation}
+    \hat{y}_{\text{dm}} = \hat{y}(c, e_{\text{orig}}).
+\end{equation}
+
+\paragraph{3. Always-Check ($\hat{y}_{\text{ac}}$):}
+Unconditionally computes veracity distributions across both language representations and averages their posterior class probabilities:
+\begin{equation}
+    P_{\text{ac}}(y) = \frac{1}{2}\Big(P_\theta(y \mid c, e_{\text{trans}}) + P_\theta(y \mid c, e_{\text{orig}})\Big),
+\end{equation}
+\begin{equation}
+    \hat{y}_{\text{ac}} = \arg\max_{y \in \mathcal{Y}} P_{\text{ac}}(y).
+\end{equation}
+
+\paragraph{4. Selective-Check ($\hat{y}_{\text{sc}}$):}
+Employs a selective cascade governed by a risk scoring function $r(c, e_{\text{trans}}, e_{\text{orig}}) \in [0, 1]$ and an operating threshold $\tau \in [0, 1]$ tuned strictly on development data:
+\begin{equation}
+    \hat{y}_{\text{sc}} = \begin{cases}
+        \hat{y}_{\text{ac}} & \text{if } r(c, e_{\text{trans}}, e_{\text{orig}}) > \tau, \\
+        \hat{y}_{\text{nc}} & \text{otherwise}.
+    \end{cases}
+\end{equation}
+The selective decision rule triggers dual-evidence verification only when the estimated risk of translation failure or verifier uncertainty exceeds threshold $\tau$.
+
+\subsection{Prediction Sensitivity and Transition Matrix}
+We quantify verifier prediction sensitivity by measuring the paired agreement between translated-evidence and original-evidence decisions:
+\begin{equation}
+    \text{Agr} = \frac{1}{N} \sum_{k=1}^N \mathbb{I}\big(\hat{y}_{\text{nc}}^{(k)} = \hat{y}_{\text{dm}}^{(k)}\big),
+\end{equation}
+with overall disagreement rate defined as $\text{Disagr} = 1 - \text{Agr}$.
+
+To characterize qualitative shifts, we construct the $3 \times 3$ directional transition matrix $\mathbf{M} \in \mathbb{N}^{3 \times 3}$, where cell $M_{i,j}$ counts instances predicted as class $i$ under translated evidence and as class $j$ under original Hindi evidence:
+\begin{equation}
+    M_{i,j} = \sum_{k=1}^N \mathbb{I}\big(\hat{y}_{\text{nc}}^{(k)} = y_i \;\land\; \hat{y}_{\text{dm}}^{(k)} = y_j\big),
+\end{equation}
+for $y_i, y_j \in \mathcal{Y}$. This matrix explicitly reveals whether translation shift induces directional optimism (e.g., flipping refutations into false support) or semantic dilution (e.g., flipping decisive labels into insufficient evidence).
+
+\subsection{Research Questions}
+Our empirical study investigates four specific, pre-registered research questions:
+\begin{itemize}
+    \item \textbf{RQ1 (Sensitivity and Transitions):} What is the empirical disagreement rate between translated-evidence and original-Hindi-evidence predictions, and what directional transitions dominate the transition matrix?
+    \item \textbf{RQ2 (Multilingual vs. Translated Efficacy):} Does Direct Multilingual verification on original Hindi evidence provide statistically significant accuracy or Macro-F1 improvements over the standard No-Check translated baseline?
+    \item \textbf{RQ3 (Selective Cascade Tradeoffs):} Can a risk-calibrated Selective-Check cascade achieve competitive accuracy while substantially reducing computational cost relative to Always-Check and Direct Multilingual verification?
+    \item \textbf{RQ4 (Diagnostic Metric Discordance):} How does severe benchmark class skew (absence of positive gold instances) affect the concordant interpretation of paired parametric and non-parametric evaluation metrics?
+\end{itemize}

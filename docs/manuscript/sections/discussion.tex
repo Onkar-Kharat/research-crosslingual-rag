@@ -1,0 +1,49 @@
+\section{Discussion and Diagnostic Analysis}
+\label{sec:discussion}
+
+We synthesize our empirical findings, examine qualitative case studies, discuss the architectural implications for cross-lingual verification systems, and contextualize our results within the broader literature.
+
+\subsection{Interpreting Verifier Prediction Sensitivity}
+The central empirical finding of this investigation is that verifier predictions diverge on nearly two-thirds of instances (63.80\%) when evidence representation shifts from original Hindi to machine-translated English. This extreme sensitivity demonstrates that cross-lingual claim verification cannot treat machine translation as a benign, neutral preprocessing utility.
+
+\paragraph{Spurious Entailment and Refutation Recovery.}
+The directional transition dynamics (Table~\ref{tab:transition_matrix}) illuminate a distinct failure mode: 48.44\% of instances predicted as \textsc{Supported} under translated evidence flip to \textsc{Contradicted} when evaluated on original Hindi evidence. Because the test partition contains zero gold \textsc{Supported} claims, these instances represent spurious entailments induced on the translation path. Machine translation frequently smooths out syntactic nuance, softens negations, or normalizes vernacular idioms into generic assertions that an English NLI verifier misidentifies as entailment. Evaluating original Hindi evidence restores crucial lexical markers of refutation, recovering 31 refutations from false support.
+
+\paragraph{Observational Sensitivity vs. Translation Causality.}
+We emphasize a vital methodological boundary: \emph{prediction disagreement does not establish translation error or semantic distortion}. An NLI verifier's decision is the joint product of input text semantics, subword tokenization characteristics, cross-lingual representation alignment, and pre-training language priors. A prediction flip may occur because:
+\begin{enumerate}
+    \item The translation model introduced genuine factual errors, dropped negation, or corrupted named entities;
+    \item The machine translation was semantically faithful, but the multilingual verifier has superior representations in English than in Hindi; or
+    \item The verifier possesses language-specific inductive biases that alter decision boundaries independently of semantic fidelity.
+\end{enumerate}
+In the absence of completed bilingual human annotations (which remain pending), our findings must be interpreted strictly as observational model sensitivity rather than proven translation corruption.
+
+\input{tables/case_studies}
+
+\subsection{Qualitative Analysis and Case Studies}
+Table~\ref{tab:case_studies} provides representative qualitative case studies from the canonical evaluation illustrating the three primary behavioral strata:
+
+\paragraph{Case 1: Spurious Entailment via Translation Smoothing.}
+In Claim 1 (Table~\ref{tab:case_studies}), an authentic Hindi claim regarding political compensation is accompanied by a news snippet detailing eligibility exclusions. The translation pipeline renders the text into fluent English but drops a crucial conditional qualifier (``\emph{shartiya}''). As a result, the translated-evidence verifier predicts \textsc{Supported}. Evaluating the original Hindi evidence preserves the restrictive condition, correctly producing \textsc{Contradicted}.
+
+\paragraph{Case 2: Numeral and Named Entity Distortion.}
+In Claim 2, the evidence contains specific regional metrics. Translation alters the numeric boundary and mistranslates a local administrative district name, causing the translated verifier to predict \textsc{Insufficient\_Evidence}. The Direct Multilingual verifier directly grounds the original Hindi numerals and administrative terms, achieving correct refutation.
+
+\paragraph{Case 3: Verifier Degradation on Hindi Syntax.}
+In Claim 3, the machine translation successfully conveys the core refuting assertion in simple English syntax, enabling the verifier to predict \textsc{Contradicted} correctly. However, the original Hindi snippet employs complex nested subordinate clauses and low-frequency regional terminology. The multilingual verifier fails to parse the long-distance dependency in Hindi, incorrectly predicting \textsc{Insufficient\_Evidence}. This exemplifies the 27 degraded cases ($S_{\text{degraded}}$) and demonstrates that original-language verification is not an infallible panacea.
+
+\subsection{Why Cascade Verification and Consensus Struggle}
+Our evaluation reveals that neither unconditional consensus (\emph{Always-Check}) nor risk-gated routing (\emph{Selective-Check}) dominates Direct Multilingual verification.
+
+\paragraph{The Failure of Unconditional Consensus.}
+Always-Check achieves 36.81\% accuracy, trailing Direct Multilingual (42.94\%). When a translated representation is corrupted, the model frequently assigns high posterior probability to the wrong class (e.g., $P(\textsc{Supported}) > 0.85$). Simple arithmetic posterior averaging allows confident corrupted predictions to overpower correct, but moderately calibrated, original-language predictions. Effective multi-evidence synthesis requires learned cross-lingual arbitration rather than naive consensus averaging.
+
+\paragraph{The Inadequacy of Surface Risk Triggers.}
+Selective-Check ($\tau^*=0.650$) was designed to trigger dual verification only on high-risk queries. However, it achieved an accuracy of 28.22\%---identical to the No-Check baseline. Out of 13 triggered queries, 4 transitioned from incorrect to correct, while 4 transitioned from correct to incorrect ($b=4, c=4$). 
+
+Equation~\ref{eq:risk_score} relied on maximum softmax probability (MSP) and numeral overlap. Our empirical findings demonstrate that MSP is poorly calibrated under out-of-distribution translation shifts: the verifier is frequently confident yet incorrect on translated passages. Furthermore, semantic distortion often occurs without surface numeral mismatches (e.g., through syntactic inversion or dropped modal verbs). Consequently, lightweight surface triggers fail to selectively isolate the 51 recoverable instances without simultaneously triggering on the 27 degradable instances.
+
+\subsection{Benchmark Imbalance and Metric Implications}
+All four evaluated systems achieve overall accuracies (28.22\%--42.94\%) far below the trivial majority-class baseline of 87.12\% (predicting \textsc{Contradicted} unconditionally; Table~\ref{tab:main_results}). This outcome highlights a critical ecological gap: generic multilingual NLI models pre-trained on balanced academic corpora (MNLI, XNLI) maintain roughly uniform prior expectations across classes. When deployed zero-shot on authentic journalistic fact-checks where refutations dominate, models waste significant probability mass on neutral and entailment hypotheses.
+
+Furthermore, the statistical divergence between McNemar's test ($p = 0.008772$) and the Macro-F1 permutation test ($p = 0.18980$) underscores that automated fact-checking research must move beyond reporting single summary metrics. Researchers must report both paired instance-level correctness tests and class-disaggregated transition matrices to avoid misleading claims of algorithmic superiority.

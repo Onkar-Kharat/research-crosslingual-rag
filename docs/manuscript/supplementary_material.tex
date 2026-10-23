@@ -1,0 +1,133 @@
+\appendix
+\section{Supplementary Material}
+\label{sec:supplementary}
+
+This appendix provides supplementary implementation details, development tuning logs, confusion matrices, human annotation protocols, and reproducibility instructions.
+
+\subsection{Implementation and Hardware Specifications}
+\label{sec:app_hardware}
+Table~\ref{tab:app_specs} outlines the software libraries, pretrained checkpoints, tokenizer configurations, and hardware parameters utilized in the frozen computational study.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Component} & \textbf{Specification} \\
+\midrule
+Operating System & Windows 11 / Linux (Ubuntu 22.04 LTS) \\
+Python Version & 3.10+ / 3.14 (Virtual Environment) \\
+Deep Learning Library & PyTorch 2.1.0+ \\
+Transformers Library & Hugging Face Transformers 4.36+ \\
+Machine Translation Model & \texttt{Helsinki-NLP/opus-mt-hi-en} \\
+MT Decoding & Beam Search (Width: 4, Length Penalty: 1.0) \\
+MT Sequence Length & Max 512 tokens \\
+Verifier Backbone & \texttt{MoritzLaurer/mDeBERTa-v3-base-xnli} \\
+Verifier Architecture & 12 layers, 768 hidden, 12 attention heads \\
+Verifier Total Parameters & $\approx 278$M (86M backbone + embeddings) \\
+Verifier Sequence Length & Max 512 subwords, dynamic padding \\
+Batch Size & 1 (Instance-level streaming inference) \\
+Inference Device & Multi-core CPU (8 physical threads) \\
+Deterministic Seed & 42 (resampling, permutations, controls) \\
+\bottomrule
+\end{tabular}
+\caption{Computational environment and model configurations.}
+\label{tab:app_specs}
+\end{table}
+
+\subsection{Development Set Grid Search and Calibration}
+\label{sec:app_tuning}
+To determine the optimal operating threshold $\tau^*$ for the Selective-Check cascade, we performed a sweep over $\tau \in [0.10, 0.65]$ on the $N=103$ development split. The utility objective is defined as:
+\begin{equation}
+    J(\tau) = \operatorname{Macro-F1}_3(\tau) - 0.15 \cdot \operatorname{Coverage}(\tau).
+\end{equation}
+Table~\ref{tab:app_tuning_sweep} summarizes representative operating points from the canonical sweep.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{ccccc}
+\toprule
+$\tau$ & \textbf{Coverage} & \textbf{Macro-F1}$_3$ & \textbf{Macro-F1}$_2$ & \textbf{Utility $J$} \\
+\midrule
+0.100 & 0.9806 & 0.2948 & 0.4421 & 0.1477 \\
+0.200 & 0.9417 & 0.2991 & 0.4487 & 0.1579 \\
+0.300 & 0.8058 & 0.2605 & 0.3908 & 0.1397 \\
+0.400 & 0.5631 & 0.2292 & 0.3437 & 0.1447 \\
+0.500 & 0.3495 & 0.1995 & 0.2992 & 0.1471 \\
+0.575 & 0.1845 & 0.2200 & 0.3300 & 0.1923 \\
+0.600 & 0.1748 & 0.2161 & 0.3241 & 0.1898 \\
+0.625 & 0.1650 & 0.2161 & 0.3241 & 0.1913 \\
+\textbf{0.650} & \textbf{0.1262} & \textbf{0.2213} & \textbf{0.3319} & \textbf{0.2023} \\
+\bottomrule
+\end{tabular}
+\caption{Calibration grid search on the $N=103$ development split. The optimal constrained cascade threshold was found at $\tau^* = 0.650$. The zero-check baseline achieved utility $J = 0.2104$.}
+\label{tab:app_tuning_sweep}
+\end{table}
+
+\subsection{Full Per-System Confusion Matrices}
+\label{sec:app_confusion}
+Table~\ref{tab:app_confusion_matrices} provides the full confusion matrices for all evaluated systems across the $N=163$ test instances (142 \textsc{Contradicted}, 21 \textsc{Insufficient\_Evidence}, 0 \textsc{Supported}).
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Gold Label} & \textbf{Pred. Contra} & \textbf{Pred. Neutral} & \textbf{Pred. Support} \\
+\midrule
+\multicolumn{4}{l}{\textit{No-Check (Translated English)}} \\
+\textsc{Contradicted} (142) & 21 & 57 & 64 \\
+\textsc{Insufficient} (21) & 23 & 0 & 0 \\
+\textsc{Supported} (0) & 0 & 0 & 0 \\
+\midrule
+\multicolumn{4}{l}{\textit{Direct Multilingual (Original Hindi)}} \\
+\textsc{Contradicted} (142) & 56 & 28 & 58 \\
+\textsc{Insufficient} (21) & 19 & 0 & 2 \\
+\textsc{Supported} (0) & 0 & 0 & 0 \\
+\midrule
+\multicolumn{4}{l}{\textit{Always-Check (Dual Consensus)}} \\
+\textsc{Contradicted} (142) & 46 & 38 & 58 \\
+\textsc{Insufficient} (21) & 17 & 0 & 4 \\
+\textsc{Supported} (0) & 0 & 0 & 0 \\
+\midrule
+\multicolumn{4}{l}{\textit{Selective-Check ($\tau^*=0.650$)}} \\
+\textsc{Contradicted} (142) & 21 & 57 & 64 \\
+\textsc{Insufficient} (21) & 23 & 0 & 0 \\
+\textsc{Supported} (0) & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Confusion matrices on the $N=163$ test split across all four verification conditions.}
+\label{tab:app_confusion_matrices}
+\end{table}
+
+\subsection{Bilingual Human Annotation Protocol}
+\label{sec:app_human_protocol}
+To address the critical limitation regarding causal attribution, we have developed a rigorous, independent bilingual human annotation protocol:
+\begin{enumerate}
+    \item \textbf{Annotator Qualifications:} Native Hindi speakers fluent in English with formal training in linguistics or computational journalism.
+    \item \textbf{Target Sample:} A stratified sample of $N=104$ prediction-disagreement instances, augmented by 30 concordant control instances.
+    \item \textbf{Annotation Dimensions:}
+    \begin{itemize}
+        \item \emph{Translation Fidelity (1--5 Likert):} Measures adequacy and fluency of $e_{\text{trans}}$ relative to $e_{\text{orig}}$.
+        \item \emph{Semantic Preservation (Binary):} Evaluates whether critical factual relations (negation, numerical bounds, named entities) are preserved without distortion.
+        \item \emph{Entailment Grounding (3-way categorical):} Human annotator independently assigns the gold NLI relationship between evidence and claim under both languages.
+    \end{itemize}
+    \item \textbf{Agreement Standard:} Inter-annotator agreement will be assessed via Cohen's $\kappa$ (targeting $\kappa \ge 0.70$).
+\end{enumerate}
+We explicitly record that this protocol remains \emph{pending execution} and is planned for future confirmatory research.
+
+\subsection{Reproducibility and Data Access}
+\label{sec:app_reproducibility}
+All canonical predictions, evaluation scripts, and figure/table generators are open-source and structured for immediate reproduction. Researchers can reproduce all tables and figures from the frozen artifacts without performing GPU/CPU model inference:
+\begin{verbatim}
+# Run complete automated regression test suite
+python tests/run_all_tests.py
+
+# Regenerate all publication figures (PDF & PNG)
+python scripts/generate_publication_figures.py
+
+# Verify release archive integrity
+Get-FileHash release/CROSS_LINGUAL_EVIDENCE_...zip
+\end{verbatim}
+All experimental configurations are documented in \texttt{configs/experiment\_config.yaml}.

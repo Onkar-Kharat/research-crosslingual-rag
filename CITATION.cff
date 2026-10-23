@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this research repository or its computational artifacts, please cite it as below."
+title: "Cross-Lingual Evidence Verification: Verifier Prediction Sensitivity Under Hindi-to-English Translation Shift"
+version: "1.0.0-frozen-exploratory"
+date-released: "2026-10-24"
+url: "https://github.com/Onkar-Kharat/research-crosslingual-rag"
+authors:
+  - family-names: "Kharat"
+    given-names: "Onkar"
+preferred-citation:
+  type: article
+  title: "Cross-Lingual Evidence Verification: Verifier Prediction Sensitivity Under Hindi-to-English Translation Shift"
+  authors:
+    - family-names: "Kharat"
+      given-names: "Onkar"
+  journal: "Transactions of the Association for Computational Linguistics (Under Internal Review)"
+  year: 2026
+  status: "in-review"

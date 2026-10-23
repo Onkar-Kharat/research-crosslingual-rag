@@ -1,0 +1,24 @@
+# Project Licensing and Upstream Notices
+
+This research repository comprises experimental software, computational metrics, documentation, and academic manuscript sources.
+
+## Code and Scripts
+The experimental evaluation scripts, metric calculation routines, regression test suites, and LaTeX manuscript sources in this repository are distributed for internal academic review and reproducible research. Formal open-source licensing (e.g., MIT License) will be formally ratified upon peer-reviewed publication.
+
+## Benchmark Data and Model Weights Upstream Licenses
+1. **X-Fact Benchmark:** 
+   - Source: Gupta and Srikumar (ACL-IJCNLP 2021), *X-FACT: A New Benchmark Dataset for Multilingual Fact Checking*.
+   - Original License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+   - Terms: Upstream claim texts and fact-check labels remain governed by their respective authors and publishers.
+
+2. **Helsinki-NLP/opus-mt-hi-en:**
+   - Source: Tiedemann and Thottingal (EAMT 2020), *OPUS-MT*.
+   - License: Apache License 2.0 / CC-BY-4.0.
+
+3. **MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7:**
+   - Source: Laurer et al. (Political Analysis 2024).
+   - Backbone: Microsoft DeBERTa-v3 (MIT License).
+   - Fine-tuned checkpoint: MIT License.
+
+## Redistribution Note
+In accordance with dataset and model redistribution guidelines, no large pre-trained model weights are hosted directly in this repository. All models are automatically loaded from Hugging Face model hubs using the exact pinned identifiers documented in `configs/experiment_config.yaml`.

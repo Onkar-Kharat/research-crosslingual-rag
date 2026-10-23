@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Diagnostic error attribution and outcome partition across original Hindi and machine-translated English representations on the test set ($N=163$). Failures and successes under the translated pipeline decompose into distinct recovery and degradation strata.}
+\label{tab:error-attribution}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Outcome Stratum} & \textbf{Count} & \textbf{Subgroup \%} & \textbf{Test Set \%} \\
+\midrule
+\multicolumn{4}{l}{\textbf{Partition of Translated Failures} ($N_{\text{fail}} = 117$, 71.8\% of test set)} \\
+\quad Recovered by Original ($S_{\text{trans}}$, Translated Wrong, Original Correct) & 51 & 43.6\% & 31.3\% \\
+\quad Unrecovered by Original ($S_{\text{verif}}$, Both Representations Incorrect)    & 66 & 56.4\% & 40.5\% \\
+\midrule
+\multicolumn{4}{l}{\textbf{Partition of Translated Successes} ($N_{\text{succ}} = 46$, 28.2\% of test set)} \\
+\quad Control (Both Representations Correct)                                         & 19 & 41.3\% & 11.7\% \\
+\quad Degraded by Original ($S_{\text{degraded}}$, Translated Correct, Original Wrong)& 27 & 58.7\% & 16.6\% \\
+\midrule
+\textbf{Total Instances Evaluated} & \textbf{163} & --- & \textbf{100.0\%} \\
+\bottomrule
+\end{tabular}
+\end{table}

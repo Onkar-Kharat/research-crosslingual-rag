@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Empirical $3 \times 3$ directional transition matrix on the test set ($N=163$), cross-tabulating predictions between machine-translated English evidence (rows) and original Hindi evidence (columns). Over 63.8\% of instances flip predictions across language representations.}
+\label{tab:transition-matrix}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Translated Prediction} & \multicolumn{3}{c}{\textbf{Original Hindi Prediction}} & \textbf{Row Total} \\
+\cmidrule(lr){2-4}
+($e_{\text{trans}}$) & \textsc{Contradicted} & \textsc{Insufficient} & \textsc{Supported} & ($N_{\text{trans}}$) \\
+\midrule
+\textsc{Contradicted} & 21 (12.9\%) & 5 (3.1\%) & 18 (11.0\%) & 44 (27.0\%) \\
+\textsc{Insufficient} & 23 (14.1\%) & 14 (8.6\%) & 18 (11.0\%) & 55 (33.7\%) \\
+\textsc{Supported}    & 31 (19.0\%) & 9 (5.5\%) & 24 (14.7\%) & 64 (39.3\%) \\
+\midrule
+\textbf{Column Total} ($N_{\text{orig}}$) & \textbf{75 (46.0\%)} & \textbf{28 (17.2\%)} & \textbf{60 (36.8\%)} & \textbf{163 (100.0\%)} \\
+\bottomrule
+\end{tabular}
+\end{table}
