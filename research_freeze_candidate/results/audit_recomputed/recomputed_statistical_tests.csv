@@ -1,7 +1,0 @@
-comparison,discordant_pairs_a_correct_b_wrong,discordant_pairs_b_correct_a_wrong,total_discordant,mcnemar_stat,mcnemar_p_value,delta_accuracy,delta_macro_f1_3class,permutation_p_f1_3class,delta_macro_f1_2class,permutation_p_f1_2class,significant_mcnemar_alpha_05,significant_perm_f1_alpha_05
-"Selective-Check (Ours, tau*=0.30) vs. No-Check (Translated)",35,23,58,2.086206896551724,0.14800580076020603,0.07361963190184051,0.04389536117477291,0.2102,0.06584304176215938,0.2102,False,False
-"Selective-Check (Ours, tau*=0.30) vs. Direct Multilingual (Original)",9,6,15,0.26666666666666666,0.6072387695312499,0.018404907975460127,0.017771748197711712,0.2878,0.02665762229656754,0.2878,False,False
-"Selective-Check (Ours, tau*=0.30) vs. Always-Check (Dual)",22,9,31,4.645161290322581,0.029449373483657837,0.07975460122699385,0.05745570955654988,0.042,0.08618356433482482,0.042,True,True
-Direct Multilingual (Original) vs. No-Check (Translated),41,32,73,0.8767123287671232,0.34918183817058834,0.05521472392638038,0.0261236129770612,0.4952,0.03918541946559184,0.4952,False,False
-Always-Check (Dual) vs. No-Check (Translated),15,16,31,0.0,1.0,-0.006134969325153339,-0.013560348381776971,0.5952,-0.020340522572665443,0.5952,False,False
-Direct Multilingual (Original) vs. Always-Check (Dual),27,17,44,1.8409090909090908,0.17417114727072658,0.06134969325153372,0.03968396135883817,0.2168,0.059525942038257285,0.2168,False,False

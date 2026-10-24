@@ -85,8 +85,19 @@ The mapping is therefore verified:
 
 ---
 
-## 5. Summary of Protocol Directives
+5. System Architecture Scoping (Cross-Lingual Evidence Verification vs RAG)
+The evaluated system consumes pre-retrieved evidence passages from fact-checking sources and evaluates cross-lingual translation routing alongside NLI verification. Because no dynamic retrieval index (e.g. BM25 / dense vector database) or generative large language model is part of the inference evaluation, the research scope and system are strictly classified as **Cross-Lingual Evidence Verification Under Translation Shift**, and references to full "Retrieval-Augmented Generation (RAG)" are disclaimed as aspirational rather than experimentally validated.
+
+6. Evaluation Split Design: Exploratory Test Partition Status
+The $N=163$ Hindi test split was evaluated in prior iterations (V1, V2). Although all threshold selection ($\tau^*$) is performed strictly on the $N=103$ development split without looking at test labels, repeated exposure of the test set across project revisions mandates classifying the current test evaluation as **EXPLORATORY / PREVIOUSLY INSPECTED**. Confirmatory claims of generalization are therefore not asserted.
+
+---
+
+## 7. Summary of Protocol Directives
 1. `LABELS = ["SUPPORTED", "INSUFFICIENT_EVIDENCE", "CONTRADICTED"]`
 2. All summary tables must include both `Macro_F1_3cl` and `Macro_F1_2cl`.
-3. Threshold tuning on development data must optimize `Macro_F1_3cl` (or 2-class) with clear coverage tradeoff penalty.
-4. Gate A (Task and Label Definition) is marked **REPAIRED** subject to these explicit bounds. Gate C remains **BLOCKED** awaiting human annotation.
+3. Threshold tuning on development data must optimize a pre-specified objective on development split only.
+4. The system is classified as Cross-Lingual Evidence Verification, not end-to-end RAG.
+5. The test set is designated as exploratory; selective routing findings are framed honestly as diagnostic rather than superior.
+6. Gate A (Task and Label Definition) is marked **PASS** subject to these explicit bounds. Gate C remains **BLOCKED** awaiting human annotation.
+
