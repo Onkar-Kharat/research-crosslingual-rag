@@ -1,0 +1,69 @@
+\section{Experimental Setup}
+\label{sec:exp_setup}
+
+We detail the dataset partitioning, highlight critical benchmark class imbalances, define the evaluation metrics, and specify our paired statistical testing methodology.
+
+\subsection{Dataset Partitioning and Severe Label Skew}
+The experimental dataset comprises the official Hindi partition of the X-Fact benchmark \citep{gupta-srikumar-2021-xfact}, totaling $N=266$ instances ($N=103$ development, $N=163$ held-out test). Table~\ref{tab:dataset_distribution} presents the exact gold-label distributions across both splits.
+
+\input{tables/dataset_distribution}
+
+\paragraph{Complete Absence of Positive Gold Class.}
+As documented in Table~\ref{tab:dataset_distribution}, the test partition exhibits extreme class imbalance: 142 instances (87.12\%) are labeled \textsc{Contradicted}, 21 instances (12.88\%) are labeled \textsc{Insufficient\_Evidence}, and \emph{exactly zero instances} (0.00\%) are labeled \textsc{Supported}. 
+
+This distribution reflects the ecological reality of open-web fact-checking: fact-checking organizations predominantly investigate viral rumors, deceptive claims, and fabricated falsehoods, while uncontroversial true assertions rarely warrant formal investigation. However, this absence of gold positive instances imposes severe diagnostic constraints on standard evaluation metrics:
+\begin{enumerate}
+    \item Any model prediction of \textsc{Supported} on the test set is guaranteed to have zero true positives ($TP = 0$), yielding an automatic class precision, recall, and F1 score of 0.00\%.
+    \item Standard accuracy can be artificially inflated by trivial majority-class baselines (e.g., predicting \textsc{Contradicted} unconditionally yields 87.12\% accuracy).
+\end{enumerate}
+
+\paragraph{Exploratory Status and Prior Inspection.}
+In accordance with open-science research integrity standards, we explicitly report that the test partition ($N=163$) was inspected and analyzed during earlier exploratory iterations of this project. Consequently, this evaluation cannot be designated as a blind confirmatory holdout. We categorize the current research status as \texttt{FROZEN — EXPLORATORY COMPUTATIONAL STUDY}, and report all findings as diagnostic characterizations of model behavior under translation shift rather than definitive confirmatory benchmarks.
+
+\subsection{Evaluation Metrics}
+To provide a multifaceted evaluation despite class imbalance, we report:
+\begin{itemize}
+    \item \textbf{Accuracy:} The standard fraction of exact matches between predicted labels $\hat{y}$ and gold labels $y^*$ over $N=163$ test instances.
+    \item \textbf{Nominal 3-Class Macro-F1:} The unweighted arithmetic mean of F1 scores across all three benchmark taxonomy classes:
+    \begin{equation}
+        \text{Macro-F1}_{3} = \frac{1}{3} \big(F1_{\textsc{Contra}} + F1_{\textsc{Neutral}} + F1_{\textsc{Support}}\big).
+    \end{equation}
+    Because gold $TP_{\textsc{Support}} \equiv 0$, $F1_{\textsc{Support}}$ is identically 0.00\%, bounding $\text{Macro-F1}_{3}$ at an effective ceiling of 66.67\%.
+    \item \textbf{Effective 2-Class Macro-F1:} The unweighted arithmetic mean over the two non-empty gold classes present in the test set:
+    \begin{equation}
+        \text{Macro-F1}_{2} = \frac{1}{2} \big(F1_{\textsc{Contra}} + F1_{\textsc{Neutral}}\big).
+    \end{equation}
+    Note that $\text{Macro-F1}_{2} \equiv \frac{3}{2} \text{Macro-F1}_{3}$.
+    \item \textbf{Directional Flips and Disagreement Rates:} The fraction and confidence intervals of instances where original and translated predictions diverge.
+\end{itemize}
+
+\subsection{Paired Statistical Hypothesis Testing}
+Because all four system conditions are evaluated on the exact same $N=163$ test instances, independent-sample tests (such as Student's $t$-test or standard chi-squared tests) are methodologically invalid. We deploy two paired testing frameworks:
+
+\paragraph{1. McNemar's Paired Test for Binary Correctness.}
+To evaluate marginal accuracy differences between system $A$ and system $B$, we construct a $2 \times 2$ contingency table of paired correctness \citep{mcnemar-1947}:
+\begin{center}
+\small
+\begin{tabular}{rcc}
+\toprule
+ & $B$ Correct & $B$ Incorrect \\
+\midrule
+$A$ Correct & $a$ & $b$ \\
+$A$ Incorrect & $c$ & $d$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+where $b$ is the number of instances where $A$ is correct and $B$ is incorrect, and $c$ is the reverse. Under the null hypothesis that both systems have equal marginal error rates ($H_0: p_b = p_c$), discordant pairs follow a binomial distribution $\operatorname{Binomial}(n=b+c, p=0.5)$. We compute both the continuity-corrected McNemar test statistic:
+\begin{equation}
+    \chi^2 = \frac{(|b - c| - 1)^2}{b + c},
+\end{equation}
+and the exact two-sided binomial $p$-value:
+\begin{equation}
+    p_{\text{exact}} = 2 \cdot \sum_{k=0}^{\min(b, c)} \binom{b+c}{k} 0.5^{b+c}.
+\end{equation}
+
+\paragraph{2. Paired Prediction-Swap Permutation Test for Macro-F1.}
+Because Macro-F1 is a non-linear harmonic aggregate that does not decompose into independent instance-level counts, McNemar's test is inapplicable to F1 differences. We implement a non-parametric paired permutation test \citep{benjamini-hochberg-1995}. Under the null hypothesis of exchangeable system performance, for each discordant instance $k \in \{1, \dots, N\}$, the predictions of system $A$ and system $B$ are swapped with probability $0.5$. Over $B = 5,000$ paired permutations with fixed seed 42, we compute the empirical null distribution of the Macro-F1 difference $\Delta \text{F1}^{(b)} = \text{Macro-F1}(A^{(b)}) - \text{Macro-F1}(B^{(b)})$ and derive the exact two-sided empirical $p$-value:
+\begin{equation}
+    p_{\text{perm}} = \frac{1}{B} \sum_{b=1}^B \mathbb{I}\Big(|\Delta \text{F1}^{(b)}| \ge |\Delta \text{F1}_{\text{obs}}|\Big).
+\end{equation}

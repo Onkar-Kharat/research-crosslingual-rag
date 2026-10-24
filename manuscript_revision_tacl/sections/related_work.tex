@@ -1,0 +1,49 @@
+\section{Related Work}
+\label{sec:related_work}
+
+We situate our empirical investigation at the intersection of multilingual retrieval-augmented generation, cross-lingual claim verification, translation distortion in downstream NLP, and selective classification cascades.
+
+\subsection{Multilingual and Cross-Lingual RAG}
+Retrieval-augmented generation (RAG) grounds language model predictions in external non-parametric evidence passages \citep{lewis-etal-2020-rag}. In multilingual settings, systems must bridge linguistic gaps when queries, evidence documents, or downstream generation targets diverge in language. \citet{liu-etal-2025-xrag} formalize cross-lingual RAG (XRAG) across diverse language pairs (e.g., Arabic, Chinese, German, Spanish, English), demonstrating that retrieving evidence across languages introduces severe generative drift and syntactic interference during answer synthesis. To mitigate multilingual knowledge disparities, \citet{ranaldi-etal-2026-multilingual} introduce CrossRAG, which converts non-English search contexts into an intermediate English representation prior to generative decoding by an English reader model. While CrossRAG demonstrates empirical gains on open-domain question answering benchmarks (MKQA, MLQA, XOR-TyDi), it evaluates continuous text generation where downstream decoders can tolerate mild paraphrase variance. In contrast, claim verification requires sharp, discrete entailment decisions where subtle semantic shifts induce categorical veracity flips.
+
+Concurrently, investigations into cross-lingual indexing bias demonstrate that neural retrieval and reranking systems systematically prioritize English-centric documents over non-English counterparts \citep{wang-etal-2026-languages,conneau-etal-2020-unsupervised}. While \citet{wang-etal-2026-languages} examine upstream retrieval representation bias, our work investigates the complementary downstream stage: holding pre-retrieved evidence fixed, how sensitive is the veracity decision of a multilingual verifier to evidence language representation?
+
+\subsection{Cross-Lingual Fact and Claim Verification}
+Automated fact verification has expanded from monolingual English benchmarks such as FEVER \citep{thorne-etal-2018-fever} to multi-language and real-world claim contexts. The X-Fact benchmark \citep{gupta-srikumar-2021-xfact} introduced naturally occurring fact-checks across 25 languages, reflecting authentic journalistic claims labeled by professional fact-checkers. Recent comprehensive benchmarking on X-Fact by \citet{shcharbakova-etal-2025-scale} reveals a critical architectural insight: fine-grained claim verification on low- and medium-resource languages remains an immense challenge for large generative language models (7B--12B parameters), which frequently succumb to multilingual hallucination, whereas specialized multilingual encoder-based NLI verifiers (\texttt{mDeBERTa-v3}, \texttt{XLM-RoBERTa}) consistently achieve superior evidence grounding and calibration \citep{he-etal-2021-deberta,laurer-etal-2024-less}. However, \citet{shcharbakova-etal-2025-scale} evaluate evidence passages strictly in their scraped source language, leaving the interaction between machine translation and multilingual verification unexamined.
+
+\subsection{Translation Shift and Semantic Distortion}
+The ``translate-then-verify'' paradigm rests on the assumption that translation bridges language barriers without perturbing factual content. However, machine translation systems \citep{tiedemann-thottingal-2020-opus} frequently suffer from subtle hallucinations, mistranslation of named entities, altered numerical quantities, and dropped negation markers. In an exploratory evaluation of multilingual fact-checking with LLMs, \citet{singhal-etal-2024-comparative} observed that pipeline translation into English frequently deteriorated classification accuracy in low-resource languages. Nevertheless, prior literature has treated translation degradation as a monolithic aggregate drop, failing to provide directional transition analyses, paired statistical hypothesis tests, or diagnostic error stratifications.
+
+\subsection{Selective Prediction and Cascade Verification}
+Selective prediction (or classification with a reject option) enables models to abstain or defer uncertain predictions to a more capable or expensive oracle \citep{geifman-elyaniv-2017-selective}. In cost-sensitive NLP, cascade architectures route easy queries to lightweight, low-latency models and difficult queries to large models. We adapt this principle to cross-lingual verification: rather than unconditionally translating or unconditionally running heavy dual-language models, we evaluate whether a lightweight risk gating mechanism can selectively trigger original-language verification only when the translation path exhibits high predictive uncertainty or surface-level entity corruption.
+
+\subsection{Summary of Literature Positioning}
+Table~\ref{tab:prior_work_matrix} summarizes how this study relates to and differs from prior work across task, language setting, architecture, evaluation design, and empirical focus. Our study does not claim to present a new foundation model or a universally optimal RAG pipeline. Instead, it provides the first rigorously controlled, paired empirical characterization of verifier prediction sensitivity under Hindi-to-English translation shift, establishing transparent directional transition matrices and identifying the fundamental diagnostic challenges posed by benchmark class imbalance.
+
+\begin{table*}[t]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{p{3.2cm}p{2.8cm}p{2.8cm}p{3.2cm}p{2.8cm}p{4.2cm}}
+\toprule
+\textbf{Study} & \textbf{Task} & \textbf{Language Setting} & \textbf{Method / Architecture} & \textbf{Evaluation} & \textbf{Key Distinction from Present Study} \\
+\midrule
+\citet{liu-etal-2025-xrag} & Open-domain generative QA & Multilingual (ar, zh, de, es, en) & Generative LLM with cross-lingual dense retrieval & QA Exact Match, language drift & Evaluates continuous text generation; does not study discrete 3-way claim verification or prediction transitions. \\
+\addlinespace
+\citet{ranaldi-etal-2026-multilingual} & Knowledge-intensive QA & Multilingual (MKQA, MLQA, XOR-TyDi) & CrossRAG: Translate retrieved passages to English & Span F1 / EM on QA answers & Assumes translation is universally beneficial; omits verifier sensitivity and directional error analysis. \\
+\addlinespace
+\citet{wang-etal-2026-languages} & Document retrieval \& reranking & Multilingual (mMARCO, MIRACL) & Dense multilingual rerankers & MRR@10, nDCG@10 & Focuses exclusively on upstream retrieval bias; does not evaluate downstream evidence verification. \\
+\addlinespace
+\citet{shcharbakova-etal-2025-scale} & Claim verification & 25 languages (X-Fact) & XLM-RoBERTa vs. 7B--12B LLMs & Macro-F1 per language & Evaluates original language only; does not study paired original vs. machine-translated evidence. \\
+\addlinespace
+\citet{singhal-etal-2024-comparative} & Fact-checking & Multilingual X-Fact subset & Prompted LLMs & Overall verification accuracy & Reports monolithic accuracy drops without paired transition matrices, confidence intervals, or selective cascades. \\
+\addlinespace
+\citet{geifman-elyaniv-2017-selective} & Selective classification & Monolingual vision / text & Softmax thresholding / SelectiveNet & Risk-coverage tradeoff & Generic abstention theory; does not address cross-lingual evidence switching or translation risk triggers. \\
+\addlinespace
+\textbf{Present Study} & \textbf{Claim verification} & \textbf{Hindi $\to$ English shift} & \textbf{mDeBERTa-v3 across 4 paired conditions} & \textbf{Paired McNemar, Permutation, Transitions} & \textbf{Controlled paired prediction sensitivity, directional transitions, risk-calibrated cascade, and class-skew analysis.} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Comparison of related work across task formulations, language settings, architectures, and evaluation paradigms. Our study uniquely isolates evidence representation shift in a controlled paired setting.}
+\label{tab:prior_work_matrix}
+\end{table*}

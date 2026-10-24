@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\centering
+\small
+\caption{Authentic case studies from the X-Fact Hindi test set ($N=163$), illustrating the diagnostic outcome strata. Predictions are from \texttt{mDeBERTa-v3-base-xnli} under machine-translated English evidence ($e_{\text{trans}}$) versus original Hindi evidence ($e_{\text{orig}}$).}
+\label{tab:case_studies}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{2.8cm}p{4.2cm}p{4.6cm}ccc}
+\toprule
+\textbf{Item ID / Gold} & \textbf{Claim (English Translation)} & \textbf{Translated Evidence Snippet ($e_{\text{trans}}$)} & $\hat{y}_{\text{trans}}$ & $\hat{y}_{\text{orig}}$ & \textbf{Outcome Stratum} \\
+\midrule
+\texttt{xfact-hi-test-0005} \newline Gold: \textsc{Contradict} & Viral claim that a massive cache of weapons was uncovered inside a mosque in Gujarat. & Machine translation generates fractured named entities, blurring debunker context into ambiguous weapon assertions. & \textsc{Supp} & \textsc{Contra} & $S_{\text{trans}}$ (Recovered by Original Hindi) \\
+\midrule
+\texttt{xfact-hi-test-0003} \newline Gold: \textsc{Contradict} & Claim alleging a petrol pump displayed protest banners against government fuel price hikes. & Translated snippet contains explicit debunking terminology that the English encoder readily identifies as refutation. & \textsc{Contra} & \textsc{Supp} & $S_{\text{degraded}}$ (Degraded by Original Hindi) \\
+\midrule
+\texttt{xfact-hi-test-0004} \newline Gold: \textsc{Contradict} & Viral quotation attributed to Facebook CEO Mark Zuckerberg regarding social media content bans. & Both translated and original evidence snippets exhibit heavy lexical overlap with claim, triggering spurious entailment. & \textsc{Supp} & \textsc{Supp} & $S_{\text{verif}}$ (Failed in Both Languages) \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

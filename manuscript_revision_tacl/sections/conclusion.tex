@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+In this paper, we presented a controlled empirical investigation of verifier prediction sensitivity under Hindi-to-English translation shift in cross-lingual claim verification. Evaluating authentic claims and pre-retrieved evidence from the X-Fact benchmark ($N=163$), we demonstrated that shifting evidence representation between original Hindi and machine-translated English alters verifier predictions on 63.80\% of instances (104/163). Most notably, when translated evidence predicts \textsc{Supported}, evaluating the original Hindi evidence flips the prediction to \textsc{Contradicted} in 48.44\% of cases (31/64).
+
+Direct Multilingual verification on original Hindi evidence significantly outperformed the translated-only baseline in overall accuracy (42.94\% vs. 28.22\%; McNemar exact $p = 0.008772$), successfully recovering 51 translation-path refutation errors while degrading 27 instances. However, an uncertainty- and numeral-gated selective cascade ($\tau^*=0.650$) failed to surpass baseline accuracy (28.22\%), and paired permutation tests on class-balanced Macro-F1 revealed no statistically significant differences ($p = 0.18980$), reflecting the high variance of harmonic metrics under severe natural class imbalance (87.12\% \textsc{Contradicted}, 0.0\% gold \textsc{Supported}).
+
+Our findings demonstrate that pipeline developers cannot assume machine translation is a neutral utility for claim verification. Rather than relying blindly on translated pivot representations or simple surface-level risk cascades, cross-lingual verification pipelines require rigorous diagnostic auditing, class-disaggregated evaluation, and authentic bilingual human validation.

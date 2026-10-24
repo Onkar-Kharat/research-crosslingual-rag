@@ -1,0 +1,61 @@
+\documentclass[11pt,a4paper]{article}
+
+% TACL Template Style
+% Use [hyperref,submission] for anonymous review submissions
+% Use [hyperref,acceptedWithA] for camera-ready / internal archival versions with author names displayed
+\usepackage[hyperref,submission]{tacl2021v1}
+
+% Standard package imports
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage{array}
+
+% Set graphics search paths
+\graphicspath{{figures/final/}{figures/}{figures/source/}}
+
+\title{Cross-Lingual Evidence Verification: Verifier Prediction Sensitivity Under Hindi-to-English Translation Shift}
+
+% Author metadata (Visible when [acceptedWithA] option is passed to tacl2021v1; obscured under [submission])
+\author{Onkar Kharat\textsuperscript{1} \quad Himanshu Jadhav\textsuperscript{2} \\
+  \textsuperscript{1}Lead Researcher, Cross-Lingual Evidence Verification Project \\
+  \textsuperscript{2}Co-Author \& Research Contributor \\
+  \texttt{Repository: https://github.com/Onkar-Kharat/research-crosslingual-rag} \\
+}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\input{sections/abstract}
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/task_and_formulation}
+\input{sections/methodology}
+\input{sections/experimental_setup}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/limitations}
+\input{sections/conclusion}
+
+\section*{Author Contributions and Acknowledgements}
+\textbf{Onkar Kharat} conceived the research problem, formulated the paired experimental methodology, implemented the cross-lingual verification pipeline, executed statistical testing, and served as lead author of the manuscript. \textbf{Himanshu Jadhav} contributed as co-author, providing invaluable technical support, analytical feedback, and research assistance whenever required throughout the lifecycle of the project.
+
+\section*{Reproducibility and Data Availability}
+All experimental code, frozen prediction CSVs, statistical test suites, and figure/table generation scripts are archived in the authoritative research freeze package. The complete project can be inspected and reproduced following the documented repository instructions without requiring active model inference or paid API services.
+
+\bibliographystyle{acl_natbib}
+\bibliography{references}
+
+\clearpage
+\input{supplementary/supplementary_material}
+
+\end{document}

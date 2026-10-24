@@ -1,0 +1,41 @@
+\section{Introduction}
+\label{sec:intro}
+
+Automated claim verification and fact-checking are essential technical defenses against misinformation across multilingual digital ecosystems \citep{thorne-etal-2018-fever,gupta-srikumar-2021-xfact}. In retrieval-augmented generation (RAG) and evidence-grounded verification architectures operating in multilingual environments, retrieved evidence passages frequently originate in a language different from the claim or the primary training language of the downstream verifier \citep{lewis-etal-2020-rag,liu-etal-2025-xrag}.
+
+To address multilingual discrepancies, practical verification architectures routinely adopt a ``translate-then-verify'' paradigm: source-language evidence snippets are machine-translated into English bridge sequences before being processed by a cross-lingual entailment model \citep{ranaldi-etal-2026-multilingual,singhal-etal-2024-comparative}. While projecting into an English bridge format allows systems to leverage high-capacity English language models, machine translation can subtly distort fine-grained factual relationships, including named entities, negation scope, numerals, and temporal qualifiers \citep{singhal-etal-2024-comparative}. Conversely, cross-lingual verifiers evaluating original evidence directly (\emph{Direct Multilingual}) avoid translation artifacts but may exhibit reduced reasoning accuracy in lower-resource languages or incur substantial latency penalties \citep{wang-etal-2026-languages,conneau-etal-2020-unsupervised}.
+
+While recent literature has actively examined cross-lingual RAG for generative question answering \citep{liu-etal-2025-xrag,ranaldi-etal-2026-multilingual} and uncovered language bias in dense document rerankers \citep{wang-etal-2026-languages}, previous studies have largely treated evidence translation as a monolithic utility. As a result, two fundamental empirical questions remain unresolved for cross-lingual claim verification:
+\begin{enumerate}
+    \item \textbf{Prediction Sensitivity Under Translation Shift:} When an identical claim and evidence passage are evaluated by the same cross-lingual verifier, to what extent do predictions flip between the original language and machine-translated representations, and what specific directional transitions characterize this disagreement?
+    \item \textbf{Efficacy of Selective Original-Evidence Fallback:} Can a lightweight, test-time risk trigger (combining verifier predictive uncertainty and numeral overlap) selectively consult original evidence, and does such a selective cascade improve overall veracity accuracy compared to translated-only and unconditional dual-language consensus?
+\end{enumerate}
+
+To address these questions, we establish a controlled empirical investigation using authentic journalistic fact-checks from the Hindi partition of the X-Fact benchmark \citep{gupta-srikumar-2021-xfact}. By holding the claim, retrieved evidence snippets, verifier architecture (\texttt{mDeBERTa-v3-base}; \citealt{he-etal-2021-deberta,laurer-etal-2024-less}), and decoding configuration fixed across paired conditions, we isolate the specific sensitivity of the verifier to evidence language representation.
+
+We define four paired conditions:
+\begin{itemize}
+    \item \textbf{No-Check (Translated English Only):} Evaluates machine-translated evidence passages ($e_{\text{trans}}$).
+    \item \textbf{Direct Multilingual (Original Hindi Only):} Evaluates original Hindi evidence passages ($e_{\text{orig}}$).
+    \item \textbf{Always-Check (Dual Consensus):} Unconditionally averages class posterior distributions from both representations.
+    \item \textbf{Selective-Check:} Employs a risk-gated cascade tuned strictly on development data ($\tau^*=0.650$), consulting original Hindi evidence only when predictive uncertainty or numeral mismatch is elevated.
+\end{itemize}
+
+\paragraph{Scope and Empirical Guardrails.}
+To ensure strict research integrity, we explicitly define the boundaries of this study:
+\begin{itemize}
+    \item \emph{Evidence Representation, Not End-to-End RAG:} This study evaluates pre-retrieved evidence snippets; upstream retrieval mechanisms and downstream generative answer synthesis are not varied.
+    \item \emph{Observational Model Sensitivity, Not Translation Causality:} Without completed bilingual human validation, model prediction disagreement cannot be definitively attributed to translation distortion. All findings are reported as observational prediction sensitivity.
+    \item \emph{Exploratory Diagnostic Evaluation:} Because the test split ($N=163$) was evaluated during earlier exploratory research, all evaluations are designated as diagnostic rather than confirmatory holdout testing.
+    \item \emph{Dataset Imbalance Disclosure:} The official X-Fact Hindi test partition contains 142 \textsc{Contradicted} and 21 \textsc{Insufficient\_Evidence} instances, and exactly zero gold \textsc{Supported} instances. Accuracy and nominal Macro-F1 are analyzed as secondary descriptive proxies rather than general fact-checking capabilities.
+\end{itemize}
+
+\paragraph{Key Findings.}
+Our empirical results on the test partition reveal:
+\begin{enumerate}
+    \item \textbf{Substantial Prediction Disagreement:} Verifier predictions disagree across language representations on 63.80\% of instances (104/163; 95\% CI: [56.19\%, 70.78\%]).
+    \item \textbf{Pronounced Directional Flips:} When translated evidence predicts \textsc{Supported}, evaluating the original Hindi evidence flips the prediction to \textsc{Contradicted} on 48.44\% of cases (31/64).
+    \item \textbf{Accuracy Disparity and McNemar Significance:} Direct Multilingual achieves 42.94\% accuracy (70/163), significantly outperforming the No-Check baseline (28.22\%, 46/163; McNemar exact $p = 0.008772$, $b=27, c=51$).
+    \item \textbf{Selective Cascade Limitations:} Selective-Check ($\tau^*=0.650$) triggers on 7.98\% of test instances (saving 59.2\% compute relative to Direct Multilingual) but matches No-Check accuracy exactly (46 vs. 46, 28.22\%; McNemar exact $p = 1.0000$). On development data, the zero-check baseline utility ($J=0.2104$) exceeds the cascade peak ($J=0.2023$).
+    \item \textbf{Metric Discordance Under Class Skew:} While accuracy gains for Direct Multilingual are statistically significant under McNemar's paired test, paired permutation tests on class-balanced Macro-F1 ($B=5,000$, seed 42) do not reach significance ($p=0.1898$ and $p=0.1180$), demonstrating the vulnerability of harmonic metrics under severe benchmark class imbalance.
+\end{enumerate}
