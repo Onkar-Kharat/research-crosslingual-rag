@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-10-19T06:46:16Z",
-  "total_tests": 16,
+  "timestamp": "2026-10-24T09:35:54Z",
+  "total_tests": 47,
   "success": true,
   "failures_count": 0,
   "errors_count": 0,
-  "duration_seconds": 0.06,
+  "duration_seconds": 0.577,
   "failures": [],
   "errors": []
 }

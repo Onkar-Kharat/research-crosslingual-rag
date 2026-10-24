@@ -1,26 +1,135 @@
-# Python virtual environments & bytecode
-.venv/
+# ==========================================
+# Byte-compiled / optimized / DLL files
+# ==========================================
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.env
+*.dylib
+*.dll
 
-# Large raw benchmark cache (available via provenance download script)
+# ==========================================
+# Virtual Environments & Package Managers
+# ==========================================
+.venv/
+venv/
+ENV/
+env/
+.env
+.env.*
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==========================================
+# Large Raw Benchmark Cache & Interim Files
+# (Available via download script; do not commit large TSVs)
+# ==========================================
 data/raw/dev.all.tsv
 data/raw/test.all.tsv
 data/interim/hindi_claims_raw.jsonl
 
-# LaTeX build artifacts (preserve main.pdf and main.bbl)
-*.aux
-*.blg
-*.out
-*.toc
-*.fls
-*.fdb_latexmk
-*.synctex.gz
-manuscript/*.log
+# ==========================================
+# Model Checkpoints, Weights & Cache
+# ==========================================
+.cache/
+huggingface/
+transformers_cache/
+torch_cache/
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
 
-# OS temporary files
+# ==========================================
+# Testing, Coverage & Type Checking
+# ==========================================
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+.pytype/
+.ruff_cache/
+
+# ==========================================
+# IDEs, Editors & Workspaces
+# ==========================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# ==========================================
+# Operating System Artifacts
+# ==========================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+[Dd]esktop.ini
+
+# ==========================================
+# LaTeX Build & Auxiliary Files
+# (Preserves source .tex, .bib, and final .pdf)
+# ==========================================
+*.aux
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+manuscript/*.aux
+manuscript/*.log
+manuscript/*.out
+manuscript/*.blg
+docs/manuscript/*.aux
+docs/manuscript/*.log
+docs/manuscript/*.out
+docs/manuscript/*.blg
+
+# ==========================================
+# Temporary & Scratch Files
+# ==========================================
+scratch/
+tmp/
+temp/
+*.tmp
+*.bak
+*.orig
