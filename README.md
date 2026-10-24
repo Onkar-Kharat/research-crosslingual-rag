@@ -36,7 +36,8 @@
   - [7.3 Regenerate Publication Tables & Figures](#73-regenerate-publication-tables--figures)
   - [7.4 Manuscript Compilation](#74-manuscript-compilation)
 - [8. Release Verification](#8-release-verification)
-- [9. Citation & Contact](#9-citation--contact)
+- [9. Research Team & Authorship](#9-research-team--authorship)
+- [10. Citation & Contact](#10-citation--contact)
 
 ---
 
@@ -385,14 +386,23 @@ sha256sum CROSS_LINGUAL_EVIDENCE_VERIFICATION_RESEARCH_FREEZE_FINAL.zip
 
 ---
 
-## 9. Citation & Contact
+## 9. Research Team & Authorship
+
+| Researcher | Role | Contributions & Project Responsibilities |
+|:---|:---:|:---|
+| **Onkar Kharat** | **Lead Researcher & Primary Author** | Research problem conception, hypothesis formulation, experimental design, MarianMT + `mDeBERTa-v3` pipeline implementation, statistical testing (McNemar & Permutation tests), metric calculation, and lead author of the manuscript. |
+| **Himanshu Jadhav** | **Co-Author & Research Contributor** | Research support, critical review of the empirical methodology, technical assistance, analytical verification, and continuous guidance whenever required throughout the study. |
+
+---
+
+## 10. Citation & Contact
 
 If you utilize this research repository, canonical predictions, or empirical findings, please cite:
 
 ```bibtex
 @article{kharat2026crosslingual,
   title   = {Cross-Lingual Evidence Verification: Verifier Prediction Sensitivity Under Hindi-to-English Translation Shift},
-  author  = {Kharat, Onkar},
+  author  = {Kharat, Onkar and Jadhav, Himanshu},
   journal = {Transactions of the Association for Computational Linguistics (Under Internal Review)},
   year    = {2026},
   url     = {https://github.com/Onkar-Kharat/research-crosslingual-rag}

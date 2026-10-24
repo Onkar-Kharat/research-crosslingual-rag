@@ -7,12 +7,18 @@ url: "https://github.com/Onkar-Kharat/research-crosslingual-rag"
 authors:
   - family-names: "Kharat"
     given-names: "Onkar"
+    role: "Lead Researcher"
+  - family-names: "Jadhav"
+    given-names: "Himanshu"
+    role: "Co-Author"
 preferred-citation:
   type: article
   title: "Cross-Lingual Evidence Verification: Verifier Prediction Sensitivity Under Hindi-to-English Translation Shift"
   authors:
     - family-names: "Kharat"
       given-names: "Onkar"
+    - family-names: "Jadhav"
+      given-names: "Himanshu"
   journal: "Transactions of the Association for Computational Linguistics (Under Internal Review)"
   year: 2026
   status: "in-review"
