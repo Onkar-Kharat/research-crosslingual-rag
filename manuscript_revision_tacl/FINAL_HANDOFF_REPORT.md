@@ -62,21 +62,22 @@ The complete revised manuscript package resides in `manuscript_revision_tacl/`:
    - [figures/final/fig4_error_attribution_breakdown.pdf](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/figures/final/fig4_error_attribution_breakdown.pdf)
    - [figures/final/fig5_transition_heatmap.pdf](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/figures/final/fig5_transition_heatmap.pdf)
    - [figures/source/generate_figures.py](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/figures/source/generate_figures.py)
-7. **Validation Scripts & Documentation:**
-   - [manuscript_revision_tacl/validate_manuscript.py](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/validate_manuscript.py)
-   - [manuscript_revision_tacl/REVISION_README.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/REVISION_README.md)
-   - [manuscript_revision_tacl/BUILD_INSTRUCTIONS.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/BUILD_INSTRUCTIONS.md)
-   - [manuscript_revision_tacl/FINAL_MANUSCRIPT_CHANGELOG.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/FINAL_MANUSCRIPT_CHANGELOG.md)
-8. **Audit Reports (8 formal audit files in `manuscript_revision_tacl/audits/`):**
+7. **Audit & Review Reports (14 formal audit files in `manuscript_revision_tacl/audits/`):**
+   - [audits/TACL_READINESS_ASSESSMENT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/TACL_READINESS_ASSESSMENT.md) (5 independent review dimensions & itemized severity registry)
+   - [audits/CONTRIBUTION_AND_READINESS_DECISION.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/CONTRIBUTION_AND_READINESS_DECISION.md) (Authoritative readiness decision: Borderline — Substantial Scientific Limitations)
+   - [audits/NOVELTY_AND_RELATED_WORK_MATRIX.csv](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/NOVELTY_AND_RELATED_WORK_MATRIX.csv) (16-column matrix across 10 primary literature works)
+   - [audits/MOCK_TACL_REVIEWS.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/MOCK_TACL_REVIEWS.md) (3 independent simulated adversarial reviews)
+   - [audits/REVIEWER_OBJECTION_RESPONSE_PLAN.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/REVIEWER_OBJECTION_RESPONSE_PLAN.md) (Comprehensive objection mitigation plan)
+   - [audits/TACL_SUBMISSION_COMPLIANCE_CHECKLIST.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/TACL_SUBMISSION_COMPLIANCE_CHECKLIST.md) (Official TACL compliance audit across 13 dimensions)
    - [audits/MANUSCRIPT_INITIAL_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/MANUSCRIPT_INITIAL_AUDIT.md)
-   - [audits/CLAIM_EVIDENCE_MATRIX.csv](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/CLAIM_EVIDENCE_MATRIX.csv)
-   - [audits/MANUSCRIPT_DISCREPANCY_LOG.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/MANUSCRIPT_DISCREPANCY_LOG.md)
-   - [audits/MANUSCRIPT_FACT_CHECK.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/MANUSCRIPT_FACT_CHECK.md)
-   - [audits/CITATION_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/CITATION_AUDIT.md)
+   - [audits/CLAIM_EVIDENCE_MATRIX.csv](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/CLAIM_EVIDENCE_MATRIX.csv) (22 verified claims)
+   - [audits/MANUSCRIPT_DISCREPANCY_LOG.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/MANUSCRIPT_DISCREPANCY_LOG.md) (5 resolved historical items)
+   - [audits/MANUSCRIPT_FACT_CHECK.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/MANUSCRIPT_FACT_CHECK.md) (40 quantitative facts verified)
+   - [audits/CITATION_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/CITATION_AUDIT.md) (15 verified citations, 100% parity)
    - [audits/TACL_FORMAT_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/TACL_FORMAT_AUDIT.md)
-   - [audits/FIGURE_TABLE_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/FIGURE_TABLE_AUDIT.md)
+   - [audits/FIGURE_TABLE_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/FIGURE_TABLE_AUDIT.md) (Zero-collision figure layout audit)
    - [audits/BUILD_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/BUILD_AUDIT.md)
-   - [audits/PLAGIARISM_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/PLAGIARISM_AUDIT.md) (Audited Similarity Index: 0.25%, well below 20% limit)
+   - [audits/PLAGIARISM_AUDIT.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/audits/PLAGIARISM_AUDIT.md) (0.245% 4-gram overlap; strictly < 20.0%)
 
 ---
 
@@ -98,3 +99,24 @@ The integrity of the original baseline in `docs/manuscript/` has been verified b
 4. **Selective Cascade Limitations:** Selective-Check ($\tau^*=0.650$) triggers on 7.98% of queries, saving 59.2% latency relative to Direct Multilingual, but matches No-Check accuracy exactly (28.22%, 46/163; $b=4, c=4, p=1.0000$).
 5. **Metric Discordance Under Severe Skew:** Non-parametric permutation tests on class-balanced Macro-F1 ($B=5,000$) do not reach significance ($p=0.1898$ and $p=0.1180$), demonstrating the severe volatility of harmonic metrics under benchmark class imbalance (142 \textsc{Contradicted}, 21 \textsc{Insufficient}, 0 gold \textsc{Supported}).
 6. **Integrity Guardrails:** Transparently acknowledges pre-retrieved evidence grounding, prior exploratory inspection of the test split, absence of completed human bilingual annotations, and the critical distinction between observational sensitivity and translation causality.
+
+---
+
+## 5. Authoritative Final Decision Rule Answer
+
+**Question:**  
+*“Given the frozen evidence, is this manuscript genuinely ready to be considered for TACL, or does it still have a scientific weakness that editorial improvements cannot fix?”*
+
+**Answer:**  
+**BORDERLINE — SUBSTANTIAL SCIENTIFIC LIMITATIONS**
+
+The manuscript possesses genuine, defensible empirical strengths: a high-interest research question, strong and surprising findings ($63.80\%$ disagreement, $48.44\%$ entailment-to-refutation flips, and Direct Multilingual outperforming translated evidence by $+14.72\%$), paired non-parametric statistical rigor, and complete reproducibility.
+
+However, editorial strengthening **cannot** alter four irreducible scientific boundaries inherent to the frozen dataset:
+1. **Single Language Pair:** Hindi-to-English only.
+2. **Zero Positive Gold Class:** The official test set contains 0.0% gold \textsc{Supported} instances ($TP_{\text{sup}} \equiv 0$), precluding validation of true positive entailment.
+3. **Absence of Completed Bilingual Human Annotation:** Causal attribution of individual translation errors cannot be definitively claimed without manual human verification.
+4. **Negative Cascade Finding:** The proposed risk-gated cascade does not outperform the baseline.
+
+**Action Editor Conclusion:**  
+If submitted to TACL, the manuscript must be framed strictly as an **Exploratory Computational Study and Empirical Diagnosis**. If the Action Editor and reviewers value deep, rigorous, and completely candid negative results on common architectural heuristics, it has a viable path to Category (c) (Revise and Resubmit) or Category (b) (Conditional Acceptance). If reviewers demand multi-language or human-validated causality, it is more appropriately targeted to specialized venues (e.g., EMNLP Findings, TALLIP).
