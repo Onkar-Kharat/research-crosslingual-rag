@@ -8,7 +8,7 @@ This appendix provides supplementary implementation details, development tuning 
 \label{sec:app_hardware}
 Table~\ref{tab:app_specs} outlines the software libraries, pretrained checkpoints, tokenizer configurations, and hardware parameters utilized in the frozen computational study.
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{ll}
@@ -33,7 +33,7 @@ Deterministic Seed & 42 (resampling, permutations, controls) \\
 \end{tabular}
 \caption{Computational environment and model configurations.}
 \label{tab:app_specs}
-\end{table}
+\end{table*}
 
 \subsection{Development Set Grid Search and Calibration}
 \label{sec:app_tuning}
@@ -69,7 +69,7 @@ $\tau$ & \textbf{Coverage} & \textbf{Macro-F1}$_3$ & \textbf{Macro-F1}$_2$ & \te
 \label{sec:app_confusion}
 Table~\ref{tab:app_confusion_matrices} provides the full confusion matrices for all evaluated systems across the $N=163$ test instances (142 \textsc{Contradicted}, 21 \textsc{Insufficient\_Evidence}, 0 \textsc{Supported}).
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lccc}
@@ -99,7 +99,7 @@ Table~\ref{tab:app_confusion_matrices} provides the full confusion matrices for 
 \end{tabular}
 \caption{Confusion matrices on the $N=163$ test split across all four verification conditions.}
 \label{tab:app_confusion_matrices}
-\end{table}
+\end{table*}
 
 \subsection{Bilingual Human Annotation Protocol}
 \label{sec:app_human_protocol}

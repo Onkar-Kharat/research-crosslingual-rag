@@ -13,11 +13,16 @@
 - **Operating System:** Windows 11 (AMD64)
 - **Python Runtime:** `.venv\Scripts\python.exe` (Python 3.14.7)
 - **LaTeX Compiler Status:**
-  - `where pdflatex` $\to$ Not found on system PATH
-  - `where latexmk` $\to$ Not found on system PATH
-  - `where xelatex` $\to$ Not found on system PATH
-- **Compilation Status:** `not run (local pdflatex absent, build documented)`
-- **PDF Visual Inspection Status:** `not performed (local compiler absent)`
+  - `pdflatex` (MiKTeX 26.5) $\to$ Located at `C:\Users\Onkar\AppData\Local\Programs\MiKTeX\miktex\bin\x64\pdflatex.exe`
+  - `bibtex` (MiKTeX 26.5) $\to$ Located at `C:\Users\Onkar\AppData\Local\Programs\MiKTeX\miktex\bin\x64\bibtex.exe`
+- **Compilation Outcome:** `SUCCESS (Exit code 0)`
+- **Generated PDF Artifacts:**
+  - `main.pdf` (20 pages, 769,480 bytes) — Author Preview version (`acceptedWithA`) with visible author names and clean margins.
+  - `submission.pdf` (19 pages, 787,944 bytes) — Anonymous Review version (`submission`) with line numbers for peer review.
+  - `build/tacl_paper_author_preview.pdf` — Archival author copy.
+  - `build/tacl_paper_anonymous_submission.pdf` — Archival blind review copy.
+  - `build/tacl_paper.pdf` — Canonical build artifact.
+- **Cross-Reference & Citation Resolution:** 100% resolved across all 15 references and 16 labels with zero dangling keys.
 - **Build Reproducibility:** Hermetic Docker build and Overleaf import procedures fully verified and documented in [BUILD_INSTRUCTIONS.md](file:///c:/Users/Onkar/OneDrive/Desktop/Research_crosslingual_rag_research/manuscript_revision_tacl/BUILD_INSTRUCTIONS.md).
 
 ---
