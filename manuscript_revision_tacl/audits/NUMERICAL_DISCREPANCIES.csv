@@ -1,0 +1,21 @@
+artifact,manuscript_location,reported_value,recomputed_value,status,explanation,required_action
+canonical_test_predictions.csv,Abstract / Results,63.80% (104/163),63.80% (104/163),VERIFIED,Exact agreement on pairwise prediction disagreement rate,None
+canonical_test_predictions.csv,Abstract / Results,"[56.19%, 70.78%]","[56.19%, 70.78%]",VERIFIED,Exact match on 95% Wilson score interval for disagreement,None
+canonical_test_predictions.csv,Abstract / Results,48.44% (31/64),48.44% (31/64),VERIFIED,Exact match on Supported to Contradicted prediction flip rate,None
+canonical_test_predictions.csv,Abstract / Results,28.22% (46/163),28.22% (46/163),VERIFIED,Exact match on No-Check translated evidence accuracy,None
+canonical_test_predictions.csv,Abstract / Results,42.94% (70/163),42.94% (70/163),VERIFIED,Exact match on Direct Multilingual original evidence accuracy,None
+canonical_test_predictions.csv,Abstract / Results,36.81% (60/163),36.81% (60/163),VERIFIED,Exact match on Always-Check dual consensus accuracy,None
+canonical_test_predictions.csv,Abstract / Results,28.22% (46/163),28.22% (46/163),VERIFIED,Exact match on Selective-Check cascade accuracy,None
+canonical_test_predictions.csv,Abstract / Results,7.98% (13/163),7.98% (13/163),VERIFIED,Exact match on Selective-Check cascade coverage,None
+canonical_statistical_tests.csv,Section 6.3 / Table 5,"b=27, c=51, chi2=6.7821, p=0.008772","b=27, c=51, chi2=6.7821, p_exact=0.008772",VERIFIED,Exact match on paired McNemar test for No-Check vs Direct Multi,None
+canonical_statistical_tests.csv,Section 6.3 / Table 5,"Delta=-0.0455, p=0.1898","Delta=-0.04547, p=0.18980",VERIFIED WITH QUALIFICATION,Permutation test p-value matches but underlying method was misattributed to Benjamini-Hochberg,Decouple permutation test from BH citation; cite Yeh (2000)
+canonical_statistical_tests.csv,Section 6.3 / Table 5,"Delta=-0.0500, p=0.1180","Delta=-0.05000, p=0.11800",VERIFIED WITH QUALIFICATION,Permutation test p-value matches for Selective vs Direct Multi,Decouple permutation test from BH citation
+canonical_statistical_tests.csv,Section 6.3 / Table 5,Family-wise error control,False Discovery Rate (FDR) control,INCORRECT — CORRECTION REQUIRED,Benjamini-Hochberg controls FDR not FWER,Correct prose and table caption terminology to FDR
+canonical_benchmark_table.csv,Table 4,Macro-F1 3cl = 0.2012 / 2cl = 0.3018,Macro-F1 3cl = 0.2012 / 2cl = 0.3018,VERIFIED,Exact match on 3-class and 2-class Macro-F1 for No-Check,None
+canonical_benchmark_table.csv,Table 4,Macro-F1 3cl = 0.2467 / 2cl = 0.3700,Macro-F1 3cl = 0.2467 / 2cl = 0.3700,VERIFIED,Exact match on 3-class and 2-class Macro-F1 for Direct Multi,None
+canonical_error_attribution.json,Table 6 / Section 6.4,S_trans = 51 (43.6% of failures),S_trans = 51 (43.59% of failures),VERIFIED,Exact match on recoverable translation error partition,None
+canonical_error_attribution.json,Table 6 / Section 6.4,S_verif = 66 (56.4% of failures),S_verif = 66 (56.41% of failures),VERIFIED,Exact match on unrecoverable verification error partition,None
+canonical_error_attribution.json,Table 6 / Section 6.4,S_degraded = 27 (58.7% of successes),S_degraded = 27 (58.70% of successes),VERIFIED,Exact match on degraded original evidence partition,None
+canonical_latency_summary.json,Table 4 / Section 6.4,3650.4 ms / 11295.6 ms / 4613.8 ms,3650.4 ms / 11295.6 ms / 4613.8 ms,VERIFIED,Exact match on measured 8-thread CPU end-to-end latencies,None
+dev.jsonl / test.jsonl,Section 5.1 / Table 2,N=103 (dev) / N=163 (test),N=103 (dev) / N=163 (test),VERIFIED,Exact match on X-Fact Hindi partition sample sizes,None
+dev.jsonl / test.jsonl,Section 5.1 / Table 2,0 gold Supported in test,0 gold Supported in test,VERIFIED WITH QUALIFICATION,Severe ecological class skew limits evaluation of true claim recall,State positive-class validation boundary prominently

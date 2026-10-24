@@ -1,4 +1,4 @@
-\begin{thebibliography}{15}
+\begin{thebibliography}{16}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{Benjamini and Hochberg(1995)}]{benjamini-hochberg-1995}
@@ -128,5 +128,12 @@ Dan Wang, Guozhao Mo, Yafei Shi, Cheng Zhang, Bo~Zheng, Boxi Cao, Xuanang Chen,
   matter: Understanding and mitigating language bias in multilingual {RAG}}.
 \newblock In \emph{Proceedings of the 64th Annual Meeting of the Association
   for Computational Linguistics (ACL 2026)}.
+
+\bibitem[{Yeh(2000)}]{yeh-2000-more}
+Alexander Yeh. 2000.
+\newblock \href {https://doi.org/10.3115/992730.992783} {More accurate tests
+  for the statistical significance of result differences}.
+\newblock In \emph{Proceedings of the 18th International Conference on
+  Computational Linguistics (COLING 2000)}, pages 947--953.
 
 \end{thebibliography}
